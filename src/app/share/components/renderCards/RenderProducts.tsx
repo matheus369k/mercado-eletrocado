@@ -42,8 +42,8 @@ export const RenderProducts = (
     (state) => state.requiredProducts
   );
   const storeProductEnvoy = appUseSelector((state) => state.productEnvoy);
-  const url = `${window.location.origin}/#/user`;
   const dispatch = useDispatch();
+  const url = `${window.location.origin}/mercado-eletrocado/#/user`;
 
   useEffect(() => {
     if (

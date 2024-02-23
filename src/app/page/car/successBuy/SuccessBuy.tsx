@@ -15,7 +15,7 @@ export const SuccessBuy = ({ setSuccessBuy }: PropsSucess) => {
   const storeProductEnvoy = appUseSelector((state) => state.productEnvoy);
   const newStockValue = stockUpdateState(storeAllProducts, storeProductEnvoy);
   const userState = appUseSelector((state) => state.user);
-  const url = `${window.location.origin}/#`;
+  const url = `${window.location.origin}/mercado-eletrocado/#`;
   const dispatch = useDispatch();
 
   useEffect(() => {

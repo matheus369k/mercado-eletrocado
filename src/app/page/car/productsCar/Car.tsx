@@ -23,7 +23,7 @@ export const Car = ({ setCheckOutBtn }: PropsCheck) => {
   );
   const storeAllProducts = appUseSelector((state) => state.storeAllProducts);
   const user = appUseSelector((state) => state.user);
-  const url = `${window.location.origin}/#/user`;
+  const url = `${window.location.origin}/mercado-eletrocado/#/user`;
   const dispatch = useDispatch();
 
   const handleActionClick = () => {
