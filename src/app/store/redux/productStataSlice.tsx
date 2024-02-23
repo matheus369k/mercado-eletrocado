@@ -71,10 +71,11 @@ const productsSlice = createSlice({
       state.productEnvoy = action.payload;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(
       FetchAxios.fulfilled,
       (state, action: PayloadAction<CategoryProducts>) => {
+        console.log(action.type)
         state.storeAllProducts = action.payload;
       }
     );
@@ -82,12 +83,12 @@ const productsSlice = createSlice({
 });
 
 export const FetchAxios = createAsyncThunk(
-  "ProductsSlice/FetchAxios/fulfilled",
+  "ProductsSlice/FetchAxios",
   async () => {
     const url = "https://matheus369k.github.io/Data/eletrocado-api.json";
     const axios = await Axios.get(url);
     const response: CategoryProducts = await axios.data.electronics;
-    return response
+    return response;
   }
 );
 

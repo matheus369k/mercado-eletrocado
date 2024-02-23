@@ -3,7 +3,6 @@ import { FaBox } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
 import { PiShoppingCartFill } from "react-icons/pi";
-import { GiConfirmed } from "react-icons/gi";
 
 import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -86,7 +85,9 @@ export const RenderProducts = (
   ) => {
     e.stopPropagation();
 
-    if (eventBtn == "btn-boy" && Object.values(storeAllProducts).length != 0) {
+    
+    if (
+      eventBtn == "btn-boy" && Object.values(storeAllProducts.notebook) != undefined) {
       const stockNotEmpty = verificationStockOfproduct(
         productId,
         storeRequiredProducts,
@@ -225,7 +226,6 @@ export const RenderProducts = (
           <ul className="infor-product">
             <li>
               <strong>
-                <GiConfirmed />
                 Tela:{" "}
               </strong>
               {product.screen}
@@ -233,7 +233,6 @@ export const RenderProducts = (
 
             <li>
               <strong>
-                <GiConfirmed />
                 Processador:{" "}
               </strong>
               {product.processor}
@@ -241,7 +240,6 @@ export const RenderProducts = (
 
             <li>
               <strong>
-                <GiConfirmed />
                 Memoria:{" "}
               </strong>
               {product.memory}
@@ -250,7 +248,6 @@ export const RenderProducts = (
             {product.placeVideo ? (
               <li>
                 <strong>
-                  <GiConfirmed />
                   Placa de video:{" "}
                 </strong>
                 {product.placeVideo}
@@ -258,7 +255,6 @@ export const RenderProducts = (
             ) : (
               <li>
                 <strong>
-                  <GiConfirmed />
                   Bateria:{" "}
                 </strong>
                 {product.battery}

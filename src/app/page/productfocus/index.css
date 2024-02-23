@@ -43,7 +43,7 @@
 
 .productpage>.iconsClose>i>svg {
     font-size: 3rem;
-    color: black;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
@@ -118,7 +118,6 @@
 .productpage>.card-product>.slide>li>img {
     max-width: 90px;
     max-height: 90px;
-    mix-blend-mode: multiply;
     opacity: 1;
     transition: all .7s ease-in-out;
 }
@@ -180,7 +179,6 @@
     height: 100%;
     grid-row: 2;
     row-gap: 10px;
-    color: black;
 }
 
 .productpage>.card-product>.infor-product>li {
@@ -191,13 +189,7 @@
 .productpage>.card-product>.infor-product>li>strong {
     font-size: 1.1em;
     text-transform: uppercase;
-    color: black;
-}
-
-.productpage>.card-product>.infor-product>li>strong>svg {
-    font-size: 1.4em;
-    margin: 0 2px -5px 0;
-    color: rgb(0, 127, 143);
+    color: rgb(255, 255, 255);
 }
 
 .productpage>.card-product>div>.btn-buy {

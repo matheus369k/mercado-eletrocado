@@ -1,7 +1,8 @@
 @keyframes loading-formPay {
-    0% { 
+    0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -28,7 +29,9 @@
     font-size: 2.5rem;
 }
 
-.verificationbuy>i:hover>svg { transform:scale(105%); }
+.verificationbuy>i:hover>svg {
+    transform: scale(105%);
+}
 
 .verificationbuy>.productsOfbuy {
     grid-column: 2;
@@ -62,7 +65,7 @@
     width: 100%;
     position: absolute;
     row-gap: 10px;
-    transition: all .3s ease-in-out; 
+    transition: all .3s ease-in-out;
 }
 
 .verificationbuy>.productsOfbuy>div>ul>.card-product:not(.cardRepeatHider) {
@@ -74,10 +77,10 @@
 }
 
 .verificationbuy>.productsOfbuy>div>ul>.card-product:is(.cardRepeatHider) {
-    display:none;
+    display: none;
 }
 
-.verificationbuy>.productsOfbuy>div>ul>.card-product>span{
+.verificationbuy>.productsOfbuy>div>ul>.card-product>span {
     top: 10px;
 }
 
@@ -118,7 +121,7 @@
 .verificationbuy>.userDatas>h2 {
     font-size: 1.5em;
     color: rgb(0, 176, 199);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.29);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.293);
     width: 100%;
     padding-bottom: 5px;
     margin-bottom: 50px;
@@ -126,7 +129,8 @@
 
 .verificationbuy>.userDatas>h2>svg {
     margin-bottom: -3px;
-    color: rgb(0, 127, 143);
+    color: rgb(0, 176, 199);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.293);
 }
 
 .verificationbuy>.userDatas>ul {
@@ -141,7 +145,7 @@
 
 .verificationbuy>.userDatas>ul>li {
     font-size: 1.3rem;
-    color: rgb(100, 100, 100);
+    color: rgb(170, 170, 170);
 }
 
 .verificationbuy>.userDatas>ul>li>strong>svg {
@@ -149,7 +153,8 @@
 }
 
 .verificationbuy>.userDatas>ul>li>strong {
-    color: rgb(0, 127, 143);
+    color: rgb(0, 176, 199);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.293);
 }
 
 .verificationbuy>.formpay {
@@ -163,20 +168,20 @@
 .verificationbuy>.formpay>h2 {
     font-size: 1.5em;
     color: rgb(0, 176, 199);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.248);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.293);
     width: 100%;
     padding-bottom: 5px;
 }
 
 .verificationbuy>.formpay>p {
     margin-bottom: 50px;
-    color: rgb(63, 63, 63);
+    color: rgb(122, 122, 122);
     font-size: .8rem;
 }
 
 .verificationbuy>.formpay>h2>svg {
     margin-bottom: -3px;
-    color: rgb(0, 127, 143);
+    color: rgb(0, 176, 199);
 }
 
 .verificationbuy>.formpay>ul {
@@ -201,7 +206,7 @@
 
 .verificationbuy>.formpay>ul>.selected {
     color: rgb(0, 176, 199);
-    border-color:rgb(0, 176, 199);
+    border-color: rgb(0, 176, 199);
     background: linear-gradient(90deg, rgb(77, 77, 77), rgb(107, 107, 107));
 }
 
@@ -215,7 +220,7 @@
     margin: 0 3px -3px 0;
 }
 
-.verificationbuy>.confirmbuy{
+.verificationbuy>.confirmbuy {
     position: absolute;
     bottom: 25px;
     right: 25px;
@@ -225,20 +230,20 @@
     align-items: center;
 }
 
-.verificationbuy>.confirmbuy>p{
+.verificationbuy>.confirmbuy>p {
     display: flex;
     flex-direction: column;
     color: rgb(72, 72, 72);
     font-size: 1.5rem;
 }
 
-.verificationbuy>.confirmbuy>p>span>strong{
+.verificationbuy>.confirmbuy>p>span>strong {
     color: rgb(0, 127, 143);
     font-weight: bold;
     text-transform: capitalize;
 }
 
-.verificationbuy>.confirmbuy>p>span>strong>svg{
+.verificationbuy>.confirmbuy>p>span>strong>svg {
     font-size: 1.2rem;
     margin-right: 2px;
 }

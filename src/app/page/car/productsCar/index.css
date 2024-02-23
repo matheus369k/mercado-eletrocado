@@ -21,8 +21,7 @@
 }
 
 .car>h2 {
-    color: rgb(0, 60, 68);
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.29);
+    color: rgb(255, 255, 255);
     margin-bottom: 50px;
     padding-top: 20px;
     font-size: 2rem;
@@ -36,7 +35,7 @@
 
 .car>h2>svg {
     margin-bottom: -3px;
-    color: rgb(0, 129, 146);
+    color: rgb(255, 255, 255);
 }
 
 .car>#carsection>ul {

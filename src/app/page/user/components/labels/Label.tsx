@@ -10,6 +10,6 @@ type LabelProps = {
 
 export default function Label(labelProps: LabelProps) {
     return (
-        <label htmlFor={labelProps.htmlFor}>{labelProps.icon}{labelProps.text}:</label>
+        <label htmlFor={labelProps.htmlFor}>{labelProps.icon}{labelProps.text}</label>
     )
 }

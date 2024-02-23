@@ -23,6 +23,7 @@ export const randowProductSelected = (
   }
 
   for (let i = 0; i < quantityProduct; i++) {
+    
     if (Object.values(storeAllProducts)[0].length == 0) {
       continue;
     }

@@ -1,11 +1,13 @@
 input {
     font-size: 1rem;
     color: rgb(93, 93, 93);
+    background-color: rgba(0, 0, 0, 0.459);
     height: 50px;
     margin-bottom: 25px;
-    padding-left: 110px;
+    padding-left: 10px;
     border-radius: 5px;
 }
+
 
 input::placeholder {
     font-size: 1rem;
@@ -14,7 +16,7 @@ input::placeholder {
 }
 
 input:focus {
-    color: rgb(82, 82, 82);
+    background-color: rgba(0, 0, 0, 0.459);
     border: 1px solid #003;
 }
 

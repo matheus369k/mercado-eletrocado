@@ -65,8 +65,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(90deg, rgb(202, 202, 202), rgb(249, 249, 249));
-    box-shadow: 0 0 5px 2px rgb(199, 199, 199);
+    background-color: #181818;
+    color: gray;
     border-radius: 10px;
     transition: .8s ease-in-out;
     position: relative;
@@ -109,7 +109,6 @@
     margin-bottom: 10px;
     object-fit: cover;
     justify-self: flex-end;
-    mix-blend-mode: multiply;
     animation: loading-card-Product 1.2s ease-in-out;
 }
 
@@ -149,7 +148,6 @@
 
 .card-product>h3 {
     animation: loading-card-Product 1s ease-in-out;
-    color: rgb(0, 0, 20);
 }
 
 .card-product>.priceStock {
@@ -157,7 +155,6 @@
     flex-direction: column-reverse;
     justify-content: end;
     align-items: start;
-    color: rgb(100, 100, 100);
     padding-left: 10px;
     row-gap: 3px;
 }
@@ -190,7 +187,6 @@
 
 .card-product>.priceStock>.price>.newPrice {
     grid-row: 2;
-    color: rgb(0, 0, 0);
     font-size: 1.4em;
 }
 
@@ -215,7 +211,6 @@
 .card-product>.priceStock>.stock {
     animation: loading-card-Product 1s ease-in-out;
     font-size: .8rem;
-    color: rgb(100, 100, 100);
 }
 
 .card-product>.priceStock>.stock>svg {
@@ -242,9 +237,9 @@
 }
 
 .card-product>.btn-favorite>svg {
-    color: rgb(128, 128, 128);
     font-size: 2em;
     cursor: pointer;
+    color: gray;
     transition: .8s ease-in-out;
 }
 
@@ -256,9 +251,9 @@
 .card-product>div>.btn-buy {
     width: 100px;
     height: 30px;
-    color: white;
     border-radius: 5px;
     cursor: pointer;
+    color: rgb(255, 255, 255);
     transition: .8s ease-in-out;
 }
 
@@ -291,13 +286,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
+    color: rgb(255, 255, 255);
     background: linear-gradient(90deg, rgba(210, 210, 210, 0.242), rgba(128, 128, 128, 0.275));
     border-radius: 6px;
 }
 
 .card-product>div>.pcdBuy span {
     font-weight: bolder;
-    color: rgb(64, 64, 64);
     font-size: 1.2rem;
 }
 

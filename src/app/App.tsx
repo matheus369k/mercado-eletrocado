@@ -41,7 +41,7 @@ function App() {
     (state) => state.requiredProducts
   );
   const useSelectorProduct = appUseSelector((state) => state.product);
-  if (Object.values(storeAllProducts)[0].length == 0) store.dispatch(FetchAxios());
+  if (storeAllProducts.notebook == null) store.dispatch(FetchAxios());
   const dispatch = useDispatch();
 
   useEffect(() => {
