@@ -1,0 +1,31 @@
+@media (max-width: 750px) {
+    .car>h2 {
+        font-size: 1.3rem;
+    }
+
+    .car>#carsection>ul {
+        padding: 50px 0;
+    }
+
+    .car>#carsection>button {
+        width: 150px;
+        color: white;
+        font-size: 1em;
+    }
+
+    .car>#carsection>span {
+        height: 40px;
+        font-size: .8em;
+        min-width: 150px;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    .car>#carsection>button {
+        left: 10px;
+    }
+    .car>#carsection>span {
+        right: 10px;
+    }
+}

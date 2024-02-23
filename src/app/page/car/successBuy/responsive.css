@@ -1,0 +1,7 @@
+@media (max-width: 500px) {
+    .successBoy>p {
+        font-size: 1em;
+        text-align: center;
+        align-items: center;
+    }
+}

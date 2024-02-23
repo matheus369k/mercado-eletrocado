@@ -1,0 +1,25 @@
+@media (max-width: 500px) {
+    .registerform>input#name {
+        padding-left: 75px;
+    }
+
+    .registerform>input#lastName {
+        padding-left: 130px;
+    }
+
+    .registerform>input#email {
+        padding-left: 100px;
+    }
+
+    .registerform>input#password {
+        padding-left: 85px;
+    }
+
+    .registerform>input#cep {
+        padding-left: 65px;
+    }
+
+    .registerform>label>svg {
+        font-size: 1.6rem;
+    }
+}

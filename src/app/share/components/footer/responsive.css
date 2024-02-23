@@ -1,0 +1,17 @@
+@media (max-width: 624px) {
+    .footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 25px;
+        height: auto;
+    }
+
+    .footer>.logo {
+        align-self: center;
+    }
+
+    .footer>p {
+        align-self: center;
+    }
+}

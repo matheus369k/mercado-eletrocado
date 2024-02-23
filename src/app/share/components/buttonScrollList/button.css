@@ -1,0 +1,49 @@
+@keyframes btn-down {
+    25% {
+        font-size: 1.7em;
+        margin: -1px -1px 0 0;
+    }
+    50% {
+        font-size: 1.5em;
+        margin: 0;
+    }
+    75% {
+        font-size: 1.7em;
+        margin: -1px -1px 0 0;
+    }
+}
+
+div>.btnsTopDown {
+    width: 100px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.634);
+    border: 1px solid gray;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+div>.btnsTopDown.btn-up {
+    border-radius: 0 0 50% 50%;
+    top: 0px;
+}
+
+div>.btnsTopDown.btn-down {
+    border-radius: 50% 50% 0 0;
+    bottom: 0px;
+}
+
+div>.btnsTopDown>svg {
+    font-size: 1.5em;
+    color: white;
+}
+
+div>.btnsTopDown:hover>svg {
+    animation: btn-down 1.5s ease-in-out;
+    color: rgb(0, 176, 199);
+}

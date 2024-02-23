@@ -1,0 +1,124 @@
+:root {
+    --color-gray-border: rgb(204, 204, 204);
+    --color-shadow-container:  rgba(0, 0, 0, 0.418);
+}
+
+@keyframes recalc-price {
+  0% {
+    filter: blur(10px);
+  }
+  99% {
+    filter: blur(10px);
+  }
+
+}
+
+.car {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    position: relative;
+}
+
+.car>h2 {
+    color: rgb(0, 60, 68);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.29);
+    margin-bottom: 50px;
+    padding-top: 20px;
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid var(--color-gray-border);
+    box-shadow: 0 0 20px 5px var(--color-shadow-container);
+    padding-bottom: 80px;
+}
+
+.car>h2>svg {
+    margin-bottom: -3px;
+    color: rgb(0, 129, 146);
+}
+
+.car>#carsection>ul {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 100px 0;
+}
+
+.car>#carsection:is(.emptyCar) {
+    display: none;
+}
+
+.car>#carsection>ul>.card-product>div>.btn-buy {
+    background: linear-gradient(90deg, red, rgb(138, 0, 0));
+}
+
+.car>#carsection>ul>.card-product>div>.btn-buy:hover {
+    background: linear-gradient(90deg, rgb(138, 0, 0), red);
+}
+
+.car>#carsection>button {
+    width: 200px;
+    height: 40px;
+    position: absolute;
+    top: 85px;
+    left: 50px;
+    background: linear-gradient(90deg, rgb(0, 184, 0), rgb(1, 104, 1));
+    color: white;
+    font-size: 1.2em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.563);
+    cursor: pointer;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.car>#carsection>button:hover {
+    background: linear-gradient(90deg, rgb(1, 104, 1), rgb(0, 184, 0));
+}
+
+.car>#carsection>span {
+    height: 40px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 50px;
+    top: 85px;
+    gap: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.396);
+    background: linear-gradient(90deg, rgb(1, 104, 1), rgb(0, 184, 0));
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.car>#carsection>span>svg {
+    font-size: 2em;
+    color: rgb(255, 255, 255);
+}
+
+
+.car>#carsection>span>strong {
+    font-size: 1.5em;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.189);
+}
+
+
+.car>#carsection>span>strong:is(.animation-price) {
+    animation: recalc-price .5s;
+}
+
+.car>p {
+    margin: 50px 0;
+    text-align: center;
+    font-size: 1.5em;
+    color: rgb(106, 106, 106);
+}

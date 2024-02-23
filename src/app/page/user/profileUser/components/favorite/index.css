@@ -1,0 +1,74 @@
+.favorite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    min-height: 200px;
+    padding: 25px;
+    position: relative;
+}
+
+.favorite>ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 50px;
+}
+
+.favorite>ul>.card-product {
+    width: 250px;
+    height: 280px;
+}
+
+.favorite>ul>.card-product>img {
+    width: 70%;
+}
+
+.favorite>h2 {
+    font-size: 1.5em;
+    align-self: flex-start;
+    color: rgb(0, 176, 199);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.319);
+    margin-bottom: 50px;
+}
+
+.favorite>h2>svg {
+    font-size: 1.5em;
+    margin-bottom: -5px;
+    color: rgb(0, 176, 199);
+}
+
+.favorite>p {
+    position: absolute;
+    top: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: rgb(106, 106, 106);
+}
+
+.favorite>ul:is(.emptyFav) {
+    display: none;
+}
+
+.favorite>div>svg {
+    font-size: 12em;
+    opacity: .3;
+    color: rgb(0, 176, 199);
+}
+
+.card-product > div > .pcdBuy {
+    width: 100px;
+    padding: 3px 6px;
+}
+
+.card-product > div > .pcdBuy span {
+    font-size: 1.1rem;
+}
+
+.card-product > div > .pcdBuy> button > svg {
+    font-size: 1.2rem;
+}

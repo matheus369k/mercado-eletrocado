@@ -1,0 +1,24 @@
+label {
+    font-weight: bold;
+    margin-bottom: -60.5px;
+    font-size: 1.1rem;
+    z-index: 10;
+    margin-left: 5px;
+    width: max-content;
+}
+
+label>svg {
+    font-size: 2rem;
+    margin-bottom: -10px;
+    margin-right: 2px;
+}
+
+@media (max-width: 500px) {
+    label {
+        font-size:.8rem;
+    }
+
+    label>svg {
+        font-size: 1.6rem;
+    }
+}

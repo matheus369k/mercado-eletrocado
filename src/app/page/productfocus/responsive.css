@@ -1,0 +1,101 @@
+@media (max-width: 1124px) {
+    .productpage>.card-product {
+        background: transparent;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        overflow: hidden;
+        min-width: 775px;
+        gap: 50px;
+    }
+
+    .productpage>.card-product>img {
+        align-self: center;
+        max-width: 500px;
+        max-height: 400px;
+    }
+
+    .productpage>.card-product>.slide:is(.animation-switch-img)::before {
+        content: '';
+        position: absolute;
+        top: 350px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .productpage>.card-product>.slide {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .productpage>.card-product>.priceStock {
+        padding: 0;
+        align-self: center;
+        width: 100%;
+    }
+
+    .productpage>.card-product>.infor-product {
+        align-self: flex-start;
+    }
+
+    .productpage>.card-product>.btn-favorite {
+        left: 80px;
+        top: 180px;
+    }
+
+    .productpage>.card-product>div>.pcdBuy {
+        margin-right: 25px;
+    }
+}
+
+@media (max-width: 780px) {
+    .productpage>.card-product {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .productpage>.card-product>h3 {
+        font-size: 1.3rem;
+    }
+
+    .productpage>.card-product>.infor-product>li {
+        font-size: .9rem;
+    }
+
+    .productpage>.card-product>.infor-product>li>strong {
+        font-size: 1em;
+    }
+
+    .productpage>.card-product>div>.btn-buy {
+        font-size: 1.2em;
+        width: 175px;
+    }
+
+    .productpage>.card-product>.btn-favorite {
+        font-size: 1.5em;
+    }
+
+    .productpage>.card-product>div>.pcdBuy {
+        width: 174px;
+    }
+}
+
+@media (max-width: 500px) {
+    .productpage>.card-product {
+        padding: 100px 10px 50px 10px;
+    }
+
+    .productpage>.card-product>div>.pcdBuy {
+        margin-right: 0px;
+    }
+
+    .productpage>.card-product>.btn-favorite {
+        font-size: 1.2em;
+        left: 25px;
+    }
+
+    .productpage>.card-product>.priceStock>.price>.newPrice {
+        font-size: 1.4em;
+    }
+}

@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    border: none;
+    outline: none;
+    list-style: none;
+    font-family: 'Roboto Mono', monospace;
+}
+
+svg {
+    -webkit-user-select: none;
+    user-select: none;
+}

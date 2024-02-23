@@ -1,0 +1,50 @@
+:root {
+    --color-gray-border: rgb(204, 204, 204);
+    --color-shadow-container:  rgba(0, 0, 0, 0.418);
+}
+
+.register {
+    padding-bottom: 50px;
+}
+
+.register>h2 {
+    font-size: 2em;
+    text-align: center;
+    color: rgb(0, 60, 68);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.29);
+    padding-top: 50px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid var(--color-gray-border);
+    box-shadow: 0 0 20px 5px var(--color-shadow-container);
+}
+
+.register>h2>svg {
+    margin-bottom: -5px;
+    color: rgb(0, 129, 146);
+}
+
+.registerform {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 60px;
+    padding: 25px;
+    row-gap: 25px;
+}
+.registerform>input#name { padding-left: 95px; }
+.registerform>input#lastName { padding-left: 150px; }
+.registerform>input#email { padding-left: 120px; }
+.registerform>input#password { padding-left: 105px; }
+.registerform>input#cep { padding-left: 85px; }
+
+
+.registerform>input:focus {
+    border: 1px solid #003;
+}
+
+.registerform>label>svg {
+    margin-bottom: -8px;
+    margin-right: 2px;
+    font-size: 2rem;
+}

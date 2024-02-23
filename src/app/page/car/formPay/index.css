@@ -1,0 +1,264 @@
+@keyframes loading-formPay {
+    0% { 
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.verificationbuy {
+    display: grid;
+    grid-template-columns: 40% auto;
+    padding: 75px 25px 25px 25px;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    gap: 100px;
+}
+
+.verificationbuy>i {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    cursor: pointer;
+}
+
+.verificationbuy>i>svg {
+    font-size: 2.5rem;
+}
+
+.verificationbuy>i:hover>svg { transform:scale(105%); }
+
+.verificationbuy>.productsOfbuy {
+    grid-column: 2;
+    grid-row: 1 / 3;
+}
+
+.verificationbuy>.productsOfbuy>h2 {
+    font-size: 1.5em;
+    color: rgb(0, 176, 199);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.293);
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 50px;
+}
+
+.verificationbuy>.productsOfbuy>h2>svg {
+    margin-bottom: -3px;
+    color: rgb(0, 127, 143);
+}
+
+.verificationbuy>.productsOfbuy>div {
+    overflow: hidden;
+    position: relative;
+    height: 420px;
+}
+
+.verificationbuy>.productsOfbuy>div>ul {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    position: absolute;
+    row-gap: 10px;
+    transition: all .3s ease-in-out; 
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product:not(.cardRepeatHider) {
+    height: 200px;
+    width: auto;
+    display: grid;
+    justify-content: start;
+    grid-template-columns: 200px auto;
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product:is(.cardRepeatHider) {
+    display:none;
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product>span{
+    top: 10px;
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product>h3 {
+    position: relative;
+    top: 25px;
+    text-align: justify;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product>h3::after {
+    content: 'Tempo estimado de Entrega: 15d';
+    width: 300px;
+    position: absolute;
+    left: 0;
+    top: 80px;
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product>img {
+    grid-column: 1;
+    grid-row: 1/3;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    justify-self: start;
+}
+
+.verificationbuy>.productsOfbuy>div>ul>.card-product>div {
+    display: none;
+}
+
+.verificationbuy>.userDatas {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.verificationbuy>.userDatas>h2 {
+    font-size: 1.5em;
+    color: rgb(0, 176, 199);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.29);
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 50px;
+}
+
+.verificationbuy>.userDatas>h2>svg {
+    margin-bottom: -3px;
+    color: rgb(0, 127, 143);
+}
+
+.verificationbuy>.userDatas>ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.verificationbuy>.userDatas>ul>.icon-persona {
+    display: none;
+}
+
+.verificationbuy>.userDatas>ul>li {
+    font-size: 1.3rem;
+    color: rgb(100, 100, 100);
+}
+
+.verificationbuy>.userDatas>ul>li>strong>svg {
+    margin-bottom: -3px;
+}
+
+.verificationbuy>.userDatas>ul>li>strong {
+    color: rgb(0, 127, 143);
+}
+
+.verificationbuy>.formpay {
+    grid-column: 1;
+    grid-row: 2;
+    animation: loading-formPay 1s ease-in-out;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.verificationbuy>.formpay>h2 {
+    font-size: 1.5em;
+    color: rgb(0, 176, 199);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.248);
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.verificationbuy>.formpay>p {
+    margin-bottom: 50px;
+    color: rgb(63, 63, 63);
+    font-size: .8rem;
+}
+
+.verificationbuy>.formpay>h2>svg {
+    margin-bottom: -3px;
+    color: rgb(0, 127, 143);
+}
+
+.verificationbuy>.formpay>ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.verificationbuy>.formpay>ul>li {
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.524);
+    background: linear-gradient(90deg, rgb(186, 186, 186), rgb(253, 253, 253));
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.verificationbuy>.formpay>ul>.selected {
+    color: rgb(0, 176, 199);
+    border-color:rgb(0, 176, 199);
+    background: linear-gradient(90deg, rgb(77, 77, 77), rgb(107, 107, 107));
+}
+
+.verificationbuy>.formpay>ul>li>svg {
+    font-size: 2em;
+    margin: 0 3px -3px 0;
+}
+
+.verificationbuy>.formpay>ul>li>svg {
+    font-size: 2em;
+    margin: 0 3px -3px 0;
+}
+
+.verificationbuy>.confirmbuy{
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verificationbuy>.confirmbuy>p{
+    display: flex;
+    flex-direction: column;
+    color: rgb(72, 72, 72);
+    font-size: 1.5rem;
+}
+
+.verificationbuy>.confirmbuy>p>span>strong{
+    color: rgb(0, 127, 143);
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.verificationbuy>.confirmbuy>p>span>strong>svg{
+    font-size: 1.2rem;
+    margin-right: 2px;
+}
+
+.verificationbuy>.confirmbuy>button {
+    width: 200px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    text-transform: capitalize;
+    font-size: 1.2em;
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.489);
+    background: linear-gradient(90deg, rgb(0, 184, 0), rgb(1, 104, 1));
+    cursor: pointer;
+}
+
+.verificationbuy>.confirmbuy>button:hover {
+    background: linear-gradient(90deg, rgb(1, 104, 1), rgb(0, 184, 0));
+}
