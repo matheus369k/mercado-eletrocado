@@ -92,7 +92,7 @@
     height: 100%;
     overflow: hidden;
     position: relative;
-    background: rgb(41, 41, 41);
+    background-color: rgb(191, 191, 191);
     animation: loading-page .7s ease-out;
 }
 

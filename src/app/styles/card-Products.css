@@ -65,9 +65,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: #181818;
+    background-color: #ffffff;
     color: gray;
-    border-radius: 10px;
     transition: .8s ease-in-out;
     position: relative;
     row-gap: 10px;
@@ -286,7 +285,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
-    color: rgb(255, 255, 255);
+    color: rgb(64, 64, 64);
     background: linear-gradient(90deg, rgba(210, 210, 210, 0.242), rgba(128, 128, 128, 0.275));
     border-radius: 6px;
 }

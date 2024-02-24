@@ -1,6 +1,5 @@
 @media (max-width: 1124px) {
     .productpage>.card-product {
-        background: transparent;
         box-shadow: none;
         display: flex;
         flex-direction: column;

@@ -1,7 +1,5 @@
 input {
     font-size: 1rem;
-    color: rgb(93, 93, 93);
-    background-color: rgba(0, 0, 0, 0.459);
     height: 50px;
     margin-bottom: 25px;
     padding-left: 10px;
@@ -16,7 +14,6 @@ input::placeholder {
 }
 
 input:focus {
-    background-color: rgba(0, 0, 0, 0.459);
     border: 1px solid #003;
 }
 
@@ -27,9 +24,5 @@ input:focus {
 
     input::placeholder {
         font-size: .8rem;
-    }
-
-    input {
-        padding-left: 100px;
     }
 }

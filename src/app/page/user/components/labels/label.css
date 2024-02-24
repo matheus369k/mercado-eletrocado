@@ -1,5 +1,5 @@
 label {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 173, 196);
     font-weight: bold;
     font-size: 1.1rem;
     z-index: 10;
@@ -11,14 +11,4 @@ label>svg {
     font-size: 2rem;
     margin-bottom: -10px;
     margin-right: 2px;
-}
-
-@media (max-width: 500px) {
-    label {
-        font-size:.8rem;
-    }
-
-    label>svg {
-        font-size: 1.6rem;
-    }
 }

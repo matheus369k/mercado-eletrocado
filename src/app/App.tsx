@@ -66,13 +66,12 @@ function App() {
     } else if (!document.cookie && localStorage.autLogin == "false") {
       deleteCache("favoriteProducts", "productEnvoy", "carProducts");
     }
-  }, []);
 
-  useEffect(() => {
-    if (document.cookie)
+    if (sessionStorage.statusFetchApi == "complete" && document.cookie)
       dispatch(
         getAllProducts(stockUpdateState(storeAllProducts, stateProductEnvoy))
       );
+      
   }, [stateProductEnvoy]);
 
   return (

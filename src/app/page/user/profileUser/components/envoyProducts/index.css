@@ -9,14 +9,14 @@
 
 .productEnvoy>h2 {
     font-size: 1.5rem;
-    color: white;
+    color: rgb(0, 173, 196);
     margin: 50px 0 25px;
 }
 
 .productEnvoy>h2>svg {
     font-size: 2rem;
     margin-bottom: -7px;
-    color: white;
+    color: rgb(0, 173, 196);
 }
 
 .productEnvoy>div{

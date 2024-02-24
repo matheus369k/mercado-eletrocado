@@ -1,4 +1,4 @@
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
 
 import { useDispatch } from "react-redux";
 
@@ -21,7 +21,7 @@ export default function ProductPage() {
     <ul className="productpage animationclass">
       <li className="iconsClose">
         <i onClick={() => dispatch(focusProductRemove())}>
-          <IoArrowBackCircleOutline />
+          <IoArrowBack />
         </i>
       </li>
       {RenderProducts(product, "product")}

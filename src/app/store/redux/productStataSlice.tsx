@@ -73,17 +73,19 @@ const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(FetchAxios.pending, (state) => {
-        state.storeAllProducts = initialState.storeAllProducts;
+      .addCase(FetchAxios.pending, () => {
+        sessionStorage.setItem('statusFetchApi', 'Loading')
       })
       .addCase(
         FetchAxios.fulfilled,
         (state, action: PayloadAction<CategoryProducts>) => {
           state.storeAllProducts = action.payload;
+          sessionStorage.setItem('statusFetchApi', 'complete')
         }
       )
-      .addCase(FetchAxios.rejected, (state) => {
-        state.storeAllProducts = initialState.storeAllProducts;
+      .addCase(FetchAxios.rejected, () => {
+        console.log('Error ao se conectar a api json...');
+        sessionStorage.setItem('statusFetchApi', 'error')
       });
   },
 });

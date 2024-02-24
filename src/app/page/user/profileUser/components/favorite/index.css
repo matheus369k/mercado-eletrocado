@@ -30,14 +30,14 @@
 .favorite>h2 {
     font-size: 1.5em;
     align-self: flex-start;
-    color: white;
+    color: rgb(0, 173, 196);
     margin-bottom: 50px;
 }
 
 .favorite>h2>svg {
     font-size: 1.5em;
     margin-bottom: -5px;
-    color: white;
+    color: rgb(0, 173, 196);
 }
 
 .favorite>p {

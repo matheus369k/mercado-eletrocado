@@ -318,7 +318,7 @@ export const RenderProducts = (
         )}
         {page != "envoy" && page != "buy" && (
           <button
-            title="botão para comprar comprar"
+            title="botão para adicionar aos favoritos"
             onClick={(e) => handlefunctionbtn(e, "btn-favorite", product.id)}
             className={`btn-favorite ProductId${product.id}`}
             type="button"

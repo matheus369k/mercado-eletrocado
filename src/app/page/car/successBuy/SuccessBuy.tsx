@@ -21,27 +21,22 @@ export const SuccessBuy = ({ setSuccessBuy }: PropsSucess) => {
   useEffect(() => {
     redirection(userState, url, "nav-element", "currentBar", true);
 
-    const animation = setTimeout(() => {
-      setSuccessBuy(false);
-      dispatch(getAllProducts(newStockValue));
+    setSuccessBuy(false);
+    dispatch(getAllProducts(newStockValue));
 
-      localStorage.setItem("productEnvoy", `${storeProductEnvoy}`);
+    localStorage.setItem("productEnvoy", `${storeProductEnvoy}`);
 
-      localStorage.removeItem("carProducts");
+    localStorage.removeItem("carProducts");
 
-      const confirmMsg = document.createElement("span");
-      confirmMsg.setAttribute("class", "comfirmMsg");
-      confirmMsg.textContent = `Compra feita com Sucesso!!`;
-      document.body.appendChild(confirmMsg);
+    const confirmMsg = document.createElement("span");
+    confirmMsg.setAttribute("class", "comfirmMsg");
+    confirmMsg.textContent = `Compra feita com Sucesso!!`;
+    document.body.appendChild(confirmMsg);
 
-      setTimeout(() => {
-        document.getElementsByClassName("comfirmMsg")[0].remove();
-      }, 8000);
+    setTimeout(() => {
+      document.getElementsByClassName("comfirmMsg")[0].remove();
     }, 5000);
 
-    return () => {
-      clearTimeout(animation);
-    };
   }, []);
 
   return (

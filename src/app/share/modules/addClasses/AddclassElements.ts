@@ -15,8 +15,7 @@ export const AddclassElements = (ElementsHTML: string, ClassAdd: string) => {
         if (Elements == undefined) throw new Error('Elemento Não Encontrado!!');
 
         Elements.forEach((element) => {
-            element.addEventListener('click', (e) => {
-                e.stopPropagation()
+            element.addEventListener('click', () => {
 
                 AddRemoveClassList(element, ClassAdd);
 

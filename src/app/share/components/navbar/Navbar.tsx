@@ -25,20 +25,16 @@ export default function Navbar() {
 
     useEffect(() => {
 
+        ReloadPageAddclassElements('nav-element', 'currentBar')
+
+        addAnimationClass('.animation-register', 'animation-navbar-register', 1300);
+
         AddClassCarNoempty(stateRequiredProducts.length)
 
         if (stateRequiredProducts.length > 0)
             localStorage.setItem('carProducts', `${stateRequiredProducts}`)
 
-    }, [stateRequiredProducts]);
-
-    useEffect(() => {
-
-        ReloadPageAddclassElements('nav-element', 'currentBar')
-
-        addAnimationClass('.animation-register', 'animation-navbar-register', 1300);
-
-    }, [useSelectoruser]);
+    }, [useSelectoruser, stateRequiredProducts]);
 
     return (
         <nav className='navbar'>

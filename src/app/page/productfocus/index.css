@@ -43,7 +43,7 @@
 
 .productpage>.iconsClose>i>svg {
     font-size: 3rem;
-    color: rgb(255, 255, 255);
+    color: rgb(64, 64, 64);
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
@@ -52,15 +52,11 @@
     transform: scale(1.01);
 }
 
-.productpage>.card-product::before,
-.productpage>.card-product::after {
-    display: none;
-}
-
 .productpage>.card-product {
     min-height: 100vh;
     height: 100%;
     display: grid;
+    background-color: white;
     grid-template-columns: 48% 48%;
     grid-template-rows: repeat(4, max-content);
     padding: 100px 25px;
@@ -189,7 +185,7 @@
 .productpage>.card-product>.infor-product>li>strong {
     font-size: 1.1em;
     text-transform: uppercase;
-    color: rgb(255, 255, 255);
+    color: rgb(64, 64, 64);
 }
 
 .productpage>.card-product>div>.btn-buy {
@@ -211,6 +207,7 @@
 }
 
 .productpage>.card-product>div>.pcdBuy span {
+    color: rgb(64, 64, 64);
     font-size: 1.5rem;
 }
 

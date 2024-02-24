@@ -35,7 +35,7 @@
 }
 
 .userProfile>ul>.user-infor {
-    color: rgb(185, 185, 185);
+    color: rgb(70, 70, 70);
     text-transform: capitalize;
     font-size: 1rem;
     font-weight: normal;
@@ -43,7 +43,7 @@
 }
 
 .userProfile>ul>.user-infor>strong {
-    color: white;
+    color: rgb(0, 176, 199);
     text-transform: capitalize;
     font-size: 1.1rem;
     font-weight: bolder;
@@ -51,7 +51,6 @@
 }
 
 .userProfile>ul>.user-infor>strong>svg {
-    color: white;
     font-size: 1.2em;
     margin-bottom: -3px;
     margin-right: 2px;
@@ -74,7 +73,7 @@
 
 .profileSettings>i>svg {
     font-size: 1.8rem;
-    color: white;
+    color: rgb(58, 58, 58);
     cursor: pointer;
 }
 

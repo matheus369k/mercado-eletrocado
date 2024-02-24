@@ -2,7 +2,7 @@ import { FaCreditCard } from "react-icons/fa6";
 import { FaPix } from "react-icons/fa6";
 import { IoReceiptSharp } from "react-icons/io5";
 import { FaBitcoin } from "react-icons/fa";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { GoPeople } from "react-icons/go";
 import { BsBank2 } from "react-icons/bs";
@@ -38,12 +38,13 @@ export const FormPay = ({
   const storeAllProducts = appUseSelector((state) => state.storeAllProducts);
   const cardshidde = document.querySelectorAll(".cardRepeatHider");
   const dispatch = useDispatch();
-  store.dispatch(FetchAxios());
 
   const handleSelectedFormPay = () => {
     const choicePayForm = document.querySelector(".formpay > ul > .selected");
 
     if (choicePayForm == null) return;
+    
+    store.dispatch(FetchAxios());
 
     setCheckOutBtn(false);
 
@@ -55,7 +56,7 @@ export const FormPay = ({
   return (
     <div className="verificationbuy">
       <i onClick={() => setCheckOutBtn(false)}>
-        <IoArrowBackCircleOutline />
+        <IoArrowBack />
       </i>
       <section className="userDatas">
         <h2>
