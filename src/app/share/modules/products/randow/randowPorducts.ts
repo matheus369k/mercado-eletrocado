@@ -24,9 +24,7 @@ export const randowProductSelected = (
 
   for (let i = 0; i < quantityProduct; i++) {
     
-    if (Object.values(storeAllProducts)[0].length == 0) {
-      continue;
-    }
+    if (storeAllProducts.notebook.length == 0) continue;
 
     if (category == "all") randowCategory = RandowNumber(3);
 

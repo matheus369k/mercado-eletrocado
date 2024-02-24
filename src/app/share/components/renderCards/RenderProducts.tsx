@@ -87,7 +87,7 @@ export const RenderProducts = (
 
     
     if (
-      eventBtn == "btn-boy" && Object.values(storeAllProducts.notebook) != undefined) {
+      eventBtn == "btn-boy" && storeAllProducts.notebook.length != 0) {
       const stockNotEmpty = verificationStockOfproduct(
         productId,
         storeRequiredProducts,

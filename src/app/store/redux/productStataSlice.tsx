@@ -72,13 +72,19 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      FetchAxios.fulfilled,
-      (state, action: PayloadAction<CategoryProducts>) => {
-        console.log(action.type)
-        state.storeAllProducts = action.payload;
-      }
-    );
+    builder
+      .addCase(FetchAxios.pending, (state) => {
+        state.storeAllProducts = initialState.storeAllProducts;
+      })
+      .addCase(
+        FetchAxios.fulfilled,
+        (state, action: PayloadAction<CategoryProducts>) => {
+          state.storeAllProducts = action.payload;
+        }
+      )
+      .addCase(FetchAxios.rejected, (state) => {
+        state.storeAllProducts = initialState.storeAllProducts;
+      });
   },
 });
 
