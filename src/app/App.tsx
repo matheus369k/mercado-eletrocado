@@ -41,8 +41,21 @@ function App() {
     (state) => state.requiredProducts
   );
   const useSelectorProduct = appUseSelector((state) => state.product);
-  if (storeAllProducts.notebook.length == 0) store.dispatch(FetchAxios());
   const dispatch = useDispatch();
+
+  console.log(sessionStorage.statusFetchApi);
+    
+  if (Object.values(useSelectoruser).length == 0 && sessionStorage.statusFetchApi == 'complete') {
+    sessionStorage.removeItem("statusFetchApi");
+  }
+
+  if (
+    sessionStorage.statusFetchApi == undefined &&
+    storeAllProducts.notebook.length == 0
+  ) {
+    store.dispatch(FetchAxios());
+    console.log("enter");
+  }
 
   useEffect(() => {
     if (
@@ -67,12 +80,13 @@ function App() {
       deleteCache("favoriteProducts", "productEnvoy", "carProducts");
     }
 
-    if (sessionStorage.statusFetchApi == "complete" && document.cookie)
+    if (sessionStorage.statusFetchApi == "complete" && document.cookie) {
+      console.log(storeAllProducts, stateProductEnvoy);
       dispatch(
         getAllProducts(stockUpdateState(storeAllProducts, stateProductEnvoy))
       );
-      
-  }, [stateProductEnvoy]);
+    }
+  }, [sessionStorage.statusFetchApi]);
 
   return (
     <Fragment>

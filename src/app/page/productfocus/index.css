@@ -53,16 +53,20 @@
 }
 
 .productpage>.card-product {
-    min-height: 100vh;
     height: 100%;
     display: grid;
-    background-color: white;
+    background-color: rgba(210, 193, 193, 0);
     grid-template-columns: 48% 48%;
     grid-template-rows: repeat(4, max-content);
     padding: 100px 25px;
     width: auto;
     gap: 25px;
     position: relative;
+}
+
+.card-product::before,
+.card-product::after {
+    display: none;
 }
 
 .productpage>.card-product>img {
@@ -126,6 +130,7 @@
     font-size: 2em;
     grid-row: 1;
     align-self: flex-end;
+    color: black;
 }
 
 .productpage>.card-product>.priceStock,
@@ -148,10 +153,12 @@
 
 .productpage>.card-product>.priceStock>.price>.oldPrice {
     font-size: 1rem;
+    color: rgb(78, 78, 78);
 }
 
 .productpage>.card-product>.priceStock>.price>.newPrice {
     font-size: 1.6em;
+    color: black;
 }
 
 .productpage>.card-product>.priceStock>.price>.descount {
@@ -160,6 +167,7 @@
 
 .productpage>.card-product>.priceStock>.stock {
     font-size: 1rem;
+    color: rgb(78, 78, 78);
 }
 
 .productpage>.card-product>div {

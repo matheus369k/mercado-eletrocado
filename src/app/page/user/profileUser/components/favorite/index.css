@@ -15,7 +15,7 @@
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-    gap: 50px;
+    gap: 50px 10px;
 }
 
 .favorite>ul>.card-product {
@@ -59,15 +59,15 @@
     color: rgb(0, 176, 199);
 }
 
-.card-product > div > .pcdBuy {
+.favorite>ul>.card-product > div > .pcdBuy {
     width: 100px;
     padding: 3px 6px;
 }
 
-.card-product > div > .pcdBuy span {
+.favorite>ul>.card-product > div > .pcdBuy span {
     font-size: 1.1rem;
 }
 
-.card-product > div > .pcdBuy> button > svg {
+.favorite>ul>.card-product > div > .pcdBuy> button > svg {
     font-size: 1.2rem;
 }

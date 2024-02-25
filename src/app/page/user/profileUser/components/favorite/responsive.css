@@ -10,12 +10,17 @@
     }
 
     .favorite>ul>.card-product {
-        width: 200px;
-        height: 230px;
+        width: 150px;
+        height: 180px;
     }
 
     .favorite>ul>.card-product>h3 {
-        font-size: .9rem;
+        font-size: .6rem;
+    }
+
+    .card-product>.btn-favorite {
+        left: 20px;
+        top: 45px;
     }
 
     .favorite>p {

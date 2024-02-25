@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 export type PropsCheck = {
     setCheckOutBtn: Dispatch<SetStateAction<boolean>>;
@@ -57,3 +57,8 @@ export type UserData = {
     cep: string;
 }
 
+export type HandleFunctionBtnProps = {
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>;
+    eventBtn: string;
+    productId: number;
+}

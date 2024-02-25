@@ -1,7 +1,5 @@
 import { MdFavorite } from "react-icons/md";
 
-import { useEffect } from "react";
-
 import { appUseSelector } from "../../../../../store/hook";
 import { RenderProducts } from "../../../../../share/components/renderCards/RenderProducts";
 import { collectProductsOfState } from "../../../../../share/modules/products/transformArray/transformArray";
@@ -17,15 +15,8 @@ function Favorite() {
     (state) => state.favoriteProducts
   );
 
-  useEffect(() => {
-    hiddeContainerEmpty("#favoritesection", "emptyFav", statefavoriteProducts);
-
-    if (statefavoriteProducts.length != 0)
-      localStorage.setItem("favoriteProducts", `${statefavoriteProducts}`);
-  }, [statefavoriteProducts]);
-
   return (
-    <div className="favorite">
+    <div className="favorite" onLoad={()=>hiddeContainerEmpty("#favoritesection", "emptyFav", statefavoriteProducts)}>
       <h2>
         Produtos Adicionado Como <MdFavorite />
         Favorios

@@ -20,9 +20,19 @@
     .home>.card-product {
         width: 375px;
         height: 450px;
+        padding: 30px;
     }
 
     .categoryProducts {
         font-size: .9rem;
+    }
+
+    .card-product>.btn-favorite {
+        left: 50px;
+        top: 80px;
+    }
+
+    .card-product>.btn-favorite>svg {
+        font-size: 2.4rem;
     }
 }

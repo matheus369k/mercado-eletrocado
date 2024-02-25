@@ -1,10 +1,4 @@
-import { MdFavorite } from "react-icons/md";
-import { FaBox } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa6";
-import { PiShoppingCartFill } from "react-icons/pi";
-
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -15,20 +9,18 @@ import {
   focusProductAdd,
   focusProductRemove,
 } from "../../../store/redux/productStataSlice";
+import { addClassFavorite } from "../../modules/addClasses/AddclassElements";
 import {
-  AddclassElements,
-  addClassFavorite,
-} from "../../modules/addClasses/AddclassElements";
-import {
-  countBuyProduct,
   stockProducts,
   verificationStockOfproduct,
   redirection,
-  productPrice,
-  slideImagens,
 } from "../../modules/index";
 import { appUseSelector } from "../../../store/hook";
 import { ProductsInfor } from "../../../@types/types-interfaces";
+import { renderInforProduct } from "./components/renderInforProduct";
+import { renderButtons } from "./components/renderButtons";
+import { renderSlide } from "./components/renderSlide";
+import { renderPriceStock } from "./components/renderPriceStock";
 
 export const RenderProducts = (
   objectProducts: ProductsInfor[],
@@ -76,6 +68,9 @@ export const RenderProducts = (
         );
       }
     }
+
+    if (stateFavoriteProd.length != 0)
+      localStorage.setItem("favoriteProducts", `${stateFavoriteProd}`);
   }, [objectProducts, storeRequiredProducts]);
 
   const handlefunctionbtn = (
@@ -85,9 +80,7 @@ export const RenderProducts = (
   ) => {
     e.stopPropagation();
 
-    
-    if (
-      eventBtn == "btn-boy" && storeAllProducts.notebook.length != 0) {
+    if (eventBtn == "btn-boy" && storeAllProducts.notebook.length != 0) {
       const stockNotEmpty = verificationStockOfproduct(
         productId,
         storeRequiredProducts,
@@ -129,21 +122,6 @@ export const RenderProducts = (
     }
   };
 
-  const renderInforPrice = (limite: number, price: number, id: number) => {
-    const priceInfor = productPrice(limite, price, id);
-
-    return (
-      <Fragment>
-        <li className="oldPrice">R${priceInfor.priceDescount.toFixed(2)}</li>
-        <li className="newPrice">R${priceInfor.price.toFixed(2)}</li>
-        <li className="descount">{priceInfor.percent}% OFF</li>
-        <li className="plots">
-          em <span>10X de R${priceInfor.divisionTen.toFixed(2)} sem juros</span>
-        </li>
-      </Fragment>
-    );
-  };
-
   const handleRenderProducts = () => {
     let collectionProduct: object[] = [];
 
@@ -163,169 +141,17 @@ export const RenderProducts = (
         }`}
       >
         <h3>{product.model}</h3>
-
-        {collectionProduct.length != 0 &&
-          Object(collectionProduct[index])["have"] != 0 && (
-            <span>X{Object(collectionProduct[index])["have"]}</span>
-          )}
-        <img
-          id={page == "product" ? "Img-main" : ""}
-          src={`${product.img}`}
-          alt={`${product.model}`}
-        />
-        {page == "product" && (
-          <ul
-            className="slide"
-            onMouseOver={() =>
-              AddclassElements("slide-elements", "currentSlide")
-            }
-          >
-            <li
-              onMouseOver={() => slideImagens(".slide-elements", "#Img-main")}
-              className="slide-elements"
-            >
-              <img
-                src={`${product.slide.slide2}`}
-                alt={`slide-2-${product.model}`}
-              />
-            </li>
-            <li
-              onMouseOver={() => slideImagens(".slide-elements", "#Img-main")}
-              className="slide-elements currentSlide"
-            >
-              <img
-                src={`${product.slide.slide1}`}
-                alt={`slide-1-${product.model}`}
-              />
-            </li>
-            <li
-              onMouseOver={() => slideImagens(".slide-elements", "#Img-main")}
-              className="slide-elements"
-            >
-              <img
-                src={`${product.slide.slide3}`}
-                alt={`slide-3-${product.model}`}
-              />
-            </li>
-          </ul>
-        )}
-
-        {page != "car" && page != "favorite" && (
-          <div className="priceStock">
-            <ul className="price">
-              {renderInforPrice(50, product.price, product.id)}
-            </ul>
-
-            <span className="stock">
-              <FaBox />
-              Pcd:{product.stock}
-            </span>
-          </div>
-        )}
-        {page == "product" && (
-          <ul className="infor-product">
-            <li>
-              <strong>
-                Tela:{" "}
-              </strong>
-              {product.screen}
-            </li>
-
-            <li>
-              <strong>
-                Processador:{" "}
-              </strong>
-              {product.processor}
-            </li>
-
-            <li>
-              <strong>
-                Memoria:{" "}
-              </strong>
-              {product.memory}
-            </li>
-
-            {product.placeVideo ? (
-              <li>
-                <strong>
-                  Placa de video:{" "}
-                </strong>
-                {product.placeVideo}
-              </li>
-            ) : (
-              <li>
-                <strong>
-                  Bateria:{" "}
-                </strong>
-                {product.battery}
-              </li>
-            )}
-          </ul>
-        )}
-        {(page == "product" || page == "car") && (
-          <div>
-            <button
-              title="botão para adicionar aos favoritos"
-              onClick={(e) => handlefunctionbtn(e, "btn-boy", product.id)}
-              className={`btn-buy ${page != "car" && "btn-buy" + product.id}`}
-              type="button"
-              id="buy"
-            >
-              {page == "car" ? "Remover" : "Adicionar"}
-              <PiShoppingCartFill />
-            </button>
-
-            <div className="pcdBuy">
-              <button
-                onClick={(e) =>
-                  countBuyProduct(
-                    e,
-                    product.id,
-                    1,
-                    storeAllProducts,
-                    storeRequiredProducts,
-                    storeProductEnvoy,
-                    page
-                  )
-                }
-                title="botão para adicionar mais produtos"
-                type="button"
-              >
-                <FaPlus />
-              </button>
-
-              <span className={`displayPcdId${product.id}`}>1</span>
-
-              <button
-                onClick={(e) =>
-                  countBuyProduct(
-                    e,
-                    product.id,
-                    -1,
-                    storeAllProducts,
-                    storeRequiredProducts,
-                    storeProductEnvoy,
-                    page
-                  )
-                }
-                title="botão para remover produtos"
-                type="button"
-              >
-                <FaMinus />
-              </button>
-            </div>
-          </div>
-        )}
-        {page != "envoy" && page != "buy" && (
-          <button
-            title="botão para adicionar aos favoritos"
-            onClick={(e) => handlefunctionbtn(e, "btn-favorite", product.id)}
-            className={`btn-favorite ProductId${product.id}`}
-            type="button"
-          >
-            <MdFavorite />
-          </button>
-        )}
+        {renderSlide(collectionProduct, index, product, page)}
+        {page == "product" && renderInforProduct(product)}
+        {page != "car" && page != "favorite" && renderPriceStock(product)}
+        {renderButtons({
+          product,
+          handlefunctionbtn,
+          page,
+          storeProductEnvoy,
+          storeRequiredProducts,
+          storeAllProducts,
+        })}
       </li>
     ));
   };
