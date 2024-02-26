@@ -7,8 +7,6 @@ import { deleteCookies } from "../../../../../share/modules/index";
 
 export default function ProfileSettings() {
     const url = `${window.location.origin}/mercado-eletrocado/`;
-    console.log(window.location.href)
-    console.log(url)
     const handleDeleteCont = () => {
     localStorage.setItem("autLogin", "false");
 
@@ -18,7 +16,7 @@ export default function ProfileSettings() {
   const handleLogOut = () => {
     localStorage.setItem("autLogin", "false");
 
-    window.location.replace(url);
+    window.location.assign(url);
   };
   return (
     <div className="profileSettings">

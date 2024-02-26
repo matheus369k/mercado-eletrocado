@@ -42,8 +42,11 @@ function App() {
   );
   const useSelectorProduct = appUseSelector((state) => state.product);
   const dispatch = useDispatch();
-    
-  if (Object.values(useSelectoruser).length == 0 && sessionStorage.statusFetchApi == 'complete') {
+
+  if (
+    Object.values(useSelectoruser).length == 0 &&
+    sessionStorage.statusFetchApi == "complete"
+  ) {
     sessionStorage.removeItem("statusFetchApi");
   }
 
@@ -77,7 +80,11 @@ function App() {
       deleteCache("favoriteProducts", "productEnvoy", "carProducts");
     }
 
-    if (sessionStorage.statusFetchApi == "complete" && document.cookie) {
+    if (
+      sessionStorage.statusFetchApi == "complete" &&
+      document.cookie &&
+      stateProductEnvoy.length > 0
+    ) {
       dispatch(
         getAllProducts(stockUpdateState(storeAllProducts, stateProductEnvoy))
       );

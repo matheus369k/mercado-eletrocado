@@ -51,7 +51,7 @@ export const verificationLogin = (loginData: Login, userData: UserData) => {
 
     localStorage.setItem("autLogin", "true");
 
-    window.location.replace(url);
+    window.location.assign(url);
   } catch (error: unknown) {
     const Erro = (error as TypeError).message;
 
