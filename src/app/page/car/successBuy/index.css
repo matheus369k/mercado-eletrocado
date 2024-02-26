@@ -36,7 +36,7 @@
     left: 0;
     background: linear-gradient(90deg, rgb(226, 225, 225), rgb(193, 193, 193));
     row-gap: 20px;
-    z-index: 3;
+    z-index: 100;
 }
 
 .successBoy>i {

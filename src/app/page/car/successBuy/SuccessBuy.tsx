@@ -14,12 +14,11 @@ export const SuccessBuy = ({ setSuccessBuy }: PropsSucess) => {
   const storeAllProducts = appUseSelector((state) => state.storeAllProducts);
   const storeProductEnvoy = appUseSelector((state) => state.productEnvoy);
   const newStockValue = stockUpdateState(storeAllProducts, storeProductEnvoy);
-  const userState = appUseSelector((state) => state.user);
   const url = `${window.location.origin}/mercado-eletrocado/#`;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    redirection(userState, url, "nav-element", "currentBar", true);
+    redirection(url, "nav-element", "currentBar");
     dispatch(getAllProducts(newStockValue));
 
     localStorage.setItem("productEnvoy", `${storeProductEnvoy}`);

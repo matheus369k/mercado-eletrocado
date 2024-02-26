@@ -43,6 +43,7 @@ export const ValidationDateUser = (userData: UserData) => {
 export const verificationLogin = (loginData: Login, userData: UserData) => {
   try {
     event?.preventDefault();
+    const url = `${window.location.origin}/mercado-eletrocado/`;
     if (loginData.email != userData.email) throw new Error("email invalido");
 
     if (loginData.password != userData.password)
@@ -50,8 +51,7 @@ export const verificationLogin = (loginData: Login, userData: UserData) => {
 
     localStorage.setItem("autLogin", "true");
 
-    window.location.href='/';
-
+    window.location.replace(url);
   } catch (error: unknown) {
     const Erro = (error as TypeError).message;
 

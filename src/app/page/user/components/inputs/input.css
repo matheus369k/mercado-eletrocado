@@ -9,7 +9,6 @@ input {
 
 input::placeholder {
     font-size: 1rem;
-    padding-left: 10px;
     color: rgb(184, 184, 184);
 }
 

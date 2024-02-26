@@ -19,8 +19,9 @@ export const getCookies = () => {
 };
 
 export const deleteCookies = (key: string, value: string) => {
+  const url = `${window.location.origin}/mercado-eletrocado/`;
   date.setTime(date.getTime() - 360 * 100000);
   document.cookie = `${key}=${value};expires=${date.toUTCString()}`;
 
-  window.location.href = "/";
+  window.location.href = url;
 };

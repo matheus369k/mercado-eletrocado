@@ -18,9 +18,14 @@
         font-size: .6rem;
     }
 
-    .card-product>.btn-favorite {
+    .favorite>ul>.card-product>.btn-favorite {
         left: 20px;
-        top: 45px;
+        top: 40px;
+        margin-right: 0;
+    }
+
+    .favorite>ul>.card-product>.btn-favorite>svg {
+        font-size: 1.6em;
     }
 
     .favorite>p {
@@ -28,7 +33,7 @@
         width: 100%;
         font-size: 1.2rem;
     }
-    
+
 }
 
 @media (max-width: 500px) {

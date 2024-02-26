@@ -6,7 +6,8 @@ import { ToggleClass } from "../../../../../share/modules/addClasses/AddclassEle
 import { deleteCookies } from "../../../../../share/modules/index";
 
 export default function ProfileSettings() {
-  const handleDeleteCont = () => {
+    const url = `${window.location.origin}/mercado-eletrocado/`;
+    const handleDeleteCont = () => {
     localStorage.setItem("autLogin", "false");
 
     deleteCookies("user", "");
@@ -15,7 +16,7 @@ export default function ProfileSettings() {
   const handleLogOut = () => {
     localStorage.setItem("autLogin", "false");
 
-    window.location.href = "/";
+    window.location.replace(url);
   };
   return (
     <div className="profileSettings">
