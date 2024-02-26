@@ -17,6 +17,8 @@ export default function ProfileSettings() {
     localStorage.setItem("autLogin", "false");
 
     window.location.replace(url);
+    console.log(window.location.href)
+    console.log(url)
   };
   return (
     <div className="profileSettings">
