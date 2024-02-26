@@ -38,7 +38,7 @@ export const Login = () => {
         <FaUser />
         Login
       </h2>
-      <form method="POST" className="login">
+      <form method="post" className="login">
         <Label htmlFor="email" icon={<MdOutlineEmail />} text={"Email"} />
         <Input
           handleOnChange={(e) => collectDataLogin(e.target.value, "email")}

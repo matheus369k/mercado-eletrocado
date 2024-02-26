@@ -64,8 +64,8 @@
     position: relative;
 }
 
-.card-product::before,
-.card-product::after {
+.productpage>.card-product::before,
+.productpage>.card-product::after {
     display: none;
 }
 

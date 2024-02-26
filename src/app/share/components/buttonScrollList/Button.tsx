@@ -21,11 +21,13 @@ export default function Button(propsBtn: PorpsTypes) {
     ReloadPageAddclassElements("nav-element", "currentBar");
 
     for (const btn of objecBtn) {
-      if (propsBtn.stateRedux.length - cardshidde.length < 2)
+      if (propsBtn.stateRedux.length - cardshidde.length < 3) {
         btn.setAttribute("style", "display: none;");
-      else btn.setAttribute("style", "display: block;");
+      } else {
+        btn.setAttribute("style", "display: block;");
+      }
     }
-  }, []);
+  }, [propsBtn.stateRedux]);
 
   return (
     <button

@@ -4,87 +4,83 @@ import { BiSolidUserPlus } from "react-icons/bi";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 
-import { Link } from "react-router-dom"
-import { Fragment, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { Fragment, useEffect } from "react";
 
-import { 
-    AddclassElements, 
-    ReloadPageAddclassElements, 
-    AddClassCarNoempty, 
-    addAnimationClass 
-} from '../../modules/addClasses/AddclassElements.ts';
-import { appUseSelector } from '../../../store/hook.tsx';
+import {
+  AddclassElements,
+  ReloadPageAddclassElements,
+  AddClassCarNoempty,
+  addAnimationClass,
+} from "../../modules/addClasses/AddclassElements.ts";
+import { appUseSelector } from "../../../store/hook.tsx";
 
-import './index.css';
-import './responsive.css';
-
+import "./index.css";
+import "./responsive.css";
 
 export default function Navbar() {
-    const stateRequiredProducts = appUseSelector(state => state.requiredProducts);
-    const useSelectoruser = appUseSelector(state => state.user);
+  const stateRequiredProducts = appUseSelector(
+    (state) => state.requiredProducts
+  );
+  const useSelectoruser = appUseSelector((state) => state.user);
 
-    useEffect(() => {
+  useEffect(() => {
+    AddClassCarNoempty(stateRequiredProducts.length);
 
-        ReloadPageAddclassElements('nav-element', 'currentBar')
+    if (stateRequiredProducts.length > 0)
+      localStorage.setItem("carProducts", `${stateRequiredProducts}`);
+  }, [stateRequiredProducts]);
 
-        addAnimationClass('.animation-register', 'animation-navbar-register', 1300);
+  useEffect(() => {
+    ReloadPageAddclassElements("nav-element", "currentBar");
 
-        AddClassCarNoempty(stateRequiredProducts.length)
+    addAnimationClass(".animation-register", "animation-navbar-register", 1300);
+  }, [useSelectoruser]);
 
-        if (stateRequiredProducts.length > 0)
-            localStorage.setItem('carProducts', `${stateRequiredProducts}`)
-
-    }, [useSelectoruser, stateRequiredProducts]);
-
-    return (
-        <nav className='navbar'>
-            <ul className='animation-register' onMouseEnter={() => AddclassElements('nav-element', 'currentBar')}>
-                <li className='nav-element'>
-                    <Link to='/'>
-                        <IoStorefrontSharp />Produtos
-                    </Link>
-                </li>
-                <li className='nav-element'>
-                    <Link to='/car'>
-                        <PiShoppingCartFill />
-                        <span id='producCarCount'></span>
-                        Carrinho
-                    </Link>
-                </li>
-                <li className='nav-element'>
-                    <Link to='/user'>
-                        {Object.values(useSelectoruser).length > 0 ?
-                            (
-                                <Fragment>
-                                    <FaCircleUser />
-                                    Perfil
-                                </Fragment>
-
-                            ) : (
-                                <Fragment>
-                                    {document.cookie ?
-                                        (
-
-                                            <Fragment>
-                                                <FaUser />
-                                                Login
-                                            </Fragment>
-
-                                        ) : (
-
-                                            <Fragment>
-                                                <BiSolidUserPlus />
-                                                Registrar-se
-                                            </Fragment>
-
-                                        )
-                                    }
-                                </Fragment>
-                            )
-                        }
-                    </Link>
-                </li>
-            </ul>
-        </nav >
-    )
+  return (
+    <nav className="navbar">
+      <ul
+        className="animation-register"
+        onMouseEnter={() => AddclassElements("nav-element", "currentBar")}
+      >
+        <li className="nav-element">
+          <Link to="/">
+            <IoStorefrontSharp />
+            Produtos
+          </Link>
+        </li>
+        <li className="nav-element">
+          <Link to="/car">
+            <PiShoppingCartFill />
+            <span id="producCarCount"></span>
+            Carrinho
+          </Link>
+        </li>
+        <li className="nav-element">
+          <Link to="/user">
+            {Object.values(useSelectoruser).length > 0 ? (
+              <Fragment>
+                <FaCircleUser />
+                Perfil
+              </Fragment>
+            ) : (
+              <Fragment>
+                {document.cookie ? (
+                  <Fragment>
+                    <FaUser />
+                    Login
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <BiSolidUserPlus />
+                    Registrar-se
+                  </Fragment>
+                )}
+              </Fragment>
+            )}
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
 }

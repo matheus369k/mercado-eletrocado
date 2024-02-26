@@ -116,7 +116,7 @@ export const RenderProducts = (
         }
         addClassFavorite(productId, true);
       } else {
-        redirection(useSelectorUser, url, "nav-element", "currentBar", false);
+        redirection(url, "nav-element", "currentBar");
         dispatch(focusProductRemove());
       }
     }

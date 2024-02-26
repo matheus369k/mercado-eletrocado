@@ -80,7 +80,7 @@ export const UserRegister = () => {
         <FaUserPlus />
         Cadratar-se
       </h2>
-      <form autoComplete="off" className="registerform">
+      <form autoComplete="off"  method="post" className="registerform">
         <Label htmlFor="name" icon={<GoPeople />} text={"Nome"} />
         <Input
           handleOnChange={(e) => CollectDataUser(e.target.value, "name")}

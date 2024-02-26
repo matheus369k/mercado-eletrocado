@@ -28,7 +28,7 @@ export const Car = ({ setCheckOutBtn }: PropsCheck) => {
 
   const handleActionClick = () => {
     if (Object.values(user).length == 0) {
-      redirection(user, url, "nav-element", "currentBar", false);
+      redirection(url, "nav-element", "currentBar");
       dispatch(focusProductRemove());
     } else setCheckOutBtn(true);
   };
