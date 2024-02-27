@@ -17,7 +17,7 @@
 
 Esse projeto e um Ecommerce que tem como foco a venda de eletrodomesticos, tendo algumas das principais funções presentes em um site desse modelo...
 
-![eletrocado demostração visual](./public/eletrocado-gif.gif)
+![eletrocado demostração visual](./public/eletrocado-apresentation-gif.gif)
 
 Fora usando uma api-json externa para armazer os dados do projeto, sendo ele referentes as informações dos produtos apresentados no projetos, tendo usado o axios com o verbo http get para coletar os dado referentes ao projeto....
 
@@ -27,11 +27,11 @@ na criação das funções referentes ao cacher de usuario fora utilizado locals
 
 o projeto fora desenvolvido vizando ser o mais semantico possivel e ser responsive des de computadores ate aparelhos moveis...
 
-![eletrocado responsive project](./public/eletrocado-v.png)
+![eletrocado responsive project](./public/eletrocado-responsive.png)
 
 ## 🏁Conclusão Final
 
-O Desenvolvimento desse projeto foi um grande marco para min, pricipalmente por ser um projeto grande aos meus padrões atuais, fora um projeto em que dei tudo de mim seu desenvolvimento, ao longo de 49 dias para conseguir deixa-lo com esta agora. Ao decorrer desse projeto coloquei em pratica varios conteudos que estudei um pouco antes e durante a crição dele como: redux, cookies, a criação de estrutura de pastas para projetos e TypeScript. Com isso posso afirmar que esse projeto, foi um dos mais grande marcos meus como desenvolvedor web.
+O Desenvolvimento desse projeto foi um grande marco para min, pricipalmente por ser um projeto grande aos meus padrões atuais, fora um projeto em que dei tudo de mim seu desenvolvimento, ao longo de 58 dias para conseguir deixa-lo com esta agora. Ao decorrer desse projeto coloquei em pratica varios conteudos que estudei um pouco antes e durante a crição dele como: redux, cookies, a criação de estrutura de pastas para projetos e TypeScript. Com isso posso afirmar que esse projeto, foi um dos mais grande marcos meus como desenvolvedor web.
 
 ## 🥳Agradecimento
 
