@@ -1,38 +1,60 @@
-# 💻Mercado Eletrocado
 
-<div display='inline'>
-  <img height='20px' src='https://img.shields.io/github/watchers/matheus369k/mercado-eletrocado.svg' />
+<h1 align='center' >
+  💻Mercado Eletrocado
+</h1>
+<div align='center'>
+
+  [Descrição](#descrição)
+  |
+  [Iniciar](#iniciar)
+  |
+  [Licença](#licença)
+
 </div>
 
-## 🎮HandSkills
+<div align='center'>
+  <img src='https://img.shields.io/github/license/matheus369k/mercado-eletrocado.svg'/>
+</div>
 
-- ✔️HTML
-- ✔️CSS
-- ✔️React
-- ✔️TypeScript
-- ✔️Redux
-- ✔️Json-Api
+<div align='center'>
+  <img src='./public/eletrocado-preview.png'/>
+</div>
 
-## 📑Descrição
+## Descrição
+O projeto é um site e um e-commerce de eletrônicos, com a finalidade de praticar e aprender React. Tendo como principais funcionalidades...
 
-Esse projeto e um Ecommerce que tem como foco a venda de eletrodomesticos, tendo algumas das principais funções presentes em um site desse modelo...
+- O carrinho de compras
+- Filtro de produtos
+- O registro e login de usuários
+- Os produtos que foram comprados
+- adicionar produtos favoritos
+- O Permanecimento dos dados do usuário
+- estoque de produtos limitados
 
-![eletrocado demostração visual](./public/eletrocado-apresentation-gif.gif)
+Para criar esse projeto tive, como meta, cria-lo sem um back-end, ou seja manter todos os dados no front-end. contudo, os dados de interação fossem permanecidos vinculados ao login do usuário no mesmo negador.
 
-Fora usando uma api-json externa para armazer os dados do projeto, sendo ele referentes as informações dos produtos apresentados no projetos, tendo usado o axios com o verbo http get para coletar os dado referentes ao projeto....
+Para gerenciar a quantidade massiva de dados, foi usado o Redux toolkit, como principal ferramenta de gerenciamento de estado. por facilitar o gerenciamento e compartilhamento de dados entre os componentes.
 
-o uso do redux teve como objetivo o gerenciamento do estado do projeto armazenando as informações do usuario como: registro, produtos marcados como favoritos, produtos comprados e etc...
+Se quiser ver o projeto em mais detalhes, basta clicar [aqui](https://github.com/matheus369k/mercado-eletrocado), para acessar o repositório.
 
-na criação das funções referentes ao cacher de usuario fora utilizado localstorage para salvar dado referentes a produtos comprados, adicionados ao carrinho e etc, fora usando cookies para guardar os dados da conta do usuario...
+## Iniciar
+E necessário o [Node.js](https://nodejs.org/pt/download) instalado na máquina.
 
-o projeto fora desenvolvido vizando ser o mais semantico possivel e ser responsive des de computadores ate aparelhos moveis...
+E nesse criar um aquivo env com o nome .env e adicionar as seguintes variáveis de ambiente:
+```bash
+VITE_DATABASE_URL='https://matheus369k.github.io/Data/eletrocado-api.json'
+```
 
-![eletrocado responsive project](./public/eletrocado-responsive.png)
+Para iniciar o projeto, basta clonar o repositório e instalar as dependências.
+```bash
+git clone https://github.com/matheus369k/mercado-eletrocado.git
+cd mercado-eletrocado
+npm install
+```
+Para iniciar o projeto, basta executar o comando:
+```bash
+npm run dev
+```
 
-## 🏁Conclusão Final
-
-O Desenvolvimento desse projeto foi um grande marco para min, pricipalmente por ser um projeto grande aos meus padrões atuais, fora um projeto em que dei tudo de mim seu desenvolvimento, ao longo de 58 dias para conseguir deixa-lo com esta agora. Ao decorrer desse projeto coloquei em pratica varios conteudos que estudei um pouco antes e durante a crição dele como: redux, cookies, a criação de estrutura de pastas para projetos e TypeScript. Com isso posso afirmar que esse projeto, foi um dos mais grande marcos meus como desenvolvedor web.
-
-## 🥳Agradecimento
-
-Fico feliz a todos que chegar aqui ate aqui, espero que tenha gostado do projeto e se tiver acho algum bug, agradeço se puder me imforma sobre ele.
+## Licença
+Fora usado a licença [MIT](./LICENSE).
