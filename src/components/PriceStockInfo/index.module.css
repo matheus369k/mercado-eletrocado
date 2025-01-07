@@ -1,0 +1,116 @@
+.price_stock_display {
+    font-size: 1rem;
+    text-align: center;
+    width: auto;
+}
+
+.price_stock_display {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: end;
+    align-items: start;
+    row-gap: 0.1875rem;
+}
+
+.price_display {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: min-content;
+    justify-self: start;
+    width: 100%;
+}
+
+.price_display li {
+    margin: 0.15625rem 0;
+    grid-column: 1;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    align-self: center;
+    text-align: start;
+    animation: loading-card-Product 1s ease-in-out;
+}
+
+.price_display li.old_price {
+    grid-row: 1;
+    font-size: 0.7rem;
+    text-decoration: line-through;
+}
+
+.price_display li.new_price {
+    grid-row: 2;
+    font-size: 1.4rem;
+}
+
+.price_display li.discount {
+    justify-self: center;
+    color: var(--text-green-color);
+    font-size: 1rem;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.price_display li.plots {
+    text-transform: initial;
+    grid-row: 3;
+    grid-column: 1/3;
+}
+
+.price_display li.plots span {
+    color: var(--text-green-color);
+}
+
+.stock_display {
+    animation: loading-card-Product 1s ease-in-out;
+    font-size: 0.8rem;
+}
+
+.stock_display svg {
+    margin-bottom: -0.1875rem;
+    margin-right: 0.125rem;
+}
+
+.product_all_info.price_stock_display {
+    grid-column: 2;
+    align-self: flex-end;
+    grid-row: 3;
+    font-size: 1.8rem;
+    height: auto;
+}
+
+.product_all_info .price_display li {
+    margin: 0.15625rem 0;
+    font-size: 1.3rem;
+}
+
+.product_all_info .price_display li.old_price {
+    font-size: 1rem;
+    color: var(--text-normal-color);
+}
+
+.product_all_info .price_display li.new_price {
+    font-size: 1.6rem;
+    color: black;
+}
+
+.product_all_info .price_display li.discount {
+    font-size: 1.2rem;
+}
+
+.product_all_info .stock_display {
+    font-size: 1rem;
+    color: var(--text-normal-color);
+}
+
+@media (max-width: 1124px) {
+    .product_all_info.price_stock_display {
+        padding: 0;
+        align-self: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .product_all_info .price_display li.new_price {
+        font-size: 1.4rem;
+    }
+}

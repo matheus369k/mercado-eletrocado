@@ -1,0 +1,31 @@
+.checkout_buy_page {
+    display: grid;
+    grid-template-columns: 40% auto;
+    padding: 4.6875rem 1.5625rem 1.5625rem 1.5625rem;
+    height: 100%;
+    min-height: max-content;
+    gap: 2rem;
+}
+
+.checkout_buy_page > i {
+    position: absolute;
+    top: 0.9375rem;
+    left: 0.9375rem;
+    cursor: pointer;
+}
+
+.checkout_buy_page > i svg {
+    font-size: 2.5rem;
+}
+
+.checkout_buy_page > i:hover svg {
+    transform: scale(105%);
+}
+
+@media (max-width: 993px) {
+    .checkout_buy_page {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}

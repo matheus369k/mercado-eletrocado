@@ -1,0 +1,35 @@
+.product_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 100%;
+    grid-row: 2;
+    row-gap: 0.625rem;
+}
+
+.product_info li {
+    font-size: 1rem;
+    color: var(--zinc-600);
+}
+
+.product_info strong {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: var(--zinc-600);
+}
+
+@media (max-width: 1124px) {
+    .product_info {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 780px) {
+    .product_info li {
+        font-size: 0.9rem;
+    }
+
+    .product_info strong {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,62 @@
+.less_product_controls_container {
+    display: flex;
+    justify-content: space-between;
+    animation: loading-card-Product 1s ease-in-out;
+    height: auto;
+    width: 100%;
+}
+
+.btn_less_product{
+    width: 6.25rem;
+    height: 1.875rem;
+    border-radius: 0.3125rem;
+    gap: .1rem;
+    cursor: pointer;
+    color: var(--zinc-100);
+    transition: 0.8s ease-in-out;
+} 
+
+.btn_less_product svg{
+    font-size: 1.2rem;
+}
+
+.control_count {
+    width: 7.5rem;
+    height: 1.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3125rem 0.625rem;
+    color: var(--zinc-950);
+    background: var(--zinc-100);
+    border-radius: 0.375rem;
+}
+
+.control_count span {
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+.control_count button {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.control_count button svg {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: -3px;
+    transition: all 0.4s ease-in-out;
+}
+
+.control_count button:hover svg {
+    transform: scale(1.1);
+}
+
+.btn_less_product {
+    background: linear-gradient(90deg, red, var(--wrong-color));
+}
+
+.btn_less_product:hover {
+    background: linear-gradient(90deg, var(--wrong-color), red);
+}

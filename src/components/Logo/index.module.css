@@ -1,0 +1,27 @@
+.logo {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.125rem;
+}
+
+.logo img {
+    height: 2.5rem;
+    margin-bottom: -0.625rem;
+}
+
+.footer_logo {
+    grid-row: 3;
+    grid-column: 1;
+    align-self: flex-end;
+    justify-self: center;
+}
+
+.footer_logo img {
+    margin-left: 1.25rem;
+}
+
+@media (max-width: 624px) {
+    .footer_logo {
+        align-self: center;
+    }
+}

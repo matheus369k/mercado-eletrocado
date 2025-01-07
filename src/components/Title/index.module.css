@@ -1,0 +1,15 @@
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    color: var(--primary-color);
+
+    padding: 2rem 0;
+
+    border-bottom: 0.125rem solid var(--zinc-300);
+    box-shadow: 0 0 1.25rem 0.3125rem var(--zinc-600);
+}

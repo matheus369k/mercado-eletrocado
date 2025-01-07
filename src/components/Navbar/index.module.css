@@ -1,0 +1,155 @@
+@keyframes update-navbar {
+    0% {
+        filter: blur(20px);
+    }
+
+    99% {
+        filter: blur(20px);
+    }
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar_list {
+    width: 25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbar_list a {
+    font-size: 1rem;
+    color: var(--zinc-100);
+    font-weight: bold;
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 0.3125rem;
+}
+
+.navbar_list span:is(.product_car_point) {
+    position: absolute;
+    left: 0.75rem;
+    top: -0.125rem;
+    background-color: var(--primary-color-hover);
+    padding: 0.3125rem;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.navbar_list a::before {
+    content: '';
+    position: absolute;
+    bottom: -0.3125rem;
+    left: 0%;
+    width: 0%;
+    height: 0.125rem;
+    background-color: var(--zinc-100);
+    transition: 0.4s ease-in-out;
+}
+
+.navbar_list li.current_bar a::before,
+.navbar_list li:hover a::before {
+    width: 100%;
+}
+
+.navbar_list svg {
+    font-size: 1.2rem;
+    color: var(--zinc-100);
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%;
+        position: relative;
+        padding-bottom: 3.125rem;
+    }
+
+    .navbar::before {
+        content: 'Menu';
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--primary-color);
+        width: 100%;
+        height: 3.125rem;
+        background-color: var(--bg-color);
+        border-top: 0.125rem solid var(--zinc-600);
+        border-bottom: 0.125rem solid var(--zinc-600);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 5;
+    }
+    .navbar:hover::before {
+        display: none;
+    }
+
+    .navbar_list {
+        display: none;
+    }
+
+    .navbar:hover .navbar_list {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .navbar:hover {
+        padding-bottom: 0px;
+    }
+
+    .navbar_list li {
+        border: 0.125rem solid var(--zinc-950);
+    }
+
+    .navbar_list a {
+        padding: 1.125rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar_list a::after,
+    .navbar_list a::before {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        width: 0px;
+        height: 100%;
+        background-color: var(--primary-color);
+        box-shadow: none;
+    }
+
+    .navbar_list li.current_bar a::after,
+    .navbar_list li:hover a::after {
+        width: 0.3125rem;
+        right: 0px;
+        border-top-left-radius: 0.3125rem;
+        border-bottom-left-radius: 0.3125rem;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .navbar_list li.current_bar a::before,
+    .navbar_list li:hover a::before {
+        width: 0.3125rem;
+        left: 0px;
+        border-top-right-radius: 0.3125rem;
+        border-bottom-right-radius: 0.3125rem;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .navbar_list li:not(.current_bar):hover a::before,
+    .navbar_list li:not(.current_bar):hover a::after {
+        width: 0.15625rem;
+        background-color: var(--primary-color-hover);
+    }
+
+    .navbar_list span:is(.product_car_point) {
+        display: none;
+    }
+}

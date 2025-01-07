@@ -1,0 +1,21 @@
+.payment_title,
+.cart_title,
+.user_title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-shadow: 0.0625rem 0.0625rem var(--shadow--color);;
+    width: 100%;
+    padding-bottom: 0.3125rem;
+}
+
+.payment_title {
+    margin: 0;
+}
+
+.payment_title svg,
+.cart_title svg,
+.user_title svg {
+    margin-bottom: -0.1875rem;
+    color: var(--primary-color);
+    text-shadow: 0.0625rem 0.0625rem var(--shadow--color);;
+}

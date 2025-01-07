@@ -1,0 +1,136 @@
+/* Page checked buy */
+
+.user_checked_buy .icon_persona {
+    display: none;
+}
+
+.user_checked_buy .user_info {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.user_checked_buy .user_info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.25rem;
+    padding-left: 0.5rem;
+}
+
+.user_checked_buy .user_info li {
+    font-size: 1.3rem;
+    color: var(--zinc-600);
+}
+
+.user_checked_buy .user_info li strong {
+    color: var(--primary-color);
+    text-shadow: 1px 1px var(--zinc-950);
+}
+
+.user_checked_buy .user_info li svg {
+    margin-bottom: -3px;
+}
+
+/* Page profiler */
+
+.user_profiler {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    row-gap: 1.25rem;
+    padding: 1.5rem;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.user_profiler .user_info {
+    padding-bottom: 1rem;
+}
+
+.user_profiler .user_info li {
+    color: var(--zinc-600);
+    font-size: 1rem;
+    font-weight: normal;
+    grid-column: 2;
+}
+
+.user_profiler .user_info strong {
+    color: var(--primary-color);
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    letter-spacing: 0.0625rem;
+}
+
+.user_profiler .user_info svg {
+    font-size: 1.2em;
+    margin-bottom: -0.1875rem;
+    margin-right: 0.125rem;
+}
+
+.user_profiler .icon_persona svg {
+    color: var(--primary-color);
+    font-size: 16rem;
+    border-radius: 50%;
+    grid-column: 1;
+    grid-row: 1/3;
+}
+
+@media (max-width: 1024px) {
+    .user_profiler {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        column-gap: 3.125rem;
+        row-gap: 0px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .user_profiler .user_info {
+        grid-column: 2;
+        align-self: flex-end;
+    }
+
+    .user_profiler .icon-persona {
+        grid-column: 1;
+        grid-row: 1/5;
+    }
+}
+
+@media (max-width: 750px) {
+    .user_profiler {
+        column-gap: 1.5rem;
+    }
+
+    .user_profiler .icon-persona {
+        font-size: 0.6rem;
+        height: max-content;
+    }
+
+    .user_profiler .user_info strong {
+        font-size: 1rem;
+    }
+
+    .user_profiler .user_info {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .user_profiler {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+        column-gap: 0px;
+    }
+
+    .user_profiler .icon_persona {
+        align-self: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .user_profiler .user_info {
+        align-self: start;
+    }
+}

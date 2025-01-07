@@ -1,0 +1,17 @@
+.cart_products {
+    grid-column: 2;
+    grid-row: 1/3;
+}
+
+.cart_products div {
+    width: 100%;
+    max-height: max-content;
+}
+
+@media (max-width: 1224px) {
+    .cart_products {
+        grid-column: 1/3;
+        grid-row: 2;
+    }
+}
+

@@ -1,0 +1,38 @@
+.category_products {
+    width: 100vw;
+    height: max-content;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.category_products button {
+    text-transform: capitalize;
+    font-weight: bold;
+
+    padding: 0.3rem 1rem;
+    border: 0.0625rem solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+    border-radius: 0.5rem;
+
+    position: relative;
+
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.category_products .active,
+.category_products button:hover {
+    background-color: var(--primary-color);
+    color: var(--zinc-100);
+}
+
+@media (max-width: 500px) {
+    .category_products {
+        font-size: 0.9rem;
+    }
+}

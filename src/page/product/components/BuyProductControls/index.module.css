@@ -1,0 +1,101 @@
+@keyframes loading-card-Product {
+    0% {
+        z-index: -1;
+    }
+
+    100% {
+        z-index: 0;
+    }
+}
+
+.buy_product_controls {
+    display: flex;
+    justify-content: space-between;
+    animation: loading-card-Product 1s ease-in-out;
+    height: 2.8125rem;
+    width: 100%;
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.btn_buy_product {
+    gap: .2rem;
+    font-size: 1.5rem;
+    width: 12.5rem;
+    height: 3.125rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--zinc-100);
+    transition: 0.8s ease-in-out;
+}
+
+.btn_buy_product svg {
+    font-size: 1.5rem;
+}
+
+.btn_buy_product {
+    background: var(--gradient-btn-color);
+}
+
+.btn_buy_product:hover {
+    background: var(--gradient-btn-color-hover);
+}
+
+.btn_buy_product:is(.without_stock) {
+    background: var(--gradient-btn-disabled-color);
+    cursor: no-drop;
+}
+
+.control_count {
+    width: 12.5rem;
+    height: 3.125rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background: var(--zinc-100);
+    border-radius: 6px;
+}
+
+.control_count span {
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.control_count button {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.control_count button svg {
+    font-size: 1.5rem;
+    margin-bottom: -3px;
+    color: var(--primary-color);
+    transition: all 0.4s ease-in-out;
+}
+
+.control_count button:hover svg {
+    transform: scale(1.1);
+}
+
+@media (max-width: 1124px) {
+   .control_count {
+        margin-right: 1.5rem;
+    }
+}
+
+@media (max-width: 780px) {
+   .btn_buy_product {
+        width: 10rem;
+    }
+
+    .control_count {
+        width: 10rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .control_count {
+        margin-right: 0px;
+    }
+}
