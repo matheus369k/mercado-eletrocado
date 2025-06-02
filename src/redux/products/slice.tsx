@@ -80,11 +80,16 @@ const productReducer = createSlice({
 });
 
 export const requestAllProducts = createAsyncThunk('product/requestAllProducts', async () => {
-  const response = await axios.get(env.VITE_DATABASE_URL);
-  const data: CategoryProductsType = await response.data.electronics;
+  const [{ data: notebook }, { data: tablet }, { data: phone }] = await Promise.all([
+    axios.get(env.VITE_DATABASE_URL + '/notebook'),
+    axios.get(env.VITE_DATABASE_URL + '/tablet'),
+    axios.get(env.VITE_DATABASE_URL + '/phone'),
+  ]);
+  const data: CategoryProductsType = { notebook, tablet, phone };
 
   return data;
 });
 
-export const { addSelectProduct, removeSelectProduct, updateProductsDatasStock } = productReducer.actions;
+export const { addSelectProduct, removeSelectProduct, updateProductsDatasStock } =
+  productReducer.actions;
 export default productReducer.reducer;
