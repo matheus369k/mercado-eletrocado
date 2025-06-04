@@ -1,62 +1,62 @@
 .btn_favorite {
-    position: absolute;
-    left: 1.5rem;
-    top: 1.5rem;
-    background-color: transparent;
-    width: min-content;
-    height: min-content;
-    margin-right: 1.25rem;
+  position: absolute;
+  left: 1rem;
+  top: 1.5rem;
+  background-color: transparent;
+  width: min-content;
+  height: min-content;
+  margin-right: 1.25rem;
 }
 
 .btn_favorite svg {
-    font-size: 2rem;
-    cursor: pointer;
-    color: gray;
-    transition: 0.8s ease-in-out;
+  font-size: 2rem;
+  cursor: pointer;
+  color: gray;
+  transition: 0.8s ease-in-out;
 }
 
 .btn_favorite:is(.product_favorite) svg {
-    animation: favorite-click 1.5s ease-in-out;
-    color: red;
+  animation: favorite-click 1.5s ease-in-out;
+  color: red;
 }
 
 .product_all_info.btn_favorite svg {
-    font-size: 4rem;
+  font-size: 4rem;
 }
 
 .product_all_info.btn_favorite {
-    font-size: 2rem;
-    margin-top: -0.625rem;
-    left: 6rem;
-    top: 4rem;
+  font-size: 2rem;
+  margin-top: -0.625rem;
+  left: 6rem;
+  top: 4rem;
 }
 
 @media (max-width: 1124px) {
-    .product_all_info.btn_favorite {
-        left: 5rem;
-        top: 11.25rem;
-    }
+  .product_all_info.btn_favorite {
+    left: 5rem;
+    top: 11.25rem;
+  }
 }
 
 @media (max-width: 780px) {
-    .product_all_info.btn_favorite {
-        font-size: 1.5rem;
-    }
+  .product_all_info.btn_favorite {
+    font-size: 1.5rem;
+  }
 
-    .user_profiler.btn_favorite {
-        left: 1.25rem;
-        top: 2.5rem;
-        margin-right: 0;
-    }
+  .user_profiler.btn_favorite {
+    left: 1.25rem;
+    top: 2.5rem;
+    margin-right: 0;
+  }
 
-    .user_profiler.btn_favorite svg {
-        font-size: 1.6rem;
-    }
+  .user_profiler.btn_favorite svg {
+    font-size: 1.6rem;
+  }
 }
 
 @media (max-width: 500px) {
-    .product_all_info.btn_favorite {
-        font-size: 1.2rem;
-        left: 1.5rem;
-    }
+  .product_all_info.btn_favorite {
+    font-size: 1.2rem;
+    left: 1.5rem;
+  }
 }

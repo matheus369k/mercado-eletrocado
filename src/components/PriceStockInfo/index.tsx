@@ -1,13 +1,12 @@
 import { calcDiscountOfProductPrice } from '@/functions';
 import { ProductType } from '@/@types/product';
-import { FaBox } from 'react-icons/fa';
 import styles from './index.module.css';
 
 interface PriceStockInfoProps extends Pick<ProductType, 'price' | 'id' | 'stock'> {
   customClass?: string;
 }
 
-export const PriceStockInfo = ({ price, id, stock, customClass }: PriceStockInfoProps) => {
+export const PriceStockInfo = ({ price, id, customClass }: PriceStockInfoProps) => {
   const priceInfo = calcDiscountOfProductPrice(50, price, id);
 
   const priceWithoutDiscount = 'R$' + priceInfo.priceDiscount.toFixed(2);
@@ -25,10 +24,6 @@ export const PriceStockInfo = ({ price, id, stock, customClass }: PriceStockInfo
           em <span>10X de {priceDivisionForTen} sem juros</span>
         </li>
       </ul>
-      <span className={styles.stock_display}>
-        <FaBox />
-        Pcd:{stock}
-      </span>
     </div>
   );
 };

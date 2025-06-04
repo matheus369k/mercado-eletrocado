@@ -1,2 +1,2 @@
 export { CategoryFilter } from './CategoryFilter';
-export { ProductsCards } from './ProductsCards';
+export { ProductCard } from './ProductCard';
