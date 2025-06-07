@@ -52,8 +52,8 @@
 }
 
 .main {
-  min-height: var(--main-height);
-  height: max-content;
+  min-height: calc(100dvh - 8rem);
+  height: fit-content;
   position: relative;
   animation: loading-page 0.7s ease-out;
   max-width: 1124px;

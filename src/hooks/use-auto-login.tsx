@@ -1,4 +1,3 @@
-import { requestAllProducts, updateProductsDatasStock } from '@/redux/products/slice';
 import { getCookies, deleteCache, getCache } from '@/functions';
 import { addFavoriteProduct } from '@/redux/favorite/slice';
 import { addEnvoyProducts } from '@/redux/envoy/slice';
@@ -35,13 +34,4 @@ export function useAutoLogin() {
   if (sessionStorage.statusFetchApi === 'complete') {
     sessionStorage.removeItem('statusFetchApi');
   }
-
-  useEffect(() => {
-    store.dispatch(requestAllProducts()).then(() => {
-      if (envoyCacheDatas.length > 0 && isActiveAutoLogin) {
-        dispatch(updateProductsDatasStock(envoyCacheDatas));
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 }

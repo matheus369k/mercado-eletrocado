@@ -15,15 +15,16 @@ export const ProductPreviewSlide = ({ img, model, slide }: ProductPreviewSlidePr
   });
 
   return (
-    <>
+    <div className={styles.pictures_container}>
       <img
         onLoad={handleFinishLoadingPreviewImage}
         className={`${styles.image_main} ${isLoading ? styles.animation_switch_img : ''}`}
+        loading="lazy"
         src={previewImage}
         alt={model}
       />
 
-      <ul className={styles.slide_display}>
+      <ul className={styles.pictures__slide_list}>
         <ProductSlideItem
           handleSetNewPreviewImage={handleSetNewPreviewImage}
           mainImage={previewImage}
@@ -43,6 +44,6 @@ export const ProductPreviewSlide = ({ img, model, slide }: ProductPreviewSlidePr
           model={model}
         />
       </ul>
-    </>
+    </div>
   );
 };

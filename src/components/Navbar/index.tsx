@@ -50,7 +50,7 @@ export const Navbar = () => {
           </NavbarItemRoot>
         ) : (
           <>
-            <li className={styles.navbar__links__mobile_items}>
+            <div className={styles.navbar__links__mobile_items}>
               <NavbarItemRoot isCurrentPage={isLoginPage}>
                 <NavbarItemLink to={routesPath.USER_LOGIN}>
                   <FaUser />
@@ -63,7 +63,7 @@ export const Navbar = () => {
                   Registrar-se
                 </NavbarItemLink>
               </NavbarItemRoot>
-            </li>
+            </div>
             <li className={styles.navbar__links_desktop_items}>
               <SplitItemButton
                 customClass="navbar_user_header"

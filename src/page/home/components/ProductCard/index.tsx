@@ -1,10 +1,10 @@
 import { FavoriteButton, PriceStockInfo } from '@/components';
 import { ProductType } from '@/@types/product';
-import { useFocusProduct } from '@/hooks';
+import { useSelectProduct } from '@/hooks';
 import styles from './index.module.css';
 
 export const ProductCard = (product: ProductType) => {
-  const { handleAddStoreProduct } = useFocusProduct();
+  const { handleAddStoreProduct } = useSelectProduct();
 
   return (
     <div className={styles.home__product_card}>
@@ -16,7 +16,7 @@ export const ProductCard = (product: ProductType) => {
         alt={product.model}
       />
       <div className={styles.home__card_content}>
-        <PriceStockInfo id={product.id} price={product.price} stock={product.stock} />
+        <PriceStockInfo id={product.id} price={product.price} />
         <h3>{product.model}</h3>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { SliceProductCartAndEnvoyType } from '@/@types/product';
 import { ProductLessContext } from '../contexts/products-less';
 import { removeCartProduct } from '@/redux/cart/slice';
 import { useDispatch } from 'react-redux';
-import { useFocusProduct } from '@/hooks/';
+import { useSelectProduct } from '@/hooks/';
 import { useContext } from 'react';
 
 type HandleLessProductProps = Omit<SliceProductCartAndEnvoyType, 'price'>;
@@ -14,7 +14,7 @@ export const useProduct = () => {
     handleResetProductsCount,
     productsLessCount,
   } = useContext(ProductLessContext);
-  const { handleAddStoreProduct } = useFocusProduct();
+  const { handleAddStoreProduct } = useSelectProduct();
 
   const dispatch = useDispatch();
 

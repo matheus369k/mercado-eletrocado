@@ -1,4 +1,4 @@
-import { removeSelectProduct } from '@/redux/products/slice';
+import { removeSelectProduct } from '@/redux/product/slice';
 import { routesPath } from '@/routes/routes-path';
 import { appUseSelector } from '@/redux/hook';
 import { useDispatch } from 'react-redux';

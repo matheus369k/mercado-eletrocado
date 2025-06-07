@@ -1,4 +1,4 @@
-import { useFocusProduct, useGetProducts } from '@/hooks';
+import { useSelectProduct, useGetProducts } from '@/hooks';
 import { FavoriteButton } from '@/components';
 import { appUseSelector } from '@/redux/hook';
 import { MdFavorite } from 'react-icons/md';
@@ -9,7 +9,7 @@ export const FavoriteProducts = () => {
   const { favoriteProducts } = appUseSelector((state) => state.favorite);
   const { dataProducts } =
     useGetProducts().handleRandomOrderAndFavoriteProductDatas(favoriteProducts);
-  const { handleAddStoreProduct } = useFocusProduct();
+  const { handleAddStoreProduct } = useSelectProduct();
 
   return (
     <div className={styles.favorite_container}>

@@ -1,7 +1,7 @@
 import { ProductCartAndEnvoyType } from '@/@types/product';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
-import { useFocusProduct } from '@/hooks';
+import { useSelectProduct } from '@/hooks';
 import styles from './index.module.css';
 import 'slick-carousel/slick/slick.css';
 
@@ -14,7 +14,7 @@ export const ProductsCardsSlides = ({
   handleSetSlide: (sliderPops: Slider | null) => void;
   showSlider: number;
 }) => {
-  const { handleAddStoreProduct } = useFocusProduct();
+  const { handleAddStoreProduct } = useSelectProduct();
   const settings: Settings = {
     dots: false,
     speed: 500,

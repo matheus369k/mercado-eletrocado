@@ -6,40 +6,39 @@
   width: min-content;
   height: min-content;
   margin-right: 1.25rem;
+
+  svg {
+    font-size: 2rem;
+    cursor: pointer;
+    color: gray;
+    transition: 0.8s ease-in-out;
+  }
+
+  &:is(.product_favorite) svg {
+    animation: favorite-click 1.5s ease-in-out;
+    color: red;
+  }
 }
 
-.btn_favorite svg {
+.product_selected.btn_favorite {
   font-size: 2rem;
-  cursor: pointer;
-  color: gray;
-  transition: 0.8s ease-in-out;
-}
+  left: 0%;
+  top: 0%;
 
-.btn_favorite:is(.product_favorite) svg {
-  animation: favorite-click 1.5s ease-in-out;
-  color: red;
-}
-
-.product_all_info.btn_favorite svg {
-  font-size: 4rem;
-}
-
-.product_all_info.btn_favorite {
-  font-size: 2rem;
-  margin-top: -0.625rem;
-  left: 6rem;
-  top: 4rem;
+  svg {
+    font-size: 4rem;
+  }
 }
 
 @media (max-width: 1124px) {
-  .product_all_info.btn_favorite {
-    left: 5rem;
-    top: 11.25rem;
+  .product_selected.btn_favorite {
+    top: 7.5rem;
+    left: 0%;
   }
 }
 
 @media (max-width: 780px) {
-  .product_all_info.btn_favorite {
+  .product_selected.btn_favorite {
     font-size: 1.5rem;
   }
 
@@ -51,12 +50,5 @@
 
   .user_profiler.btn_favorite svg {
     font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 500px) {
-  .product_all_info.btn_favorite {
-    font-size: 1.2rem;
-    left: 1.5rem;
   }
 }

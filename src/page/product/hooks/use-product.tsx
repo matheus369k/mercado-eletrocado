@@ -1,4 +1,4 @@
-import { addSelectProduct, removeSelectProduct } from '@/redux/products/slice';
+import { addSelectProduct, removeSelectProduct } from '@/redux/product/slice';
 import { ProductAmountContext } from '../contexts/products-amount';
 import { addCartProducts } from '@/redux/cart/slice';
 import { ProductIdType } from '@/@types/product';

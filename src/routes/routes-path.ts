@@ -6,5 +6,5 @@ export const routesPath = {
   USER_PROFILER: '/mercado-eletrocado/user/profile',
   USER_LOGIN: '/mercado-eletrocado/user/login',
   USER_REGISTER: '/mercado-eletrocado/user/register',
-  PRODUCT: '/mercado-eletrocado/product',
+  PRODUCT: '/mercado-eletrocado/product/:productId',
 };

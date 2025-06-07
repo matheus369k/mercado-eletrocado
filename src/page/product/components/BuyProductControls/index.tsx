@@ -1,4 +1,3 @@
-import { useStockProduct } from '@/hooks/use-stock-product';
 import { useProduct } from '../../hooks/use-product';
 import { PiShoppingCartFill } from 'react-icons/pi';
 import { ProductIdType } from '@/@types/product';
@@ -14,44 +13,34 @@ interface RenderButtonsProps {
 
 export const BoyProductControls = ({ id, price }: RenderButtonsProps) => {
   const { handleAddProduct, handleBuyProduct, handleRemoveProduct, productsAmount } = useProduct();
-  const { isStockEmpty } = useStockProduct().handleIsStockEmpty({ id });
-  const { hasCartAllProductsOfStock } = useStockProduct().handleCartHasAllProductsOfStock({
-    id,
-    productsAmount,
-  });
+  //const { isStockEmpty } = useStockProduct().handleIsStockEmpty({ id });
+  //const { hasCartAllProductsOfStock } = useStockProduct().handleCartHasAllProductsOfStock({
+  //  id,
+  //  productsAmount,
+  //});
 
   return (
-    <div className={styles.buy_product_controls}>
+    <div className={styles.buy_controls_container}>
+      <div className={styles.control_count}>
+        <Button onClick={handleAddProduct} title="botão para adicionar mais produtos" type="button">
+          <FaPlus />
+        </Button>
+
+        <span>{productsAmount}</span>
+
+        <Button onClick={handleRemoveProduct} title="botão para remover produtos" type="button">
+          <FaMinus />
+        </Button>
+      </div>
       <Button
-        disabled={isStockEmpty}
         title="botão para adicionar ao carrinho"
         onClick={() => handleBuyProduct({ id, price })}
-        className={`flex-center ${styles.btn_buy_product} ${isStockEmpty ? styles.without_stock : ''}`}
+        className={`flex-center ${styles.btn_buy_product}`}
         type="button"
         id="buy">
         <PiShoppingCartFill />
         adicionar
       </Button>
-
-      <div className={styles.control_count}>
-        <Button
-          disabled={hasCartAllProductsOfStock}
-          onClick={handleAddProduct}
-          title="botão para adicionar mais produtos"
-          type="button">
-          <FaPlus />
-        </Button>
-
-        <span>{isStockEmpty ? 0 : productsAmount}</span>
-
-        <Button
-          disabled={isStockEmpty}
-          onClick={handleRemoveProduct}
-          title="botão para remover produtos"
-          type="button">
-          <FaMinus />
-        </Button>
-      </div>
     </div>
   );
 };

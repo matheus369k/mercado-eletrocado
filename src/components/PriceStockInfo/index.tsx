@@ -2,7 +2,7 @@ import { calcDiscountOfProductPrice } from '@/functions';
 import { ProductType } from '@/@types/product';
 import styles from './index.module.css';
 
-interface PriceStockInfoProps extends Pick<ProductType, 'price' | 'id' | 'stock'> {
+interface PriceStockInfoProps extends Pick<ProductType, 'price' | 'id'> {
   customClass?: string;
 }
 

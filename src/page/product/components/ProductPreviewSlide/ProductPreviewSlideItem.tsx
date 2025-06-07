@@ -16,8 +16,8 @@ export const ProductSlideItem = ({
   return (
     <li
       onClick={() => handleSetNewPreviewImage(SlidePreview)}
-      className={mainImage === SlidePreview ? styles.current_slide : ''}>
-      <img src={SlidePreview} alt={model} />
+      className={`${styles.pictures__slide__items} ${mainImage === SlidePreview ? styles.current_slide : ''}`}>
+      <img src={SlidePreview} alt={model} loading="lazy" />
     </li>
   );
 };
