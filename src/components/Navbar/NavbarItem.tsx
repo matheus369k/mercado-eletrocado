@@ -1,16 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 import styles from './index.module.css';
+import type { ComponentProps } from 'react';
 
-interface NavbarItemProps {
-  children: React.ReactNode;
-  isCurrentPageHome: boolean;
-  redirectionRoute: string;
+interface NavbarItemRootProps extends ComponentProps<'li'> {
+  isCurrentPage: boolean;
 }
 
-export const NavbarItem = ({ children, isCurrentPageHome, redirectionRoute }: NavbarItemProps) => {
+export const NavbarItemRoot = ({ isCurrentPage, ...props }: NavbarItemRootProps) => {
   return (
-    <li className={`${isCurrentPageHome && styles.current_bar} ${styles.navbar_item}`}>
-      <Link to={redirectionRoute}>{children}</Link>
-    </li>
+    <li
+      {...props}
+      className={`${isCurrentPage && styles.current_bar} ${styles.navbar__links__items}`}
+    />
   );
+};
+
+interface NavbarItemLinkProps extends LinkProps {}
+
+export const NavbarItemLink = ({ ...props }: NavbarItemLinkProps) => {
+  return <Link {...props} />;
 };

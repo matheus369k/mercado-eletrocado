@@ -1,21 +1,7 @@
 .header_container {
-    grid-row: 1;
-    height: var(--header-height);
-    background-color: var(--bg-color);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.6125rem;
-}
-
-
-@media (max-width: 768px) {
-    .header_container {
-        height: 100%;
-        flex-direction: column;
-        row-gap: 1.5rem;
-        padding: 0;
-        padding-top: 1.5rem;
-    }
+  background-color: var(--zinc-950);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }

@@ -1,60 +1,83 @@
 import { PiShoppingCartFill } from 'react-icons/pi';
 import { IoStorefrontSharp } from 'react-icons/io5';
-import { BiSolidUserPlus } from 'react-icons/bi';
-import { FaCircleUser } from 'react-icons/fa6';
-import { FaUser } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import { routesPath } from '@/routes/routes-path';
 import { appUseSelector } from '@/redux/hook';
 import styles from './index.module.css';
-import { NavbarItem } from './NavbarItem';
+import { NavbarItemLink, NavbarItemRoot } from './NavbarItem';
+import { GoTriangleDown } from 'react-icons/go';
+import { SplitItemButton, SplitItemListContainer } from '../SplitModel/SplitItems';
+import { FaUser } from 'react-icons/fa6';
+import { IoPersonAdd } from 'react-icons/io5';
+import { FiMenu } from 'react-icons/fi';
 
 export const Navbar = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
   const { userDatas } = appUseSelector((state) => state.user);
   const { pathname } = useLocation();
 
-  const isCurrentPageHome = routesPath.HOME === pathname;
-  const isCurrentPageCar = pathname.includes(routesPath.CAR);
-  const isCurrentPageUser = pathname.includes(routesPath.USER);
-
-  const userStatusAccount = !!userDatas ? 'profiler' : document.cookie ? 'login' : 'register';
+  const isHomePage = routesPath.HOME === pathname;
+  const isCarPage = pathname.includes(routesPath.CAR);
+  const isRegisterPage = pathname.includes(routesPath.USER_REGISTER);
+  const isLoginPage = pathname.includes(routesPath.USER_LOGIN);
+  const isProfilerPage = pathname.includes(routesPath.USER_PROFILER);
 
   return (
-    <nav className={styles.navbar}>
-      <ul className={styles.navbar_list}>
-        <NavbarItem isCurrentPageHome={isCurrentPageHome} redirectionRoute={routesPath.HOME}>
-          <IoStorefrontSharp />
-          Produtos
-        </NavbarItem>
-        <NavbarItem isCurrentPageHome={isCurrentPageCar} redirectionRoute={routesPath.CAR}>
-          <PiShoppingCartFill />
-          {cartProducts.length > 0 && <span className={styles.product_car_point}></span>}
-          Carrinho
-        </NavbarItem>
-        {userStatusAccount === 'profiler' && (
-          <NavbarItem
-            isCurrentPageHome={isCurrentPageUser}
-            redirectionRoute={routesPath.USER_PROFILER}>
-            <FaCircleUser />
-            Perfil
-          </NavbarItem>
-        )}
-        {userStatusAccount === 'login' && (
-          <NavbarItem
-            isCurrentPageHome={isCurrentPageUser}
-            redirectionRoute={routesPath.USER_LOGIN}>
-            <FaUser />
-            Login
-          </NavbarItem>
-        )}
-        {userStatusAccount === 'register' && (
-          <NavbarItem
-            isCurrentPageHome={isCurrentPageUser}
-            redirectionRoute={routesPath.USER_REGISTER}>
-            <BiSolidUserPlus />
-            Registrar-se
-          </NavbarItem>
+    <nav className={styles.navbar_container}>
+      <SplitItemButton customClass="navbar__menu_icon">
+        <FiMenu className={styles.navbar__menu_icon} />
+      </SplitItemButton>
+      <ul className={styles.navbar__links_list_container}>
+        <NavbarItemRoot isCurrentPage={isHomePage}>
+          <NavbarItemLink to={routesPath.HOME}>
+            <IoStorefrontSharp />
+            Produtos
+          </NavbarItemLink>
+        </NavbarItemRoot>
+        <NavbarItemRoot isCurrentPage={isCarPage}>
+          <NavbarItemLink to={routesPath.CAR}>
+            <PiShoppingCartFill />
+            {cartProducts.length > 0 && <span className={styles.product_car_point}></span>}
+            Carrinho
+          </NavbarItemLink>
+        </NavbarItemRoot>
+        {userDatas ? (
+          <NavbarItemRoot isCurrentPage={isProfilerPage}>
+            <NavbarItemLink to={routesPath.USER_PROFILER}>
+              <FaUser />
+              Usuário
+            </NavbarItemLink>
+          </NavbarItemRoot>
+        ) : (
+          <>
+            <li className={styles.navbar__links__mobile_items}>
+              <NavbarItemRoot isCurrentPage={isLoginPage}>
+                <NavbarItemLink to={routesPath.USER_LOGIN}>
+                  <FaUser />
+                  Entrar
+                </NavbarItemLink>
+              </NavbarItemRoot>
+              <NavbarItemRoot isCurrentPage={isRegisterPage}>
+                <NavbarItemLink to={routesPath.USER_REGISTER}>
+                  <IoPersonAdd />
+                  Registrar-se
+                </NavbarItemLink>
+              </NavbarItemRoot>
+            </li>
+            <li className={styles.navbar__links_desktop_items}>
+              <SplitItemButton
+                customClass="navbar_user_header"
+                {...((isRegisterPage || isLoginPage) && { 'data-is-current': true })}>
+                <FaUser />
+                Usuário
+                <GoTriangleDown />
+              </SplitItemButton>
+              <SplitItemListContainer className={styles.navbar__links_desktop__model}>
+                <NavbarItemLink to={routesPath.USER_LOGIN}>Entrar</NavbarItemLink>
+                <NavbarItemLink to={routesPath.USER_REGISTER}>Registrar-se</NavbarItemLink>
+              </SplitItemListContainer>
+            </li>
+          </>
         )}
       </ul>
     </nav>

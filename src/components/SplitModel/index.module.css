@@ -1,0 +1,48 @@
+.split_item_button {
+  background-color: transparent;
+  font-size: 1rem;
+  color: var(--zinc-100);
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 0.3125rem;
+  gap: 8px;
+}
+
+.navbar_user_header {
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 0.25rem;
+    background-color: var(--primary-color);
+    transition: 0.4s ease-in-out;
+  }
+
+  &[data-is-current]::before {
+    width: 100%;
+  }
+
+  &:not([data-is-current]):hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.navbar__menu_icon {
+  display: none;
+}
+
+@media (width < 769px) {
+  .navbar_user_header {
+    display: none;
+  }
+
+  .navbar__menu_icon {
+    display: flex;
+  }
+}
