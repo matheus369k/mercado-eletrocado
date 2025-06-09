@@ -1,5 +1,7 @@
+import type { ProductIdType } from '@/@types/product';
+
 type priceDiscount = {
-  idProduct: number;
+  idProduct: ProductIdType;
   percentDiscount: number;
 };
 
@@ -7,7 +9,7 @@ export const generateRandomNumber = (limite: number) => {
   return Math.floor(Math.random() * limite);
 };
 
-export const calcDiscountOfProductPrice = (limite: number, price: number, id: number) => {
+export const calcDiscountOfProductPrice = (limite: number, price: number, id: ProductIdType) => {
   const percentsDiscountsCache: priceDiscount[] =
     JSON.parse(localStorage.getItem('percentDiscount')) || [];
 

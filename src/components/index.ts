@@ -10,4 +10,4 @@ export { Footer } from './Footer';
 export { Header } from './Header';
 export { Navbar } from './Navbar';
 export { Button } from './Button';
-export { Title } from './Title';
+export { TitleContent, TitleRoot } from './Title';

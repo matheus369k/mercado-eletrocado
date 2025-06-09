@@ -6,10 +6,9 @@ import { useRegister } from './hooks/useRegister';
 import { MdOutlinePlace } from 'react-icons/md';
 import { MdOutlineEmail } from 'react-icons/md';
 import { IoKeyOutline } from 'react-icons/io5';
-import { FaUserPlus } from 'react-icons/fa6';
 import { GoPeople } from 'react-icons/go';
 import styles from './index.module.css';
-import { Title } from '@/components';
+import { TitleContent } from '@/components';
 
 export const UserRegister = () => {
   const hookUseForm = useForm<UserRegisterType>({
@@ -24,10 +23,7 @@ export const UserRegister = () => {
 
   return (
     <div className={styles.register_container}>
-      <Title>
-        <FaUserPlus />
-        Registrar
-      </Title>
+      <TitleContent>Registrar</TitleContent>
       <FormProvider {...hookUseForm}>
         <form
           autoComplete="off"

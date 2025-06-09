@@ -5,9 +5,8 @@ import { Input, Label, Button } from '../components';
 import { MdOutlineEmail } from 'react-icons/md';
 import { IoKeyOutline } from 'react-icons/io5';
 import { useLogin } from './hooks/use-login';
-import { FaUser } from 'react-icons/fa';
 import styles from './index.module.css';
-import { Title } from '@/components';
+import { TitleContent } from '@/components';
 
 export const Login = () => {
   const hookUseForm = useForm<UserLogin>({
@@ -23,10 +22,7 @@ export const Login = () => {
 
   return (
     <div className={styles.login_container}>
-      <Title>
-        <FaUser />
-        Entrar
-      </Title>
+      <TitleContent>Entrar</TitleContent>
       <FormProvider {...hookUseForm}>
         <form onSubmit={handleSubmit(handleUserLogin)} className={styles.login_form}>
           <Label errors={errors.email?.message} htmlFor="email">

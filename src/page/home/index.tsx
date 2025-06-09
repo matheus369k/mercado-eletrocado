@@ -15,6 +15,7 @@ import {
   reducer,
 } from './reducer/products';
 import { searchParams } from '@/util/search-params';
+import { TitleContent, TitleRoot } from '@/components';
 
 export type CategoryTypes = 'notebook' | 'tablet' | 'phone' | 'all';
 
@@ -90,13 +91,13 @@ export const Home = () => {
 
   return (
     <section className={styles.home_container}>
-      <div className={styles.home__products_header_container}>
-        <h2>{ContentTitle}</h2>
+      <TitleRoot>
+        <TitleContent>{ContentTitle}</TitleContent>
         <CategoryFilter
           filter={stateProduct.category}
           handleUpdateProducts={handleUpdateProducts}
         />
-      </div>
+      </TitleRoot>
 
       {stateProduct.category !== 'all' && (
         <div className={styles.home__products_category_container}>

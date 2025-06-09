@@ -1,16 +1,11 @@
 import { addSelectProduct, removeSelectProduct } from '@/redux/product/slice';
 import { ProductAmountContext } from '../contexts/products-amount';
 import { addCartProducts } from '@/redux/cart/slice';
-import { ProductIdType } from '@/@types/product';
+import { SliceProductCartType } from '@/@types/product';
 import { appUseSelector } from '@/redux/hook';
 import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRedirect } from '@/hooks';
-
-type HandleBuyProductProps = {
-  id: ProductIdType;
-  price: number;
-};
 
 export const useProduct = () => {
   const { handleAddProduct, handleRemoveProduct, productsAmount, handleResetProducts } =
@@ -31,12 +26,11 @@ export const useProduct = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleBuyProduct = ({ id, price }: HandleBuyProductProps) => {
+  const handleBuyProduct = ({ data }: Omit<SliceProductCartType, 'quantity'>) => {
     dispatch(
       addCartProducts([
         {
-          id,
-          price,
+          data,
           quantity: productsAmount,
         },
       ]),

@@ -15,7 +15,7 @@ export const ProductInfoList = ({
   battery,
 }: ProductInfListProps) => {
   return (
-    <ul className={styles.product_info}>
+    <ul className={styles.product_info_container}>
       <ProductInfoItem label="Tela" info={screen} />
       <ProductInfoItem label="Processador" info={processor} />
       <ProductInfoItem label="Memoria" info={memory} />

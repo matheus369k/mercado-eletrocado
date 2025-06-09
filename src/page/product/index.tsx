@@ -33,7 +33,7 @@ export const ProductPage = () => {
               price={selected.price}
             />
             <FavoriteButton customClass="product_selected" id={selected.id} />
-            <BoyProductControls price={selected.price} id={selected.id} />
+            <BoyProductControls data={selected} />
           </div>
         </ProductsAmountProvider>
       )}

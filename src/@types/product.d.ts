@@ -1,8 +1,8 @@
-export type ProductIdType = number;
+export type ProductIdType = string;
 export type QuantityProductType = number;
 
 export interface ProductType {
-  id: number;
+  id: string;
   price: number;
   model: string;
   img: string;
@@ -16,7 +16,6 @@ export interface ProductType {
   memory: string;
   placeVideo?: string;
   battery?: string;
-  stock: number;
   category: string;
 }
 
@@ -35,6 +34,13 @@ export interface CategoryProductsType {
   phone: ProductType[];
 }
 
-export interface SliceProductCartAndEnvoyType extends Pick<ProductType, 'id' | 'price'> {
+export interface SliceProductCartType {
+  data: ProductType;
   quantity: number;
+}
+
+export interface SliceProductEnvoyType {
+  data: ProductType;
+  quantity: number;
+  arrival_at: string;
 }
