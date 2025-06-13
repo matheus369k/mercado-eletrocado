@@ -22,7 +22,7 @@ const cartReducer = createSlice({
   initialState,
   reducers: {
     addCartProducts: (state, action: PayloadAction<SliceProductCartType[]>) => {
-      const increaseCartProduct = [];
+      const increaseCartProduct: SliceProductCartType[] = [];
 
       for (const actionProduct of action.payload) {
         state.cartProducts.forEach((stateProduct) => {
@@ -54,7 +54,8 @@ const cartReducer = createSlice({
       }
 
       const calcTotalPrice = increaseCartProduct.reduce(
-        (previousValue, currentValue) => previousValue + currentValue.quantity * currentValue.price,
+        (previousValue, currentValue) =>
+          previousValue + currentValue.quantity * currentValue.data.price,
         0,
       );
 

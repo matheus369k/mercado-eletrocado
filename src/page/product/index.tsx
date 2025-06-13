@@ -32,7 +32,7 @@ export const ProductPage = () => {
               id={selected.id}
               price={selected.price}
             />
-            <FavoriteButton customClass="product_selected" id={selected.id} />
+            <FavoriteButton customClass="product_selected" {...selected} />
             <BoyProductControls data={selected} />
           </div>
         </ProductsAmountProvider>

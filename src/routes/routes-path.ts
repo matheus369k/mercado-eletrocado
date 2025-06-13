@@ -1,7 +1,7 @@
 export const routesPath = {
   HOME: '/mercado-eletrocado',
   CAR: '/mercado-eletrocado/car',
-  CHECKED_BUY: '/mercado-eletrocado/car/checkout',
+  CHECKED: '/mercado-eletrocado/car/checkout',
   USER: '/mercado-eletrocado/user',
   USER_PROFILER: '/mercado-eletrocado/user/profile',
   USER_LOGIN: '/mercado-eletrocado/user/login',

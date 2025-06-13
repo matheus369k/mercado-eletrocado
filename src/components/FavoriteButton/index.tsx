@@ -4,14 +4,12 @@ import styles from './index.module.css';
 import { TbHeartFilled } from 'react-icons/tb';
 import { CiHeart } from 'react-icons/ci';
 
-interface FavoriteButtonProps extends Pick<ProductType, 'id'> {
+interface FavoriteButtonProps extends ProductType {
   customClass?: string;
 }
 
-export const FavoriteButton = ({ id: productId, customClass }: FavoriteButtonProps) => {
-  const { handleAddRemoveFavoriteProductId, IsFavoriteProduct } = useFavoriteProduct({
-    id: productId,
-  });
+export const FavoriteButton = ({ customClass, ...data }: FavoriteButtonProps) => {
+  const { handleAddRemoveFavoriteProductId, IsFavoriteProduct } = useFavoriteProduct(data);
 
   return (
     <button

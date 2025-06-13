@@ -8,7 +8,7 @@ export const ProductCard = (product: ProductType) => {
 
   return (
     <div className={styles.home__product_card}>
-      <FavoriteButton id={product.id} />
+      <FavoriteButton {...product} />
       <img
         onClick={() => handleAddStoreProduct(product)}
         loading="lazy"

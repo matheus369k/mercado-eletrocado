@@ -15,9 +15,7 @@ export const ProductsSlider = ({
 }) => {
   const { cartProducts } = appUseSelector((state) => state.cart);
   const { envoyProducts } = appUseSelector((state) => state.envoy);
-
-  const selectedData = storeType === 'cart' ? cartProducts : envoyProducts;
-  const { dataProducts } = useGetProducts().handleEnvoyAndCartDatas(selectedData);
+  //const { dataProducts } = useGetProducts().handleEnvoyAndCartDatas(selectedData);
 
   const { handleNextSlider, handlePreviousSlider, handleSetSlider } = useSlide();
 

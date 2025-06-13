@@ -47,7 +47,7 @@
   .home__product_card {
     width: 10.625rem;
     height: 14.25rem;
-    padding: 2rem 0.5rem;
+    padding: 2rem 0;
 
     img {
       max-width: 5.625rem;

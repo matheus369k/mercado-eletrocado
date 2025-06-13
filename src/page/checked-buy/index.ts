@@ -1,1 +1,0 @@
-export { CheckedBuy } from './CheckedBuy';

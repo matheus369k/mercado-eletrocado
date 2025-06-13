@@ -1,51 +1,41 @@
-import { SliceProductCartAndEnvoyType } from '@/@types/product';
+import { SliceProductEnvoyType } from '@/@types/product';
+import { LOCAL_STORAGE_KEYS } from '@/util/const';
+import { browserStorageVariables } from '@/util/local-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type InitialStateType = SliceProductCartAndEnvoyType;
+type InitialStateProps = {
+  envoyProducts: SliceProductEnvoyType[];
+};
 
-const initialState: { envoyProducts: InitialStateType[] } = {
-  envoyProducts: [],
+const initialState: InitialStateProps = {
+  envoyProducts: browserStorageVariables.get(
+    browserStorageVariables.get(LOCAL_STORAGE_KEYS.ENVOY_PRODUCT),
+  ) || [
+    {
+      arrival_at: null,
+      payment_type: null,
+      products: [],
+    },
+  ],
 };
 
 const envoyReducer = createSlice({
   name: 'envoy',
   initialState,
   reducers: {
-    addEnvoyProducts: (state, action: PayloadAction<InitialStateType[]>) => {
-      const increaseEnvoyProduct = [];
+    addEnvoyProducts: (state, action: PayloadAction<Omit<SliceProductEnvoyType, 'arrival_at'>>) => {
+      const increaseEnvoyProduct: SliceProductEnvoyType = {
+        products: action.payload.products,
+        payment_type: action.payload.payment_type,
+        arrival_at: new Date().toISOString(),
+      };
 
-      for (const actionProduct of action.payload) {
-        state.envoyProducts.forEach((stateProduct) => {
-          if (stateProduct.id === actionProduct.id) {
-            increaseEnvoyProduct.push({
-              ...actionProduct,
-              quantity: stateProduct.quantity + actionProduct.quantity,
-            });
-          }
-        });
+      browserStorageVariables.add({
+        key: LOCAL_STORAGE_KEYS.ENVOY_PRODUCT,
+        value: JSON.stringify([...state.envoyProducts, increaseEnvoyProduct]),
+      });
 
-        const noHasActionProductEqualOnStorage = state.envoyProducts.every(
-          (stateProduct) => stateProduct.id !== actionProduct.id,
-        );
-
-        if (noHasActionProductEqualOnStorage) {
-          increaseEnvoyProduct.push(actionProduct);
-        }
-      }
-
-      for (const stateProduct of state.envoyProducts) {
-        const noHasStateProductEqualOnStorage = action.payload.every(
-          (actionProduct) => actionProduct.id !== stateProduct.id,
-        );
-
-        if (noHasStateProductEqualOnStorage) {
-          increaseEnvoyProduct.push(stateProduct);
-        }
-      }
-
-      localStorage.setItem('envoyProducts', JSON.stringify(increaseEnvoyProduct));
-
-      state.envoyProducts = increaseEnvoyProduct;
+      state.envoyProducts = [...state.envoyProducts, increaseEnvoyProduct];
     },
   },
 });

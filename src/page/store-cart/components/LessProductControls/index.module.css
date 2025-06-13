@@ -21,6 +21,12 @@
   }
 }
 
+@media (width < 549px) {
+  .btn_less_product {
+    padding: 0.25rem 0.5rem;
+  }
+}
+
 .control_count {
   width: 5rem;
   display: flex;

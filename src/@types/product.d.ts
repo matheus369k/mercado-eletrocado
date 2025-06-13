@@ -40,7 +40,7 @@ export interface SliceProductCartType {
 }
 
 export interface SliceProductEnvoyType {
-  data: ProductType;
-  quantity: number;
+  products: SliceProductCartType[];
   arrival_at: string;
+  payment_type: string;
 }

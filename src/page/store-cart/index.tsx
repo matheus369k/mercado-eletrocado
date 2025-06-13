@@ -6,13 +6,20 @@ import { ProductCard } from './components';
 import styles from './index.module.css';
 import Carousel from 'react-multi-carousel';
 import { routesPath } from '@/routes/routes-path';
+import 'react-multi-carousel/lib/styles.css';
 
 export const StoreCart = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
-  const { handleReplacePage } = useRedirect();
+  const { userDatas } = appUseSelector((state) => state.user);
+  const { handleTogglePage } = useRedirect();
 
   const handleRedirectionRoute = () => {
-    handleReplacePage({ pathName: routesPath.CHECKED_BUY });
+    if (!userDatas) {
+      handleTogglePage({ pathName: routesPath.CHECKED });
+      return;
+    }
+
+    handleTogglePage({ pathName: routesPath.USER_LOGIN });
   };
 
   const hasProductDatas = cartProducts.length > 0;

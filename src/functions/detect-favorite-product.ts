@@ -1,6 +1,8 @@
+import type { ProductIdType } from '@/@types/product';
+
 interface DetectFavoriteProductType {
-  id: number;
-  stateDatas: number[];
+  id: ProductIdType;
+  stateDatas: ProductIdType[];
 }
 
 export const detectFavoriteProduct = ({ id, stateDatas }: DetectFavoriteProductType) => {

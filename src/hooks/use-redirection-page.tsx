@@ -10,18 +10,17 @@ export const useRedirectionPage = () => {
 
   const dispatch = useDispatch();
 
-  const handleVerificationUserHasAccount = () => {
-    if (userDatas) return;
+  const VerificationUserHasNotAccount = () => {
+    if (userDatas) return false;
 
-    const pathName = document.cookie ? routesPath.USER_LOGIN : routesPath.USER_REGISTER;
-
-    handleTogglePage({ pathName });
+    handleTogglePage({ pathName: routesPath.USER_LOGIN });
     dispatch(removeSelectProduct());
+    return true;
   };
 
   const handleRedirectToCheckedBuy = () => {
     if (!userDatas) {
-      handleVerificationUserHasAccount();
+      VerificationUserHasNotAccount();
 
       return;
     }
@@ -30,7 +29,7 @@ export const useRedirectionPage = () => {
   };
 
   return {
-    handleVerificationUserHasAccount,
+    VerificationUserHasNotAccount,
     handleRedirectToCheckedBuy,
   };
 };

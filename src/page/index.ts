@@ -1,5 +1,5 @@
 export { Login, UserProfile, UserRegister } from './user';
-export { CheckedBuy } from './checked-buy';
+export { CheckedPage } from './checked';
 export { StoreCart } from './store-cart';
 export { ProductPage } from './product';
 export { Home } from './home';

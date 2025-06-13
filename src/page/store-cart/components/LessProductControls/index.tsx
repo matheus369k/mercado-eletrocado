@@ -1,5 +1,4 @@
 import { useProduct } from '../../hooks/use-less-product';
-import { PiShoppingCartFill } from 'react-icons/pi';
 import { ProductIdType } from '@/@types/product';
 import { FaMinus } from 'react-icons/fa6';
 import styles from './index.module.css';

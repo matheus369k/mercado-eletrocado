@@ -1,0 +1,132 @@
+.checkout__products_cards_sections {
+  grid-column: 2;
+  grid-row: 1/3;
+  width: 100%;
+
+  div.checkout__products_cards__container {
+    position: relative;
+    height: 550px;
+  }
+}
+
+@media (width < 849px) {
+  .checkout__products_cards_sections {
+    grid-column: 1;
+    grid-row: 2;
+
+    div.checkout__products_cards__container {
+      height: 330px;
+
+      &[data-product-quantity='2'] {
+        height: 220px;
+      }
+
+      &[data-product-quantity='1'] {
+        height: 110px;
+      }
+    }
+  }
+}
+
+.checkout__products_cards__controls_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+
+  button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0;
+    transition: all 0.5s;
+    border-radius: 35px;
+    z-index: 1000;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    min-width: 43px;
+    min-height: 43px;
+    opacity: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0;
+      z-index: -10;
+    }
+
+    &:first-of-type {
+      top: calc(4% + 1px);
+    }
+
+    &:last-of-type {
+      bottom: calc(4% + 1px);
+    }
+
+    svg {
+      font-size: 20px;
+      color: #fff;
+      z-index: 2;
+      position: relative;
+    }
+  }
+}
+
+div.checkout__products_cards__items {
+  display: grid;
+  grid-template-columns: 7.625rem 100%;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  gap: 1rem;
+
+  .checkout__products_cards__quantity {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--zinc-950);
+    position: absolute;
+    top: 1rem;
+    right: 0;
+  }
+
+  .checkout__products_cards__info {
+    position: absolute;
+    grid-column: 2;
+    font-size: 0.875rem;
+    max-width: 100%;
+
+    span {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    h3 {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+  }
+
+  img {
+    max-width: 7.625rem;
+    max-height: 7.625rem;
+    object-fit: content;
+    height: auto;
+    width: 100%;
+    grid-column: 1;
+  }
+}
