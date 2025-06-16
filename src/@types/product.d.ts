@@ -24,10 +24,6 @@ export interface ProductSelectedType {
   data: Omit<ProductType, 'id'>;
 }
 
-export interface ProductCartAndEnvoyType extends ProductSelectedType {
-  quantity: number;
-}
-
 export interface CategoryProductsType {
   notebook: ProductType[];
   tablet: ProductType[];
