@@ -1,3 +1,3 @@
-export { UserRegister } from './register/Register';
-export { UserProfile } from './profile/Profile';
-export { Login } from './login/Login';
+export { UserRegister } from './register';
+export { UserProfile } from './profiler';
+export { UserLogin } from './login';
