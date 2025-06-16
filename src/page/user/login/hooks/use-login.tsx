@@ -1,22 +1,35 @@
-import type { UserLogin } from '@/@types/user-schema';
+import type { UserLoginType } from '@/@types/user-schema';
 import { UseFormSetValue } from 'react-hook-form';
-import { routesPath } from '@/routes/routes-path';
-import { getCookies } from '@/functions';
+import { cookiesVariables } from '@/util/cookies';
+import { COOKIES_KEYS, BROWSER_STORAGE_KEYS, ROUTES_PATHNAMES } from '@/util/const';
+import { browserLocalStorage, browserSessionStorage } from '@/util/browser-storage';
+import { useRedirect } from '@/hooks';
 
-export const useLogin = (setValue: UseFormSetValue<UserLogin>) => {
+export const useLogin = (setValue: UseFormSetValue<UserLoginType>) => {
+  const { handleReplacePage } = useRedirect();
   const handleForgetPassword = () => {
-    console.log('Esqueceu a senha');
-    const { email, password }: UserLogin = getCookies();
-
+    const { email, password } = cookiesVariables.get(COOKIES_KEYS.USER_DATAS);
+    if (!email || !password) return;
     setValue('email', email);
     setValue('password', password);
   };
 
-  const handleUserLogin = (data: UserLogin) => {
-    localStorage.setItem('autLogin', 'true');
-    console.log(data);
+  const handleUserLogin = (data: UserLoginType) => {
+    if (data.auto_connection) {
+      browserSessionStorage.remove(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.AUTO_CONNECTION,
+        value: JSON.stringify({ auto_connection: data.auto_connection }),
+      });
+    } else {
+      browserLocalStorage.remove(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
+      browserSessionStorage.add({
+        key: BROWSER_STORAGE_KEYS.AUTO_CONNECTION,
+        value: JSON.stringify({ auto_connection: data.auto_connection }),
+      });
+    }
 
-    window.location.replace(routesPath.HOME);
+    handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
   };
 
   return {
