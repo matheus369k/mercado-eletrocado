@@ -1,12 +1,13 @@
 import { TitleRoot, TitleContent, Button } from '@/components';
-import ShredderIcon from '@/assets/Shredder.svg';
 import { appUseSelector } from '@/redux/hook';
 import { useRedirect } from '@/hooks';
 import { ProductCard } from './components';
 import styles from './index.module.css';
 import Carousel from 'react-multi-carousel';
-import { routesPath } from '@/routes/routes-path';
 import 'react-multi-carousel/lib/styles.css';
+import { Empty } from '@/components/Empty';
+import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
+import { ROUTES_PATHNAMES } from '@/util/const';
 
 export const StoreCart = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
@@ -14,29 +15,14 @@ export const StoreCart = () => {
   const { handleTogglePage } = useRedirect();
 
   const handleRedirectionRoute = () => {
-    if (!userDatas) {
-      handleTogglePage({ pathName: routesPath.CHECKED });
+    if (userDatas) {
+      handleTogglePage({ pathName: ROUTES_PATHNAMES.CHECKED });
       return;
     }
-
-    handleTogglePage({ pathName: routesPath.USER_LOGIN });
+    handleTogglePage({ pathName: ROUTES_PATHNAMES.USER_LOGIN });
   };
 
   const hasProductDatas = cartProducts.length > 0;
-  const CarouselResponsive = {
-    desktop: {
-      breakpoint: { min: 1024, max: 3000 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { min: 769, max: 1024 },
-      items: 3,
-    },
-    mobile: {
-      breakpoint: { min: 300, max: 769 },
-      items: 2,
-    },
-  };
 
   return (
     <div className={styles.cart_container}>
@@ -48,19 +34,16 @@ export const StoreCart = () => {
       </TitleRoot>
 
       {hasProductDatas && (
-        <Carousel responsive={CarouselResponsive} className={styles.cart_product_container}>
+        <Carousel
+          responsive={MultiCarouselHorizonResponsive}
+          className={styles.cart_product_container}>
           {cartProducts.map((product) => {
             return <ProductCard key={product.data.id} {...product} />;
           })}
         </Carousel>
       )}
 
-      {!hasProductDatas && (
-        <div className={styles.cart__empty_container}>
-          <img src={ShredderIcon} loading="lazy" alt="Um papel sendo triturado..." />
-          <p>Adicione produtos ao carrinho...</p>
-        </div>
-      )}
+      {!hasProductDatas && <Empty message="Adicione produtos ao carrinho..." />}
     </div>
   );
 };

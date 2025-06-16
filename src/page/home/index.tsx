@@ -6,7 +6,6 @@ import { useEffect, useReducer } from 'react';
 import type { CategoryProductsType, ProductType } from '@/@types/product';
 import { CATEGORY_PRODUCTS_TYPES } from '@/util/const';
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import styles from './index.module.css';
 import {
   initialReducerState,
@@ -16,6 +15,7 @@ import {
 } from './reducer/products';
 import { searchParams } from '@/util/search-params';
 import { TitleContent, TitleRoot } from '@/components';
+import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
 
 export type CategoryTypes = 'notebook' | 'tablet' | 'phone' | 'all';
 
@@ -74,20 +74,6 @@ export const Home = () => {
 
   const ContentTitle =
     stateProduct.category === 'all' ? 'Produtos' : CATEGORY_PRODUCTS_TYPES[stateProduct.category];
-  const CarouselResponsive = {
-    desktop: {
-      breakpoint: { min: 1024, max: 3000 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { min: 769, max: 1024 },
-      items: 3,
-    },
-    mobile: {
-      breakpoint: { min: 300, max: 769 },
-      items: 2,
-    },
-  };
 
   return (
     <section className={styles.home_container}>
@@ -125,7 +111,7 @@ export const Home = () => {
                   {productsEntries && (
                     <Carousel
                       className={styles.home__carousel_container}
-                      responsive={CarouselResponsive}
+                      responsive={MultiCarouselHorizonResponsive}
                       ssr={true}>
                       {(productsEntries as ProductType[]).map((product) => {
                         return <ProductCard key={product.id} {...product} />;
@@ -146,7 +132,7 @@ export const Home = () => {
                 <Carousel
                   className={styles.home__carousel_container}
                   arrows={false}
-                  responsive={CarouselResponsive}
+                  responsive={MultiCarouselHorizonResponsive}
                   ssr={true}>
                   {Array.from({ length: 8 }).map((_, index) => {
                     return (
