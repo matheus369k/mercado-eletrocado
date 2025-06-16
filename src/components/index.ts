@@ -1,9 +1,6 @@
-export { Advertisements } from './Advertisements';
 export { FavoriteButton } from './FavoriteButton';
 export { PriceStockInfo } from './PriceStockInfo';
-export { ProductsSlider } from './ProductsSlider';
 export { RequestError, ErrorBoundary, ErrorRoute } from './Errors';
-export { UserProfiler } from './UserProfiler';
 export { AlertMessage } from './AlertMessage';
 export { LogoDisplay } from './Logo';
 export { Footer } from './Footer';
