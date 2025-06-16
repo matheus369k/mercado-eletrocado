@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { ProductType, ProductIdType } from '@/@types/product';
-import { browserStorageVariables } from '@/util/local-storage';
-import { LOCAL_STORAGE_KEYS } from '@/util/const';
+import { browserLocalStorage } from '@/util/browser-storage';
+import { AUTO_CONNECTION, BROWSER_STORAGE_KEYS } from '@/util/const';
 
+const restoreFavoriteDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.FAVORITE_PRODUCT);
 const initialState: { favoriteProducts: ProductType[] } = {
-  favoriteProducts: browserStorageVariables.get(LOCAL_STORAGE_KEYS.FAVORITE_PRODUCT) || [],
+  favoriteProducts: AUTO_CONNECTION && restoreFavoriteDatas ? restoreFavoriteDatas : [],
 };
 
 const favoriteReducer = createSlice({
@@ -12,10 +13,10 @@ const favoriteReducer = createSlice({
   initialState,
   reducers: {
     addFavoriteProduct: (state, action: PayloadAction<ProductType>) => {
-      const increaseFavoriteProduct = state.favoriteProducts.concat(action.payload);
+      const increaseFavoriteProduct = [action.payload, ...state.favoriteProducts];
 
-      browserStorageVariables.add({
-        key: LOCAL_STORAGE_KEYS.FAVORITE_PRODUCT,
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.FAVORITE_PRODUCT,
         value: JSON.stringify(increaseFavoriteProduct),
       });
 
@@ -26,8 +27,8 @@ const favoriteReducer = createSlice({
         (product) => product.id !== action.payload,
       );
 
-      browserStorageVariables.add({
-        key: LOCAL_STORAGE_KEYS.FAVORITE_PRODUCT,
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.FAVORITE_PRODUCT,
         value: JSON.stringify(decrementFavoriteProduct),
       });
 

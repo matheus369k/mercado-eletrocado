@@ -1,6 +1,6 @@
 import { ProductType } from '@/@types/product';
-import { LOCAL_STORAGE_KEYS } from '@/util/const';
-import { browserStorageVariables } from '@/util/local-storage';
+import { BROWSER_STORAGE_KEYS } from '@/util/const';
+import { browserLocalStorage } from '@/util/browser-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialStateType = {
@@ -8,7 +8,7 @@ type InitialStateType = {
 };
 
 const initialState: InitialStateType = {
-  selected: browserStorageVariables.get(LOCAL_STORAGE_KEYS.SELECTED_PRODUCT),
+  selected: browserLocalStorage.get(BROWSER_STORAGE_KEYS.SELECTED_PRODUCT),
 };
 
 const productReducer = createSlice({
@@ -16,14 +16,14 @@ const productReducer = createSlice({
   initialState,
   reducers: {
     addSelectProduct: (state, action: PayloadAction<ProductType>) => {
-      browserStorageVariables.add({
-        key: LOCAL_STORAGE_KEYS.SELECTED_PRODUCT,
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.SELECTED_PRODUCT,
         value: JSON.stringify(action.payload),
       });
       state.selected = action.payload;
     },
     removeSelectProduct: (state) => {
-      browserStorageVariables.remove(LOCAL_STORAGE_KEYS.SELECTED_PRODUCT);
+      browserLocalStorage.remove(BROWSER_STORAGE_KEYS.SELECTED_PRODUCT);
       state.selected = initialState.selected;
     },
   },

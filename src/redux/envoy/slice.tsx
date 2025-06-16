@@ -1,22 +1,16 @@
+/* eslint-disable indent */
 import { SliceProductEnvoyType } from '@/@types/product';
-import { LOCAL_STORAGE_KEYS } from '@/util/const';
-import { browserStorageVariables } from '@/util/local-storage';
+import { AUTO_CONNECTION, BROWSER_STORAGE_KEYS } from '@/util/const';
+import { browserLocalStorage } from '@/util/browser-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialStateProps = {
   envoyProducts: SliceProductEnvoyType[];
 };
 
+const restoreEnvoyDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.ENVOY_PRODUCT);
 const initialState: InitialStateProps = {
-  envoyProducts: browserStorageVariables.get(
-    browserStorageVariables.get(LOCAL_STORAGE_KEYS.ENVOY_PRODUCT),
-  ) || [
-    {
-      arrival_at: null,
-      payment_type: null,
-      products: [],
-    },
-  ],
+  envoyProducts: AUTO_CONNECTION && restoreEnvoyDatas ? restoreEnvoyDatas : [],
 };
 
 const envoyReducer = createSlice({
@@ -24,18 +18,19 @@ const envoyReducer = createSlice({
   initialState,
   reducers: {
     addEnvoyProducts: (state, action: PayloadAction<Omit<SliceProductEnvoyType, 'arrival_at'>>) => {
+      const date = new Date();
       const increaseEnvoyProduct: SliceProductEnvoyType = {
         products: action.payload.products,
         payment_type: action.payload.payment_type,
-        arrival_at: new Date().toISOString(),
+        arrival_at: new Date(date.setTime(date.getTime() + 21 * 24 * 60 * 60 * 1000)).toISOString(),
       };
 
-      browserStorageVariables.add({
-        key: LOCAL_STORAGE_KEYS.ENVOY_PRODUCT,
-        value: JSON.stringify([...state.envoyProducts, increaseEnvoyProduct]),
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.ENVOY_PRODUCT,
+        value: JSON.stringify([increaseEnvoyProduct, ...state.envoyProducts]),
       });
 
-      state.envoyProducts = [...state.envoyProducts, increaseEnvoyProduct];
+      state.envoyProducts = [increaseEnvoyProduct, ...state.envoyProducts];
     },
   },
 });

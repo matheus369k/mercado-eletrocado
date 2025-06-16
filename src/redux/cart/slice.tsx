@@ -1,6 +1,7 @@
+/* eslint-disable indent */
 import { SliceProductCartType, ProductIdType } from '@/@types/product';
-import { LOCAL_STORAGE_KEYS } from '@/util/const';
-import { browserStorageVariables } from '@/util/local-storage';
+import { AUTO_CONNECTION, BROWSER_STORAGE_KEYS } from '@/util/const';
+import { browserLocalStorage } from '@/util/browser-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialStateType = {
@@ -12,10 +13,14 @@ type RemoveCartProductProps = Pick<SliceProductCartType, 'quantity'> & {
   id: ProductIdType;
 };
 
-const initialState: InitialStateType = {
-  cartProducts: browserStorageVariables.get(LOCAL_STORAGE_KEYS.CART_PRODUCT) || [],
-  totalPrice: 0,
-};
+const restoreCartDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.CART_PRODUCT);
+const initialState: InitialStateType =
+  AUTO_CONNECTION && restoreCartDatas
+    ? restoreCartDatas
+    : {
+        cartProducts: [],
+        totalPrice: 0,
+      };
 
 const cartReducer = createSlice({
   name: 'cart',
@@ -59,9 +64,12 @@ const cartReducer = createSlice({
         0,
       );
 
-      browserStorageVariables.add({
-        key: LOCAL_STORAGE_KEYS.CART_PRODUCT,
-        value: JSON.stringify(increaseCartProduct),
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.CART_PRODUCT,
+        value: JSON.stringify({
+          cartProducts: increaseCartProduct,
+          totalPrice: calcTotalPrice,
+        }),
       });
 
       state.cartProducts = increaseCartProduct;
@@ -87,16 +95,19 @@ const cartReducer = createSlice({
         0,
       );
 
-      browserStorageVariables.add({
-        key: LOCAL_STORAGE_KEYS.CART_PRODUCT,
-        value: JSON.stringify(decrementCartProducts),
+      browserLocalStorage.add({
+        key: BROWSER_STORAGE_KEYS.CART_PRODUCT,
+        value: JSON.stringify({
+          cartProducts: decrementCartProducts,
+          totalPrice: calcTotalPrice,
+        }),
       });
 
       state.cartProducts = decrementCartProducts;
       state.totalPrice = calcTotalPrice;
     },
     removeAllCartProducts: (state) => {
-      browserStorageVariables.remove(LOCAL_STORAGE_KEYS.CART_PRODUCT);
+      browserLocalStorage.remove(BROWSER_STORAGE_KEYS.CART_PRODUCT);
 
       state.cartProducts = initialState.cartProducts;
       state.totalPrice = initialState.totalPrice;
