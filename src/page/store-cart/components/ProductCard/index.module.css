@@ -5,19 +5,17 @@
   gap: 1rem;
   height: 17.6875rem;
   width: 15.5rem;
-  padding: 2rem 1rem;
+  padding: 1rem;
   position: relative;
   margin: auto;
 
   .cart__card_quantity {
     font-size: 1.25rem;
     font-weight: 600;
-    width: 3.125rem;
-    height: 3.125rem;
     color: var(--zinc-950);
     position: absolute;
     top: 1rem;
-    right: 0;
+    right: 1rem;
   }
 
   img {
@@ -59,7 +57,7 @@
   .cart__product_card {
     width: 10.625rem;
     height: 14.25rem;
-    padding: 2rem 0;
+    padding: 1rem 0;
 
     img {
       max-width: 5.625rem;

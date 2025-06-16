@@ -61,7 +61,7 @@
   }
 }
 
-@media (width < 769px) {
+@media (width < 669px) {
   .home__products_category_container {
     grid-template-columns: repeat(2, 1fr);
   }

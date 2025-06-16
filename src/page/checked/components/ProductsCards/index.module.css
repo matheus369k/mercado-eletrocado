@@ -105,7 +105,7 @@ div.checkout__products_cards__items {
     position: absolute;
     grid-column: 2;
     font-size: 0.875rem;
-    max-width: 100%;
+    width: 100%;
 
     span {
       font-size: 1.125rem;

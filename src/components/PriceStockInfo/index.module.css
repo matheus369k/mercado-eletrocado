@@ -83,6 +83,8 @@
   }
 }
 
+.product_checkout li,
+.product_user li,
 .product_store_cart li {
   &.old_price,
   &.plots {
