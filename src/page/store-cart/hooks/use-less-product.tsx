@@ -18,12 +18,10 @@ export const useProduct = () => {
     productsLessCount,
   } = useContext(ProductLessContext);
   const { handleAddStoreProduct } = useSelectProduct();
-
   const dispatch = useDispatch();
 
   const handleLessProduct = ({ id, quantity }: HandleLessProductProps) => {
     dispatch(removeCartProduct({ id, quantity }));
-
     handleResetProductsCount();
   };
 

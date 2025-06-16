@@ -8,11 +8,6 @@ import { Button } from '@/components';
 
 export const BoyProductControls = ({ data }: Omit<SliceProductCartType, 'quantity'>) => {
   const { handleAddProduct, handleBuyProduct, handleRemoveProduct, productsAmount } = useProduct();
-  //const { isStockEmpty } = useStockProduct().handleIsStockEmpty({ id });
-  //const { hasCartAllProductsOfStock } = useStockProduct().handleCartHasAllProductsOfStock({
-  //  id,
-  //  productsAmount,
-  //});
 
   return (
     <div className={styles.buy_controls_container}>

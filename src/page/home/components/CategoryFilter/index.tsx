@@ -2,7 +2,7 @@ import { IoFilterSharp } from 'react-icons/io5';
 import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import { CategoryButton } from './CategoryButton';
-import type { CategoryTypes } from '../../Home';
+import type { CategoryTypes } from '../../';
 
 interface CategoryFilterProps {
   handleUpdateProducts: (filter: string) => void;

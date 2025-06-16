@@ -22,7 +22,7 @@ export const SplitItemButton = ({ customClass = '', ...props }: SplitItemButtonP
       setIsOpenSlitModel(false);
     }
 
-    document.getElementById('split-items-container').childNodes.forEach((element) => {
+    document.getElementById('split-items-container')?.childNodes.forEach((element) => {
       element.addEventListener('click', () => {
         if (IsOpenSlitModel) {
           setIsOpenSlitModel(false);

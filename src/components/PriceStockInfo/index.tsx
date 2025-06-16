@@ -1,4 +1,4 @@
-import { calcDiscountOfProductPrice } from '@/functions';
+import { calcDiscountOfProductPrice } from '@/util/calc-discount';
 import { ProductType } from '@/@types/product';
 import styles from './index.module.css';
 

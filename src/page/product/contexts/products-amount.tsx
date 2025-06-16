@@ -14,13 +14,11 @@ export const ProductsAmountProvider = ({ children }: { children: React.ReactNode
 
   const handleAddProduct = () => {
     if (productsAmount === 9) return;
-
     setProductsAmount((state) => state + 1);
   };
 
   const handleRemoveProduct = () => {
     if (productsAmount === 1) return;
-
     setProductsAmount((state) => state - 1);
   };
 
