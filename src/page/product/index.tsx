@@ -1,5 +1,5 @@
 import { ProductsAmountProvider } from './contexts/products-amount';
-import { BoyProductControls, ProductInfoList, ProductPreviewSlide } from './components';
+import { BoyProductControls, ProductInfoItem, ProductPreviewSlide } from './components';
 import { appUseSelector } from '@/redux/hook';
 import { IoClose } from 'react-icons/io5';
 import { useProduct } from './hooks';
@@ -20,13 +20,17 @@ export const ProductPage = () => {
           <div className={styles.product__content}>
             <h3>{selected.model}</h3>
             <ProductPreviewSlide img={selected.img} model={selected.model} slide={selected.slide} />
-            <ProductInfoList
-              battery={selected.battery}
-              memory={selected.memory}
-              placeVideo={selected.placeVideo}
-              processor={selected.processor}
-              screen={selected.screen}
-            />
+
+            <ul className={styles.product_info_container}>
+              <ProductInfoItem label="Tela" info={selected.screen} />
+              <ProductInfoItem label="Processador" info={selected.processor} />
+              <ProductInfoItem label="Memoria" info={selected.memory} />
+              {selected.placeVideo ? (
+                <ProductInfoItem label="Placa de video" info={selected.placeVideo} />
+              ) : (
+                <ProductInfoItem label="Bateria" info={selected.battery} />
+              )}
+            </ul>
             <PriceStockInfo
               customClass="product_selected"
               id={selected.id}

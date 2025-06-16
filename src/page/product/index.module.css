@@ -48,6 +48,15 @@
   }
 }
 
+.product_info_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  grid-row: 2;
+  row-gap: 0.5rem;
+}
+
 @media (width < 1124px) {
   .product__content {
     box-shadow: none;
@@ -55,6 +64,10 @@
     flex-direction: column;
     margin-inline: auto;
     gap: 1rem;
+  }
+
+  .product_info_container {
+    align-self: flex-start;
   }
 }
 

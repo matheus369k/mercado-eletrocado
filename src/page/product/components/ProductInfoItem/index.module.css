@@ -1,0 +1,19 @@
+.product_info__items {
+  font-size: 1rem;
+  color: var(--zinc-950);
+
+  strong {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+  }
+}
+
+@media (width < 769px) {
+  .product_info__items li {
+    font-size: 0.9rem;
+
+    strong {
+      font-size: 1rem;
+    }
+  }
+}
