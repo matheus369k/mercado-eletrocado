@@ -3,7 +3,7 @@ import { ProductType } from '@/@types/product';
 import { appUseSelector } from '@/redux/hook';
 import { useDispatch } from 'react-redux';
 import { useRedirect } from '.';
-import { routesPath } from '@/routes/routes-path';
+import { ROUTES_PATHNAMES } from '@/util/const';
 
 export const useFavoriteProduct = (data: ProductType) => {
   const { favoriteProducts } = appUseSelector((state) => state.favorite);
@@ -16,7 +16,7 @@ export const useFavoriteProduct = (data: ProductType) => {
 
   const handleAddRemoveFavoriteProductId = () => {
     if (!userDatas) {
-      handleTogglePage({ pathName: routesPath.USER_LOGIN });
+      handleTogglePage({ pathName: ROUTES_PATHNAMES.USER_LOGIN });
       return;
     }
 
