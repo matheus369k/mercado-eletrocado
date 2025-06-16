@@ -3,12 +3,12 @@ import { useRedirect } from '@/hooks';
 import { addEnvoyProducts } from '@/redux/envoy/slice';
 import { removeAllCartProducts } from '@/redux/cart/slice';
 import { toast } from 'react-toastify';
-import { routesPath } from '@/routes/routes-path';
 import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import { useState } from 'react';
 import { Button } from '@/components';
 import { Title } from '../Title';
+import { ROUTES_PATHNAMES } from '@/util/const';
 
 type PaymentType = 'credit-card' | 'debit-card' | 'pix' | 'ticket';
 
@@ -24,7 +24,7 @@ export const FormPayment = () => {
     dispatch(addEnvoyProducts({ products: cartProducts, payment_type: payment }));
     dispatch(removeAllCartProducts());
     toast.success('Compra feita com sucesso');
-    handleTogglePage({ pathName: routesPath.HOME });
+    handleTogglePage({ pathName: ROUTES_PATHNAMES.HOME });
   };
 
   const handleAddPayment = (type: PaymentType) => {

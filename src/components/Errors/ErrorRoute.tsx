@@ -1,4 +1,4 @@
-import { routesPath } from '@/routes/routes-path';
+import { ROUTES_PATHNAMES } from '@/util/const';
 import styles from './index.module.css';
 import { useRedirect } from '@/hooks';
 
@@ -9,7 +9,7 @@ export const ErrorRoute = () => {
     sessionStorage.removeItem('statusFetchApi');
     localStorage.setItem('autLogin', 'false');
 
-    handleReplacePage({ pathName: routesPath.HOME });
+    handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
   };
 
   return (

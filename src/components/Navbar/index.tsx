@@ -1,7 +1,6 @@
 import { PiShoppingCartFill } from 'react-icons/pi';
 import { IoStorefrontSharp } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
-import { routesPath } from '@/routes/routes-path';
 import { appUseSelector } from '@/redux/hook';
 import styles from './index.module.css';
 import { NavbarItemLink, NavbarItemRoot } from './NavbarItem';
@@ -10,17 +9,18 @@ import { SplitItemButton, SplitItemListContainer } from '../SplitModel/SplitItem
 import { FaUser } from 'react-icons/fa6';
 import { IoPersonAdd } from 'react-icons/io5';
 import { FiMenu } from 'react-icons/fi';
+import { ROUTES_PATHNAMES } from '@/util/const';
 
 export const Navbar = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
   const { userDatas } = appUseSelector((state) => state.user);
   const { pathname } = useLocation();
 
-  const isHomePage = routesPath.HOME === pathname;
-  const isCarPage = pathname.includes(routesPath.CAR);
-  const isRegisterPage = pathname.includes(routesPath.USER_REGISTER);
-  const isLoginPage = pathname.includes(routesPath.USER_LOGIN);
-  const isProfilerPage = pathname.includes(routesPath.USER_PROFILER);
+  const isHomePage = ROUTES_PATHNAMES.HOME === pathname;
+  const isCarPage = pathname.includes(ROUTES_PATHNAMES.CAR);
+  const isRegisterPage = pathname.includes(ROUTES_PATHNAMES.USER_REGISTER);
+  const isLoginPage = pathname.includes(ROUTES_PATHNAMES.USER_LOGIN);
+  const isProfilerPage = pathname.includes(ROUTES_PATHNAMES.USER_PROFILER);
 
   return (
     <nav className={styles.navbar_container}>
@@ -29,13 +29,13 @@ export const Navbar = () => {
       </SplitItemButton>
       <ul className={styles.navbar__links_list_container}>
         <NavbarItemRoot isCurrentPage={isHomePage}>
-          <NavbarItemLink to={routesPath.HOME}>
+          <NavbarItemLink to={ROUTES_PATHNAMES.HOME}>
             <IoStorefrontSharp />
             Produtos
           </NavbarItemLink>
         </NavbarItemRoot>
         <NavbarItemRoot isCurrentPage={isCarPage}>
-          <NavbarItemLink to={routesPath.CAR}>
+          <NavbarItemLink to={ROUTES_PATHNAMES.CAR}>
             <PiShoppingCartFill />
             {cartProducts.length > 0 && <span className={styles.product_car_point}></span>}
             Carrinho
@@ -43,7 +43,7 @@ export const Navbar = () => {
         </NavbarItemRoot>
         {userDatas ? (
           <NavbarItemRoot isCurrentPage={isProfilerPage}>
-            <NavbarItemLink to={routesPath.USER_PROFILER}>
+            <NavbarItemLink to={ROUTES_PATHNAMES.USER_PROFILER}>
               <FaUser />
               Usuário
             </NavbarItemLink>
@@ -52,13 +52,13 @@ export const Navbar = () => {
           <>
             <div className={styles.navbar__links__mobile_items}>
               <NavbarItemRoot isCurrentPage={isLoginPage}>
-                <NavbarItemLink to={routesPath.USER_LOGIN}>
+                <NavbarItemLink to={ROUTES_PATHNAMES.USER_LOGIN}>
                   <FaUser />
                   Entrar
                 </NavbarItemLink>
               </NavbarItemRoot>
               <NavbarItemRoot isCurrentPage={isRegisterPage}>
-                <NavbarItemLink to={routesPath.USER_REGISTER}>
+                <NavbarItemLink to={ROUTES_PATHNAMES.USER_REGISTER}>
                   <IoPersonAdd />
                   Registrar-se
                 </NavbarItemLink>
@@ -73,8 +73,8 @@ export const Navbar = () => {
                 <GoTriangleDown />
               </SplitItemButton>
               <SplitItemListContainer className={styles.navbar__links_desktop__model}>
-                <NavbarItemLink to={routesPath.USER_LOGIN}>Entrar</NavbarItemLink>
-                <NavbarItemLink to={routesPath.USER_REGISTER}>Registrar-se</NavbarItemLink>
+                <NavbarItemLink to={ROUTES_PATHNAMES.USER_LOGIN}>Entrar</NavbarItemLink>
+                <NavbarItemLink to={ROUTES_PATHNAMES.USER_REGISTER}>Registrar-se</NavbarItemLink>
               </SplitItemListContainer>
             </li>
           </>
