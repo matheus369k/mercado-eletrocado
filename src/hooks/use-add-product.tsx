@@ -1,8 +1,8 @@
 import { addSelectProduct } from '@/redux/product/slice';
-import { routesPath } from '@/routes/routes-path';
 import { ProductType } from '@/@types/product';
 import { useRedirect } from './use-redirect';
 import { useDispatch } from 'react-redux';
+import { ROUTES_PATHNAMES } from '@/util/const';
 
 export const useSelectProduct = () => {
   const { handleTogglePage } = useRedirect();
@@ -10,7 +10,9 @@ export const useSelectProduct = () => {
 
   const handleAddStoreProduct = (product: ProductType) => {
     dispatch(addSelectProduct(product));
-    handleTogglePage({ pathName: routesPath.PRODUCT.replace(':productId', product.id.toString()) });
+    handleTogglePage({
+      pathName: ROUTES_PATHNAMES.PRODUCT.replace(':productId', product.id.toString()),
+    });
   };
 
   return {
