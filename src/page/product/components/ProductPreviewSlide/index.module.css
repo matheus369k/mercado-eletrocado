@@ -30,7 +30,7 @@
   grid-column: 1;
   grid-row: 1/5;
   display: grid;
-  grid-templete-columns: 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: 20rem 7rem;
   place-items: center;
   width: 100%;

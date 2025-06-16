@@ -89,8 +89,7 @@
     border: 1px solid var(--zinc-300);
     border-radius: 8px;
     color: var(--zinc-950);
-    font-wight: 700;
-    text-transform: capitalize;
+    font-weight: 700;
     position: absolute;
     top: 4rem;
     right: 0;
