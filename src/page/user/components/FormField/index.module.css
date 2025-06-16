@@ -1,0 +1,66 @@
+.form_field_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 14px;
+  padding-inline: 1rem;
+  outline: 1px solid var(--zinc-400);
+  background-color: transparent;
+  max-width: 37.5rem;
+  position: relative;
+
+  &:focus-within {
+    outline-color: var(--primary-color);
+
+    svg {
+      color: var(--primary-color);
+    }
+  }
+
+  &[data-error] {
+    outline-color: var(--wrong-color);
+
+    &::before {
+      content: attr(data-error);
+      font-size: 0.875rem;
+      color: var(--wrong-color);
+      position: absolute;
+      top: -1.25rem;
+      right: 0;
+      z-index: 50;
+    }
+
+    svg {
+      color: var(--wrong-color);
+    }
+  }
+
+  input {
+    padding-block: 0.875rem;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: transparent;
+    border-radius-top-left: 14px;
+    border-radius-bottom-left: 14px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+
+    &:placeholder {
+      color: var(--zinc-400);
+    }
+
+    &:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--zinc-400);
+  }
+}
