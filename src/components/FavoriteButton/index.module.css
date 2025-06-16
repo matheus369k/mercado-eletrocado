@@ -1,7 +1,7 @@
 .btn_favorite {
   position: absolute;
-  left: 1rem;
-  top: 1.5rem;
+  left: 0;
+  top: 0;
   background-color: transparent;
   width: min-content;
   height: min-content;
@@ -43,12 +43,6 @@
   }
 
   .user_profiler.btn_favorite {
-    left: 1.25rem;
-    top: 2.5rem;
-    margin-right: 0;
-  }
-
-  .user_profiler.btn_favorite svg {
     font-size: 1.6rem;
   }
 }

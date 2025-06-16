@@ -1,6 +1,7 @@
 .btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;
@@ -8,20 +9,30 @@
   border-radius: 4px;
   cursor: pointer;
   color: var(--zinc-100);
-  background: var(--gradient-btn-color);
+  background: var(--primary-color);
   width: fit-content;
   transition: 0.8s ease-in-out;
 
   &:hover {
-    background: var(--gradient-btn-color-hover);
+    background: var(--primary-color-hover);
   }
 
   &:disabled {
-    background: var(--gradient-btn-disabled-color);
+    background: var(--zinc-400);
     cursor: no-drop;
   }
 
   svg {
     font-size: 1.5rem;
   }
+}
+
+.btn_form {
+  padding-block: 1rem;
+  padding-inline: 0;
+  border-radius: 0.3125rem;
+  margin-top: 0.625rem;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }
