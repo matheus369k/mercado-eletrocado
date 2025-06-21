@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { CATEGORY_PRODUCTS_TYPES } from '@/util/const';
-import type { CategoryTypes, ReducerStateType } from '../';
+import type { CategoryTypes, ReducerStateType } from '../hook/use-products';
 import { searchParams } from '@/util/search-params';
 
 const REDUCER_ACTION_TYPES = {

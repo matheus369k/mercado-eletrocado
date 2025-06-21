@@ -16,7 +16,7 @@ export const ProductCard = (product: ProductType) => {
         alt={product.model}
       />
       <div className={styles.home__card_content}>
-        <PriceStockInfo id={product.id} price={product.price} />
+        <PriceStockInfo _id={product._id} price={product.price} />
         <h3>{product.model}</h3>
       </div>
     </div>

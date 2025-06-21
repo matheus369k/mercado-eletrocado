@@ -11,7 +11,7 @@ export const useSelectProduct = () => {
   const handleAddStoreProduct = (product: ProductType) => {
     dispatch(addSelectProduct(product));
     handleTogglePage({
-      pathName: ROUTES_PATHNAMES.PRODUCT.replace(':productId', product.id.toString()),
+      pathName: ROUTES_PATHNAMES.PRODUCT.replace(':productId', product._id.toString()),
     });
   };
 

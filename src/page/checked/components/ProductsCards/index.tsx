@@ -33,7 +33,7 @@ export const ProductsCards = () => {
         <Controls />
         {cartProducts.map((product) => {
           return (
-            <SwiperSlide className={styles.checkout__products_cards__items} key={product.data.id}>
+            <SwiperSlide className={styles.checkout__products_cards__items} key={product.data._id}>
               <img src={product.data.img} alt="" />
               {product.quantity > 0 && (
                 <span className={styles.checkout__products_cards__quantity}>
@@ -42,7 +42,7 @@ export const ProductsCards = () => {
               )}
               <div className={styles.checkout__products_cards__info}>
                 <PriceStockInfo
-                  id={product.data.id}
+                  _id={product.data._id}
                   price={product.data.price}
                   customClass="product_checkout"
                 />

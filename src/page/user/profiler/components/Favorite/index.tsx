@@ -16,7 +16,7 @@ export const FavoriteProducts = () => {
         <div className={styles.favorite__products}>
           {favoriteProducts.map((product) => {
             return (
-              <div key={product.id} className={`${styles.favorite__product__cards}`}>
+              <div key={product._id} className={`${styles.favorite__product__cards}`}>
                 <FavoriteButton customClass="user_profiler" {...product} />
                 <img
                   onClick={() => handleAddStoreProduct(product)}
@@ -25,7 +25,7 @@ export const FavoriteProducts = () => {
                 />
                 <div>
                   <PriceStockInfo
-                    id={product.id}
+                    _id={product._id}
                     price={product.price}
                     customClass="product_user"
                   />

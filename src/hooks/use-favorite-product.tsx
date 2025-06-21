@@ -10,7 +10,7 @@ export const useFavoriteProduct = (data: ProductType) => {
   const { userDatas } = appUseSelector((state) => state.user);
   const { handleTogglePage } = useRedirect();
   const IsFavoriteProduct = favoriteProducts.find((product) =>
-    product.id === data.id ? true : false,
+    product._id === data._id ? true : false,
   );
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ export const useFavoriteProduct = (data: ProductType) => {
     }
 
     if (IsFavoriteProduct) {
-      dispatch(removeFavoriteProduct(data.id));
+      dispatch(removeFavoriteProduct(data._id));
       return;
     }
 

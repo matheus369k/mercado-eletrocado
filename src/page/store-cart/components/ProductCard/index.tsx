@@ -14,9 +14,9 @@ export const ProductCard = ({ data, quantity }: SliceProductCartType) => {
         {quantity > 1 && <span className={styles.cart__card_quantity}>{quantity}X</span>}
         <img onClick={() => handleAddStoreProduct({ ...data })} src={data.img} alt={data.model} />
         <div className={styles.cart__card_content}>
-          <PriceStockInfo id={data.id} price={data.price} customClass="product_store_cart" />
+          <PriceStockInfo _id={data._id} price={data.price} customClass="product_store_cart" />
           <h3>{data.model}</h3>
-          <LessProductDisplay id={data.id} />
+          <LessProductDisplay _id={data._id} />
         </div>
       </div>
     </ProductsLessProvider>

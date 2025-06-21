@@ -2,12 +2,12 @@ import { calcDiscountOfProductPrice } from '@/util/calc-discount';
 import { ProductType } from '@/@types/product';
 import styles from './index.module.css';
 
-interface PriceStockInfoProps extends Pick<ProductType, 'price' | 'id'> {
+interface PriceStockInfoProps extends Pick<ProductType, 'price' | '_id'> {
   customClass?: string;
 }
 
-export const PriceStockInfo = ({ price, id, customClass }: PriceStockInfoProps) => {
-  const priceInfo = calcDiscountOfProductPrice(50, price, id);
+export const PriceStockInfo = ({ price, _id, customClass }: PriceStockInfoProps) => {
+  const priceInfo = calcDiscountOfProductPrice(50, price, _id);
 
   const priceWithoutDiscount = 'R$' + priceInfo.priceDiscount.toFixed(2);
   const priceWithDiscount = 'R$' + priceInfo.price.toFixed(2);

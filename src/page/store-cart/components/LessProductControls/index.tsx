@@ -4,9 +4,9 @@ import { FaMinus } from 'react-icons/fa6';
 import styles from './index.module.css';
 import { FaPlus } from 'react-icons/fa';
 
-type RenderButtonsProps = { id: ProductIdType };
+type RenderButtonsProps = { _id: ProductIdType };
 
-export const LessProductDisplay = ({ id }: RenderButtonsProps) => {
+export const LessProductDisplay = ({ _id }: RenderButtonsProps) => {
   const { handleAddProductCount, handleLessProduct, handleRemoveProductCount, productsLessCount } =
     useProduct();
 
@@ -15,7 +15,7 @@ export const LessProductDisplay = ({ id }: RenderButtonsProps) => {
       <div className={styles.control_count}>
         <button
           aria-label="Aumentar"
-          onClick={() => handleAddProductCount(id)}
+          onClick={() => handleAddProductCount(_id)}
           title="Aumentar contador"
           type="button">
           <FaPlus />
@@ -36,7 +36,7 @@ export const LessProductDisplay = ({ id }: RenderButtonsProps) => {
       <button
         aria-label="Remover produtos do carrinho"
         title="Remover produtos do carrinho"
-        onClick={() => handleLessProduct({ id, quantity: productsLessCount })}
+        onClick={() => handleLessProduct({ id: _id, quantity: productsLessCount })}
         className={`flex-center ${styles.btn_less_product}`}
         type="button"
         id="buy">

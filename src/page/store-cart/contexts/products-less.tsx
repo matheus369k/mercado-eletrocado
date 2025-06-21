@@ -15,7 +15,7 @@ export const ProductsLessProvider = ({ children }: { children: React.ReactNode }
   const { cartProducts } = appUseSelector((state) => state.cart);
 
   const handleAddProductCount = (id: string) => {
-    const { quantity } = cartProducts.find((product) => product.data.id === id);
+    const { quantity } = cartProducts.find((product) => product.data._id === id);
     if (quantity <= productsLessCount) return;
     if (productsLessCount === 9) return;
     setProductsLessCounts((state) => state + 1);

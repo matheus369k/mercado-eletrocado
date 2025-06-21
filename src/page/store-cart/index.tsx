@@ -38,7 +38,7 @@ export const StoreCart = () => {
           responsive={MultiCarouselHorizonResponsive}
           className={styles.cart_product_container}>
           {cartProducts.map((product) => {
-            return <ProductCard key={product.data.id} {...product} />;
+            return <ProductCard key={product.data._id} {...product} />;
           })}
         </Carousel>
       )}

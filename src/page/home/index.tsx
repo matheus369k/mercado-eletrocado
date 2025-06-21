@@ -1,77 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable indent */
-import { fetchProducts } from '@/lib/axios';
 import { ProductCard, CategoryFilter } from './components';
-import { useEffect, useReducer } from 'react';
-import type { CategoryProductsType, ProductType } from '@/@types/product';
+import type { ProductType } from '@/@types/product';
 import { CATEGORY_PRODUCTS_TYPES } from '@/util/const';
 import Carousel from 'react-multi-carousel';
 import styles from './index.module.css';
-import {
-  initialReducerState,
-  productCategoryUpdate,
-  productUpdate,
-  reducer,
-} from './reducer/products';
-import { searchParams } from '@/util/search-params';
 import { TitleContent, TitleRoot } from '@/components';
 import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
-
-export type CategoryTypes = 'notebook' | 'tablet' | 'phone' | 'all';
-
-export interface ReducerStateType {
-  category?: CategoryTypes;
-  products: CategoryProductsType | ProductType[];
-}
+import { useProducts } from './hook/use-products';
 
 export const Home = () => {
-  const [stateProduct, dispatch] = useReducer(
-    reducer,
-    {
-      category: 'all',
-      products: [],
-    } as ReducerStateType,
-    initialReducerState,
-  );
-
-  const fetchingProductsDatas = async () => {
-    try {
-      const response = await fetchProducts.get('products');
-      const data = await response.data;
-      return data;
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleUpdateProducts = async (filter: CategoryTypes) => {
-    searchParams.addSearchParam({
-      key: 'filter',
-      value: filter,
-    });
-
-    const data = await fetchingProductsDatas();
-
-    if (filter === 'all') {
-      dispatch(
-        productUpdate({
-          products: data as CategoryProductsType,
-        }),
-      );
-      return;
-    }
-    dispatch(
-      productCategoryUpdate({
-        products: data[filter] as ProductType[],
-        category: filter,
-      }),
-    );
-  };
-
-  useEffect(() => {
-    handleUpdateProducts(stateProduct.category);
-  }, []);
-
+  const { stateProduct, handleUpdateProducts } = useProducts();
   const ContentTitle =
     stateProduct.category === 'all' ? 'Produtos' : CATEGORY_PRODUCTS_TYPES[stateProduct.category];
 
@@ -87,9 +25,9 @@ export const Home = () => {
 
       {stateProduct.category !== 'all' && (
         <div className={styles.home__products_category_container}>
-          {stateProduct.products
+          {(stateProduct.products as ProductType[]).length > 0
             ? (stateProduct.products as ProductType[]).map((product) => {
-                return <ProductCard key={product.id} {...product} />;
+                return <ProductCard key={product._id} {...product} />;
               })
             : Array.from({ length: 8 }).map((_, index) => {
                 return (
@@ -100,7 +38,7 @@ export const Home = () => {
       )}
 
       {stateProduct.category === 'all' &&
-        (stateProduct.products ? (
+        (Object.keys(stateProduct.products).length ? (
           <>
             {Object.entries(stateProduct.products).map(([key, productsEntries]) => {
               return (
@@ -114,7 +52,7 @@ export const Home = () => {
                       responsive={MultiCarouselHorizonResponsive}
                       ssr={true}>
                       {(productsEntries as ProductType[]).map((product) => {
-                        return <ProductCard key={product.id} {...product} />;
+                        return <ProductCard key={product._id} {...product} />;
                       })}
                     </Carousel>
                   )}

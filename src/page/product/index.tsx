@@ -33,7 +33,7 @@ export const ProductPage = () => {
             </ul>
             <PriceStockInfo
               customClass="product_selected"
-              id={selected.id}
+              _id={selected._id}
               price={selected.price}
             />
             <FavoriteButton customClass="product_selected" {...selected} />

@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import styles from './index.module.css';
-import type { CategoryTypes } from '../../';
+import type { CategoryTypes } from '../../hook/use-products';
 
 interface CategoryButtonProps extends ComponentProps<'button'> {
   filter: CategoryTypes;

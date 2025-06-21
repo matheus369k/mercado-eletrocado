@@ -24,7 +24,7 @@ const favoriteReducer = createSlice({
     },
     removeFavoriteProduct: (state, action: PayloadAction<ProductIdType>) => {
       const decrementFavoriteProduct = state.favoriteProducts.filter(
-        (product) => product.id !== action.payload,
+        (product) => product._id !== action.payload,
       );
 
       browserLocalStorage.add({

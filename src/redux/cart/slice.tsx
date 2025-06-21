@@ -31,7 +31,7 @@ const cartReducer = createSlice({
 
       for (const actionProduct of action.payload) {
         state.cartProducts.forEach((stateProduct) => {
-          if (stateProduct.data.id === actionProduct.data.id) {
+          if (stateProduct.data._id === actionProduct.data._id) {
             increaseCartProduct.push({
               ...actionProduct,
               quantity: stateProduct.quantity + actionProduct.quantity,
@@ -40,7 +40,7 @@ const cartReducer = createSlice({
         });
 
         const noHasActionProductEqualOnStorage = state.cartProducts.every(
-          (stateProduct) => stateProduct.data.id !== actionProduct.data.id,
+          (stateProduct) => stateProduct.data._id !== actionProduct.data._id,
         );
 
         if (noHasActionProductEqualOnStorage) {
@@ -50,7 +50,7 @@ const cartReducer = createSlice({
 
       for (const stateProduct of state.cartProducts) {
         const noHasStateProductEqualOnStorage = action.payload.every(
-          (actionProduct) => actionProduct.data.id !== stateProduct.data.id,
+          (actionProduct) => actionProduct.data._id !== stateProduct.data._id,
         );
 
         if (noHasStateProductEqualOnStorage) {
@@ -78,7 +78,7 @@ const cartReducer = createSlice({
     removeCartProduct: (state, action: PayloadAction<RemoveCartProductProps>) => {
       const decrementCartProducts = state.cartProducts
         .map((product) => {
-          if (product.data.id === action.payload.id) {
+          if (product.data._id === action.payload.id) {
             return {
               ...product,
               quantity: product.quantity - action.payload.quantity,

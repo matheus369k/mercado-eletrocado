@@ -24,12 +24,12 @@ export const AUTO_CONNECTION =
   browserSessionStorage.get(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
 
 export const ROUTES_PATHNAMES = {
-  HOME: '/mercado-eletrocado',
-  CAR: '/mercado-eletrocado/car',
-  CHECKED: '/mercado-eletrocado/car/checkout',
-  USER: '/mercado-eletrocado/user',
-  USER_PROFILER: '/mercado-eletrocado/user/profile',
-  USER_LOGIN: '/mercado-eletrocado/user/login',
-  USER_REGISTER: '/mercado-eletrocado/user/register',
-  PRODUCT: '/mercado-eletrocado/product/:productId',
+  HOME: '/',
+  CAR: '/car',
+  CHECKED: '/car/checkout',
+  USER: '/user',
+  USER_PROFILER: '/user/profile',
+  USER_LOGIN: '/user/login',
+  USER_REGISTER: '/user/register',
+  PRODUCT: '/product/:productId',
 };

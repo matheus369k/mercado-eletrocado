@@ -2,7 +2,7 @@ export type ProductIdType = string;
 export type QuantityProductType = number;
 
 export interface ProductType {
-  id: string;
+  _id: string;
   price: number;
   model: string;
   img: string;
@@ -20,7 +20,7 @@ export interface ProductType {
 }
 
 export interface ProductSelectedType {
-  id: ProductIdType;
+  _id: ProductIdType;
   data: Omit<ProductType, 'id'>;
 }
 
