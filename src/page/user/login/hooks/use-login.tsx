@@ -15,6 +15,8 @@ export const useLogin = (setValue: UseFormSetValue<UserLoginType>) => {
   };
 
   const handleUserLogin = (data: UserLoginType) => {
+    const { email, password } = cookiesVariables.get(COOKIES_KEYS.USER_DATAS);
+    if (email !== data.email || password !== data.password) return;
     if (data.auto_connection) {
       browserSessionStorage.remove(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
       browserLocalStorage.add({

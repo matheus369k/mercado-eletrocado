@@ -96,7 +96,7 @@ export const UserRegister = () => {
               </label>
             </div>
             <Button type="submit" customClass="btn_form">
-              Regista-se
+              Registra-se
             </Button>
           </div>
         </form>
