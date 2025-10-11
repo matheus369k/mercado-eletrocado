@@ -1,8 +1,8 @@
-.home__category_container {
+.category_container {
   position: relative;
 }
 
-.home__category__icon__container {
+.icon_container {
   display: flex;
   place-items: center;
   position: absolute;
@@ -12,7 +12,7 @@
   z-index: -50;
 }
 
-.home__category__filters {
+.filters {
   height: max-content;
   display: flex;
   align-items: center;
@@ -40,12 +40,12 @@
 }
 
 @media (width < 549px) {
-  .home__category__icon__container {
+  .icon_container {
     position: relative;
     opacity: 1;
     z-index: 10;
 
-    .home__category__icon {
+    .icon {
       font-size: 2rem;
       color: var(--primary-color);
       cursor: pointer;
@@ -56,7 +56,7 @@
     }
   }
 
-  .home__category__filters {
+  .filters {
     flex-direction: column;
     position: absolute;
     right: 0;
@@ -107,7 +107,7 @@
 }
 
 @media (max-width: 500px) {
-  .home__category__filters {
+  .filters {
     font-size: 0.9rem;
   }
 }

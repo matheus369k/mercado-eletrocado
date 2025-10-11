@@ -30,11 +30,11 @@ export const CategoryFilter = ({ handleUpdateProducts, filter }: CategoryFilterP
   }, []);
 
   return (
-    <div className={styles.home__category_container}>
-      <i onClick={handleToggleModel} className={styles.home__category__icon__container}>
-        <IoFilterSharp className={styles.home__category__icon} />
+    <div className={styles.category_container}>
+      <i onClick={handleToggleModel} className={styles.icon_container}>
+        <IoFilterSharp className={styles.icon} />
       </i>
-      <div data-toggle-model={isToggleModel} className={styles.home__category__filters}>
+      <div data-toggle-model={isToggleModel} className={styles.filters}>
         <CategoryButton category="all" filter={filter} handleClick={handleManagerFilterModel}>
           Todos
         </CategoryButton>

@@ -24,15 +24,13 @@ export const Home = () => {
       </TitleRoot>
 
       {stateProduct.category !== 'all' && (
-        <div className={styles.home__products_category_container}>
+        <div className={styles.products_category_loader_container}>
           {(stateProduct.products as ProductType[]).length > 0
             ? (stateProduct.products as ProductType[]).map((product) => {
                 return <ProductCard key={product._id} {...product} />;
               })
             : Array.from({ length: 8 }).map((_, index) => {
-                return (
-                  <div key={index + '_id'} className={styles.home__product_category__loader_card} />
-                );
+                return <div key={index + '_id'} className={styles.loader_card} />;
               })}
         </div>
       )}
@@ -42,13 +40,11 @@ export const Home = () => {
           <>
             {Object.entries(stateProduct.products).map(([key, productsEntries]) => {
               return (
-                <div key={key} className={styles.home__products_main_container}>
-                  <h3 className={styles.home__products__category_title}>
-                    {CATEGORY_PRODUCTS_TYPES[key]}
-                  </h3>
+                <div key={key} className={styles.products_category_container}>
+                  <h3 className={styles.product_title}>{CATEGORY_PRODUCTS_TYPES[key]}</h3>
                   {productsEntries && (
                     <Carousel
-                      className={styles.home__carousel_container}
+                      className={styles.carousel_container}
                       responsive={MultiCarouselHorizonResponsive}
                       ssr={true}>
                       {(productsEntries as ProductType[]).map((product) => {
@@ -63,19 +59,15 @@ export const Home = () => {
         ) : (
           Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div key={index + '_category'} className={styles.home__products_main_container}>
-                <h3 className={styles.home__products__loader_category_title}>
-                  loading carrousel...
-                </h3>
+              <div key={index + '_category'} className={styles.products_category_container}>
+                <h3 className={styles.product_loader_title}>loading carrousel...</h3>
                 <Carousel
-                  className={styles.home__carousel_container}
+                  className={styles.carousel_container}
                   arrows={false}
                   responsive={MultiCarouselHorizonResponsive}
                   ssr={true}>
                   {Array.from({ length: 8 }).map((_, index) => {
-                    return (
-                      <div key={index + '_id'} className={styles.home__products__loader_card} />
-                    );
+                    return <div key={index + '_id'} className={styles.loader_card} />;
                   })}
                 </Carousel>
               </div>
