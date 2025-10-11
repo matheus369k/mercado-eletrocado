@@ -7,14 +7,33 @@ import styles from './index.module.css';
 import { TitleContent, TitleRoot } from '@/components';
 import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
 import { useProducts } from './hook/use-products';
+import { useEffect, useRef, useState, type ComponentRef } from 'react';
 
 export const Home = () => {
+  const pageRef = useRef<ComponentRef<'section'> | null>(null);
+  const [showArrow, setShowArrow] = useState(true);
   const { stateProduct, handleUpdateProducts } = useProducts();
   const ContentTitle =
     stateProduct.category === 'all' ? 'Produtos' : CATEGORY_PRODUCTS_TYPES[stateProduct.category];
 
+  const hiddenCarouselArrows = () => {
+    setTimeout(() => {
+      const isNotMobileMode = pageRef.current.clientWidth > 768;
+      setShowArrow(isNotMobileMode);
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', hiddenCarouselArrows);
+    hiddenCarouselArrows();
+
+    return () => {
+      window.removeEventListener('resize', hiddenCarouselArrows);
+    };
+  }, []);
+
   return (
-    <section className={styles.home_container}>
+    <section ref={pageRef} className={styles.home_container}>
       <TitleRoot>
         <TitleContent>{ContentTitle}</TitleContent>
         <CategoryFilter
@@ -46,7 +65,7 @@ export const Home = () => {
                     <Carousel
                       className={styles.carousel_container}
                       responsive={MultiCarouselHorizonResponsive}
-                      ssr={true}>
+                      arrows={showArrow}>
                       {(productsEntries as ProductType[]).map((product) => {
                         return <ProductCard key={product._id} {...product} />;
                       })}

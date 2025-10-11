@@ -1,4 +1,6 @@
-export const MultiCarouselHorizonResponsive = {
+import { ResponsiveType } from 'react-multi-carousel';
+
+export const MultiCarouselHorizonResponsive: ResponsiveType = {
   desktop: {
     breakpoint: { min: 1024, max: 3000 },
     items: 4,
