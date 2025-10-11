@@ -24,7 +24,7 @@ export const ProductPreviewSlide = ({ img, model, slide }: ProductPreviewSlidePr
         alt={model}
       />
 
-      <ul className={styles.pictures__slide_list}>
+      <ul className={styles.pictures_previews_list}>
         <ProductSlideItem
           handleSetNewPreviewImage={handleSetNewPreviewImage}
           mainImage={previewImage}

@@ -1,4 +1,4 @@
-.product_info__items {
+.product_descriptions_items {
   font-size: 1rem;
   color: var(--zinc-950);
 
@@ -9,7 +9,7 @@
 }
 
 @media (width < 769px) {
-  .product_info__items li {
+  .product_descriptions_items li {
     font-size: 0.9rem;
 
     strong {

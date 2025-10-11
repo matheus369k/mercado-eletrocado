@@ -10,18 +10,23 @@ export const ProductPage = () => {
   const { selected } = appUseSelector((state) => state.product);
   const { handleRemoveStoreProduct } = useProduct();
 
-  return (
-    <div className={styles.product_container}>
-      <i className={styles.product__icons_close_container} onClick={handleRemoveStoreProduct}>
-        <IoClose />
-      </i>
-      {selected && (
-        <ProductsAmountProvider>
-          <div className={styles.product__content}>
-            <h3>{selected.model}</h3>
-            <ProductPreviewSlide img={selected.img} model={selected.model} slide={selected.slide} />
+  if (!selected) return null;
 
-            <ul className={styles.product_info_container}>
+  return (
+    <ProductsAmountProvider>
+      <div className={styles.product_container}>
+        <i className={styles.icon_close_container} onClick={handleRemoveStoreProduct}>
+          <IoClose />
+        </i>
+        <div className={styles.product_content}>
+          <div className={styles.product_previews_container}>
+            <ProductPreviewSlide img={selected.img} model={selected.model} slide={selected.slide} />
+            <FavoriteButton customClass="product_selected" {...selected} />
+          </div>
+
+          <div className={styles.product_info_container}>
+            <h3>{selected.model}</h3>
+            <ul className={styles.product_descriptions_container}>
               <ProductInfoItem label="Tela" info={selected.screen} />
               <ProductInfoItem label="Processador" info={selected.processor} />
               <ProductInfoItem label="Memoria" info={selected.memory} />
@@ -36,11 +41,10 @@ export const ProductPage = () => {
               _id={selected._id}
               price={selected.price}
             />
-            <FavoriteButton customClass="product_selected" {...selected} />
             <BoyProductControls data={selected} />
           </div>
-        </ProductsAmountProvider>
-      )}
-    </div>
+        </div>
+      </div>
+    </ProductsAmountProvider>
   );
 };
