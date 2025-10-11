@@ -1,16 +1,17 @@
 :root {
   --primary-color: #155dfc;
-  --primary-color-hover: #0069d9;
+  --primary-color-hover: #005cbeff;
 
   --wrong-color: #ef4444;
 
   --bg-color: #020617;
 
   --zinc-950: #09090b;
-  --zinc-600: #52525b;
+  --zinc-600: #3f3f46;
   --zinc-400: #9f9fa9;
   --zinc-300: #d4d4d8;
   --zinc-100: #f4f4f5;
+  --zinc-50: #fafafa;
 
   --gradient-btn-color: linear-gradient(90deg, var(--primary-color), var(--primary-color-hover));
   --gradient-btn-color-hover: linear-gradient(
@@ -20,7 +21,7 @@
   );
   --gradient-btn-disabled-color: linear-gradient(90deg, var(--zinc-400), var(--zinc-300));
 
-  --text-green-color: rgb(0, 122, 2);
+  --text-green-color: #15803d;
 
   --bg-slide-button-color: rgba(0, 0, 0, 0.634);
   --shadow-color: rgba(0, 0, 0, 0.524);
