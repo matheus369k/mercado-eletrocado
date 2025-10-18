@@ -43,7 +43,7 @@ export const Home = () => {
       </TitleRoot>
 
       {stateProduct.category !== 'all' && (
-        <div className={styles.products_category_loader_container}>
+        <div className={styles.products_category_container}>
           {(stateProduct.products as ProductType[]).length > 0
             ? (stateProduct.products as ProductType[]).map((product) => {
                 return <ProductCard key={product._id} {...product} />;
@@ -59,7 +59,7 @@ export const Home = () => {
           <>
             {Object.entries(stateProduct.products).map(([key, productsEntries]) => {
               return (
-                <div key={key} className={styles.products_category_container}>
+                <div key={key} className={styles.products_category_all_container}>
                   <h3 className={styles.product_title}>{CATEGORY_PRODUCTS_TYPES[key]}</h3>
                   {productsEntries && (
                     <Carousel
@@ -78,7 +78,7 @@ export const Home = () => {
         ) : (
           Array.from({ length: 3 }).map((_, index) => {
             return (
-              <div key={index + '_category'} className={styles.products_category_container}>
+              <div key={index + '_category'} className={styles.products_category_loader_container}>
                 <h3 className={styles.product_loader_title}>loading carrousel...</h3>
                 <Carousel
                   className={styles.carousel_container}

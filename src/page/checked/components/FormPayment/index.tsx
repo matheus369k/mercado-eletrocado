@@ -33,43 +33,43 @@ export const FormPayment = () => {
 
   return (
     <form className={styles.form_container} onSubmit={handleSubmitPayment}>
-      <div className={styles.form__header_container}>
+      <div className={styles.description_container}>
         <Title>Forma de pagamento</Title>
         <span>Selecione abaixo a forma de pagamento.</span>
       </div>
 
-      <div className={styles.form__options_container}>
-        <div
-          className={styles.form__options__items}
-          onClick={() => handleAddPayment('credit-card')}>
+      <div className={styles.options_container}>
+        <div className={styles.options_items} onClick={() => handleAddPayment('credit-card')}>
           <input type="radio" name="payment_type" />
           Cart Credito
         </div>
-        <div className={styles.form__options__items} onClick={() => handleAddPayment('debit-card')}>
+        <div className={styles.options_items} onClick={() => handleAddPayment('debit-card')}>
           <input type="radio" name="payment_type" />
           Cart Debito
         </div>
-        <div className={styles.form__options__items} onClick={() => handleAddPayment('pix')}>
+        <div className={styles.options_items} onClick={() => handleAddPayment('pix')}>
           <input type="radio" name="payment_type" />
           Pix
         </div>
-        <div className={styles.form__options__items} onClick={() => handleAddPayment('ticket')}>
+        <div className={styles.options_items} onClick={() => handleAddPayment('ticket')}>
           <input type="radio" name="payment_type" />
           Boleto
         </div>
       </div>
 
-      <div className={styles.form__info_prices_container}>
-        <p className={styles.form__info_prices__items}>
+      <div className={styles.info_prices_container}>
+        <p className={styles.info_prices_items}>
+          <strong>Valor dos produtos:</strong>
+          R$ {totalPrice.toFixed(2)}
+        </p>
+
+        <p className={styles.info_prices_items}>
           <strong>Taxa de envio:</strong>
           R$ {TAX.toFixed(2)}
         </p>
-        <p className={styles.form__info_prices__items}>
-          <strong>Total dos produtos:</strong>
-          R$ {totalPrice.toFixed(2)}
-        </p>
-        <p className={styles.form__info_prices__items}>
-          <strong>Total final:</strong>
+
+        <p className={styles.info_prices_items}>
+          <strong>Valor final:</strong>
           R$ {(totalPrice + TAX).toFixed(2)}
         </p>
       </div>

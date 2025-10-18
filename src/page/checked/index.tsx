@@ -19,7 +19,7 @@ export const CheckedPage = () => {
       <TitleRoot>
         <TitleContent>Verificar compra</TitleContent>
         <i
-          className={styles.checkout__icon_close_container}
+          className={styles.icon_close_container}
           onClick={handleCloseCheckoutPage}
           aria-label="Voltar"
           title="Voltar">
@@ -27,19 +27,19 @@ export const CheckedPage = () => {
         </i>
       </TitleRoot>
 
-      <div className={styles.checkout__content}>
-        <div className={styles.checkout__content__info_user}>
+      <div className={styles.checkout_content}>
+        <div className={styles.info_user}>
           <Title>Informações do usuário</Title>
           <div>
-            <p className={styles.checkout__content__info_user__items}>
+            <p className={styles.info_user_items}>
               <strong>Nome:</strong>
               {userDatas?.full_name || 'desconhecido...'}
             </p>
-            <p className={styles.checkout__content__info_user__items}>
+            <p className={styles.info_user_items}>
               <strong>E-Mail:</strong>
               {userDatas?.email || 'desconhecido...'}
             </p>
-            <p className={styles.checkout__content__info_user__items}>
+            <p className={styles.info_user_items}>
               <strong>CEP:</strong>
               {userDatas?.cep || 'desconhecido...'}
             </p>

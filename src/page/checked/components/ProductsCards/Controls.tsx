@@ -37,7 +37,7 @@ export const Controls = () => {
   }, []);
 
   return (
-    <div className={styles.checkout__products_cards__controls_container}>
+    <div className={styles.cards_controls_container}>
       <button
         disabled={isSlide.first}
         type="button"
