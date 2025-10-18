@@ -11,6 +11,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { ErrorRoute } from '@/components';
 import { Layout } from '@/root/layout';
 import { ROUTES_PATHNAMES } from '@/util/const';
+import 'react-multi-carousel/lib/styles.css';
 
 export const routes = createBrowserRouter([
   {

@@ -8,6 +8,7 @@
   padding: 2rem 1rem;
   position: relative;
   margin: auto;
+  background-color: var(--zinc-50);
 
   img {
     max-width: 7.625rem;
@@ -47,7 +48,7 @@
   .product_card {
     width: 10.625rem;
     height: 14.25rem;
-    padding: 2rem 0;
+    padding: 2rem 0.5rem;
 
     img {
       max-width: 5.625rem;
