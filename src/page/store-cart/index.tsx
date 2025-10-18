@@ -3,10 +3,7 @@ import { appUseSelector } from '@/redux/hook';
 import { useRedirect } from '@/hooks';
 import { ProductCard } from './components';
 import styles from './index.module.css';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import { Empty } from '@/components/Empty';
-import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
 import { ROUTES_PATHNAMES } from '@/util/const';
 
 export const StoreCart = () => {
@@ -34,13 +31,11 @@ export const StoreCart = () => {
       </TitleRoot>
 
       {hasProductDatas && (
-        <Carousel
-          responsive={MultiCarouselHorizonResponsive}
-          className={styles.cart_product_container}>
+        <div className={styles.cart_product_container}>
           {cartProducts.map((product) => {
             return <ProductCard key={product.data._id} {...product} />;
           })}
-        </Carousel>
+        </div>
       )}
 
       {!hasProductDatas && <Empty message="Adicione produtos ao carrinho..." />}

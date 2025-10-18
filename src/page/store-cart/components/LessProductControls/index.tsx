@@ -2,7 +2,8 @@ import { useProduct } from '../../hooks/use-less-product';
 import { ProductIdType } from '@/@types/product';
 import { FaMinus } from 'react-icons/fa6';
 import styles from './index.module.css';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaTrashAlt } from 'react-icons/fa';
+import { FiTrash } from 'react-icons/fi';
 
 type RenderButtonsProps = { _id: ProductIdType };
 
@@ -38,9 +39,8 @@ export const LessProductDisplay = ({ _id }: RenderButtonsProps) => {
         title="Remover produtos do carrinho"
         onClick={() => handleLessProduct({ id: _id, quantity: productsLessCount })}
         className={`flex-center ${styles.btn_less_product}`}
-        type="button"
-        id="buy">
-        remover
+        type="button">
+        <FiTrash />
       </button>
     </div>
   );
