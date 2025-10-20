@@ -7,33 +7,14 @@ import styles from './index.module.css';
 import { TitleContent, TitleRoot } from '@/components';
 import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
 import { useProducts } from './hook/use-products';
-import { useEffect, useRef, useState, type ComponentRef } from 'react';
 
 export const Home = () => {
-  const pageRef = useRef<ComponentRef<'section'> | null>(null);
-  const [showArrow, setShowArrow] = useState(true);
   const { stateProduct, handleUpdateProducts } = useProducts();
   const ContentTitle =
     stateProduct.category === 'all' ? 'Produtos' : CATEGORY_PRODUCTS_TYPES[stateProduct.category];
 
-  const hiddenCarouselArrows = () => {
-    setTimeout(() => {
-      const isNotMobileMode = pageRef.current.clientWidth > 768;
-      setShowArrow(isNotMobileMode);
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', hiddenCarouselArrows);
-    hiddenCarouselArrows();
-
-    return () => {
-      window.removeEventListener('resize', hiddenCarouselArrows);
-    };
-  }, []);
-
   return (
-    <section ref={pageRef} className={styles.home_container}>
+    <section className={styles.home_container}>
       <TitleRoot>
         <TitleContent>{ContentTitle}</TitleContent>
         <CategoryFilter
@@ -65,7 +46,8 @@ export const Home = () => {
                     <Carousel
                       className={styles.carousel_container}
                       responsive={MultiCarouselHorizonResponsive}
-                      arrows={showArrow}>
+                      removeArrowOnDeviceType={['tablet', 'mobile_sm', 'mobile_lg', 'mobile']}
+                      partialVisible>
                       {(productsEntries as ProductType[]).map((product) => {
                         return <ProductCard key={product._id} {...product} />;
                       })}
@@ -82,9 +64,9 @@ export const Home = () => {
                 <h3 className={styles.product_loader_title}>loading carrousel...</h3>
                 <Carousel
                   className={styles.carousel_container}
+                  partialVisible
                   arrows={false}
-                  responsive={MultiCarouselHorizonResponsive}
-                  ssr={true}>
+                  responsive={MultiCarouselHorizonResponsive}>
                   {Array.from({ length: 8 }).map((_, index) => {
                     return <div key={index + '_id'} className={styles.loader_card} />;
                   })}
