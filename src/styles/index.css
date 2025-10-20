@@ -52,6 +52,15 @@
   background: var(--wrong-color) !important;
 }
 
+.react-multiple-carousel__arrow {
+  min-width: 32px;
+  min-height: 32px;
+
+  &::before {
+    font-size: 12px !important;
+  }
+}
+
 .main {
   min-height: calc(100dvh - 8rem);
   height: fit-content;
@@ -63,8 +72,9 @@
   padding: 2rem 1rem;
 }
 
-@media (max-width: 768px) {
-  html {
+@media (width < 768px) {
+  html,
+  body {
     font-size: 87.5%;
   }
 }
