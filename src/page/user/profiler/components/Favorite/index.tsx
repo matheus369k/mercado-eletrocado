@@ -13,10 +13,10 @@ export const FavoriteProducts = () => {
       {favoriteProducts.length === 0 && <Empty message="Adicione mais produtos aos favoritos..." />}
 
       {favoriteProducts.length > 0 && (
-        <div className={styles.favorite__products}>
+        <div className={styles.favorite_cards}>
           {favoriteProducts.map((product) => {
             return (
-              <div key={product._id} className={`${styles.favorite__product__cards}`}>
+              <div key={product._id} className={`${styles.cards_item}`}>
                 <FavoriteButton customClass="user_profiler" {...product} />
                 <img
                   onClick={() => handleAddStoreProduct(product)}
