@@ -3,9 +3,7 @@ import { appUseSelector } from '@/redux/hook';
 import { useSelectProduct } from '@/hooks';
 import { Empty } from '@/components/Empty';
 import { formatter } from '@/util/formatter';
-import Carousel from 'react-multi-carousel';
 import { PriceStockInfo } from '@/components';
-import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
 
 export const EnvoyProducts = () => {
   const { envoyProducts } = appUseSelector((state) => state.envoy);
@@ -15,51 +13,39 @@ export const EnvoyProducts = () => {
     <div className={styles.envoy_container}>
       {envoyProducts.length === 0 && <Empty message="Compre mais produtos..." />}
 
-      {envoyProducts.length > 0 &&
-        envoyProducts.map((datas) => {
-          const arrivalDateFormatter = formatter.dateDefault(datas.arrival_at);
-          const currentDateFormatter = formatter.dateDefault(new Date().toISOString());
-
-          return (
-            <div key={datas.arrival_at} className={styles.envoy__products_container}>
-              <div
-                className={styles.envoy__products__expect_arrive}
-                {...(arrivalDateFormatter >= currentDateFormatter && { 'data-delivered': true })}>
-                <p>Expectativa de entrega:</p>
-                <span>{arrivalDateFormatter}</span>
-              </div>
-
-              <Carousel
-                responsive={MultiCarouselHorizonResponsive}
-                className={styles.envoy__product__carousel}>
-                {datas.products.map((product) => {
-                  return (
-                    <div key={product.data._id} className={styles.envoy__product__card}>
-                      <img
-                        onClick={() => handleAddStoreProduct(product.data)}
-                        src={product.data.img}
-                        alt={product.data.model}
+      {envoyProducts.length > 0 && (
+        <div className={styles.envoy_cards}>
+          {envoyProducts.map((datas) => {
+            return datas.products.map((product) => {
+              return Array.from({ length: product.quantity }).map((_, index) => {
+                return (
+                  <div key={product.data._id + index} className={styles.cards_item}>
+                    <img
+                      onClick={() => handleAddStoreProduct(product.data)}
+                      src={product.data.img}
+                      alt={product.data.model}
+                    />
+                    <div>
+                      <PriceStockInfo
+                        _id={product.data._id}
+                        price={product.data.price}
+                        customClass="product_user"
                       />
-                      {product.quantity > 0 && (
-                        <span className={styles.envoy__product__card__quantity}>
-                          {product.quantity}X
-                        </span>
-                      )}
-                      <div>
-                        <PriceStockInfo
-                          _id={product.data._id}
-                          price={product.data.price}
-                          customClass="product_user"
-                        />
-                        <h3>{product.data.model}</h3>
-                      </div>
+                      <h3>{product.data.model}</h3>
+                      <span className={styles.delivery_info}>
+                        Expectativa de entrega{' '}
+                        {new Intl.DateTimeFormat('pt-br', { dateStyle: 'medium' }).format(
+                          new Date(datas.arrival_at),
+                        )}
+                      </span>
                     </div>
-                  );
-                })}
-              </Carousel>
-            </div>
-          );
-        })}
+                  </div>
+                );
+              });
+            });
+          })}
+        </div>
+      )}
     </div>
   );
 };
