@@ -5,7 +5,7 @@ import { MdLockOutline, MdOutlineEmail } from 'react-icons/md';
 import { useLogin } from './hooks/use-login';
 import styles from './index.module.css';
 import { Button, TitleContent, TitleRoot } from '@/components';
-import { FormFieldInput, FormFieldRoot } from '../components';
+import { FormFieldInput, FormFieldRoot } from '@/components';
 
 export const UserLogin = () => {
   const hookUseForm = useForm<UserLoginType>({

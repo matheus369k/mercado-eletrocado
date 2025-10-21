@@ -1,12 +1,4 @@
-import {
-  UserLogin,
-  UserProfile,
-  UserRegister,
-  StoreCart,
-  CheckedPage,
-  Home,
-  ProductPage,
-} from '@/page';
+import * as Page from '@/page';
 import { createBrowserRouter } from 'react-router-dom';
 import { ErrorRoute } from '@/components';
 import { Layout } from '@/root/layout';
@@ -19,13 +11,13 @@ export const routes = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorRoute />,
     children: [
-      { path: ROUTES_PATHNAMES.HOME, element: <Home /> },
-      { path: ROUTES_PATHNAMES.CAR, element: <StoreCart /> },
-      { path: ROUTES_PATHNAMES.CHECKED, element: <CheckedPage /> },
-      { path: ROUTES_PATHNAMES.USER_PROFILER, element: <UserProfile /> },
-      { path: ROUTES_PATHNAMES.USER_LOGIN, element: <UserLogin /> },
-      { path: ROUTES_PATHNAMES.USER_REGISTER, element: <UserRegister /> },
-      { path: ROUTES_PATHNAMES.PRODUCT, element: <ProductPage /> },
+      { path: ROUTES_PATHNAMES.HOME, element: <Page.Home /> },
+      { path: ROUTES_PATHNAMES.CAR, element: <Page.StoreCart /> },
+      { path: ROUTES_PATHNAMES.CHECKED, element: <Page.CheckedPage /> },
+      { path: ROUTES_PATHNAMES.USER_PROFILER, element: <Page.UserProfile /> },
+      { path: ROUTES_PATHNAMES.USER_LOGIN, element: <Page.UserLogin /> },
+      { path: ROUTES_PATHNAMES.USER_REGISTER, element: <Page.UserRegister /> },
+      { path: ROUTES_PATHNAMES.PRODUCT, element: <Page.ProductPage /> },
     ],
   },
 ]);

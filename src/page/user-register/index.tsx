@@ -3,12 +3,11 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRegister } from './hooks/useRegister';
 import styles from './index.module.css';
-import { TitleContent, TitleRoot, Button } from '@/components';
+import { TitleContent, TitleRoot, Button, FormFieldInput, FormFieldRoot } from '@/components';
 import { MdOutlineEmail } from 'react-icons/md';
 import { GoPeople } from 'react-icons/go';
 import { MdLockOutline } from 'react-icons/md';
 import { MdOutlineLocationOn } from 'react-icons/md';
-import { FormFieldInput, FormFieldRoot } from '../components';
 
 export const UserRegister = () => {
   const { handleRegisterUserForm } = useRegister();
