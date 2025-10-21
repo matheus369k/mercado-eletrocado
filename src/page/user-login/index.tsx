@@ -25,7 +25,7 @@ export const UserLogin = () => {
         <TitleContent>Entrar</TitleContent>
       </TitleRoot>
       <FormProvider {...hookUseForm}>
-        <form onSubmit={handleSubmit(handleUserLogin)} className={styles.login__form}>
+        <form onSubmit={handleSubmit(handleUserLogin)} className={styles.form_container}>
           <FormFieldRoot {...(errors.email && { 'data-error': errors.email.message })}>
             <FormFieldInput
               aria-label="email"
@@ -48,12 +48,12 @@ export const UserLogin = () => {
             <MdLockOutline />
           </FormFieldRoot>
 
-          <div className={styles.login__form__contract_container}>
+          <div className={styles.options_container}>
             <div>
               <FormFieldInput aria-label="auto connection" type="checkbox" name="auto_connection" />
               <p>Manter-me conectado(a)</p>
             </div>
-            <span onClick={handleForgetPassword} className={styles.login__form__forget_pass}>
+            <span onClick={handleForgetPassword} className={styles.forget_pass}>
               Esqueceu a senha?
             </span>
             <Button type="submit" customClass="btn_form">

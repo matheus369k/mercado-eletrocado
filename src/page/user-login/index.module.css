@@ -4,32 +4,33 @@
   flex-direction: column;
 }
 
-.login__form {
+.form_container {
   display: flex;
   flex-direction: column;
   max-width: 37.5rem;
   width: 100%;
   margin: 0 auto;
   padding-top: 3.75rem;
-  row-gap: 2rem;
+  row-gap: 1.5rem;
 }
 
-.login__form__contract_container {
+.options_container {
   display: flex;
   flex-direction: column;
+  margin-top: 2rem;
 
   div {
     display: flex;
     gap: 0.5rem;
 
     p {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       font-weight: 500;
     }
   }
 }
 
-.login__form__forget_pass {
+.forget_pass {
   color: gray;
   font-weight: bold;
   margin-top: 10px;
