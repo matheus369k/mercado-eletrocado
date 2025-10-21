@@ -29,7 +29,7 @@ export const UserRegister = () => {
         <form
           autoComplete="off"
           onSubmit={handleSubmit(handleRegisterUserForm)}
-          className={styles.register__form_container}>
+          className={styles.form_container}>
           <FormFieldRoot {...(errors.full_name && { 'data-error': errors.full_name.message })}>
             <FormFieldInput
               aria-label="full name"
@@ -74,7 +74,7 @@ export const UserRegister = () => {
             <MdOutlineLocationOn />
           </FormFieldRoot>
 
-          <div className={styles.register__form__contract_options_container}>
+          <div className={styles.contract_options_container}>
             <div>
               <FormFieldInput aria-label="auto connection" type="checkbox" name="auto_connection" />
               <label htmlFor="auto_connection">Manter-me conectado(a)</label>

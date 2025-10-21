@@ -22,10 +22,10 @@
 
     &::before {
       content: attr(data-error);
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: var(--wrong-color);
       position: absolute;
-      top: -1.25rem;
+      top: -1rem;
       right: 0;
       z-index: 50;
     }

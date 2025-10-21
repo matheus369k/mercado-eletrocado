@@ -2,19 +2,20 @@
   padding-bottom: 3.125rem;
 }
 
-.register__form_container {
+.form_container {
   display: flex;
   flex-direction: column;
   max-width: 37.5rem;
   margin: 0 auto;
   padding-top: 3.75rem;
-  row-gap: 2rem;
+  row-gap: 1.5rem;
 }
 
-.register__form__contract_options_container {
+.contract_options_container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 2rem;
 
   div {
     display: flex;
