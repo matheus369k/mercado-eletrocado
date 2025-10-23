@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { ProductType, ProductIdType } from '@/@types/product';
 import { browserLocalStorage } from '@/util/browser-storage';
-import { AUTO_CONNECTION, BROWSER_STORAGE_KEYS } from '@/util/const';
+import { BROWSER_STORAGE_KEYS, COOKIES_KEYS } from '@/util/const';
+import cookies from 'js-cookie';
 
 const restoreFavoriteDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.FAVORITE_PRODUCT);
+const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
 const initialState: { favoriteProducts: ProductType[] } = {
-  favoriteProducts: AUTO_CONNECTION && restoreFavoriteDatas ? restoreFavoriteDatas : [],
+  favoriteProducts: authorizationToken && restoreFavoriteDatas ? restoreFavoriteDatas : [],
 };
 
 const favoriteReducer = createSlice({

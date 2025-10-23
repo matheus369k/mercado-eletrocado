@@ -5,14 +5,15 @@ import { ProductCard } from './components';
 import styles from './index.module.css';
 import { Empty } from '@/components/Empty';
 import { ROUTES_PATHNAMES } from '@/util/const';
+import { useProfileAccount } from '@/http/use-profile-account';
 
 export const StoreCart = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
-  const { userDatas } = appUseSelector((state) => state.user);
+  const hasAuthorization = useProfileAccount().isSuccess;
   const { handleTogglePage } = useRedirect();
 
   const handleRedirectionRoute = () => {
-    if (userDatas) {
+    if (hasAuthorization) {
       handleTogglePage({ pathName: ROUTES_PATHNAMES.CHECKED });
       return;
     }

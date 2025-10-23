@@ -2,13 +2,13 @@ import { TitleContent, TitleRoot } from '@/components';
 import { ProfileSettings, EnvoyProducts, FavoriteProducts } from './components';
 import styles from './index.module.css';
 import { IoPersonCircleSharp } from 'react-icons/io5';
-import { appUseSelector } from '@/redux/hook';
 import { useState } from 'react';
+import { useProfileAccount } from '@/http/use-profile-account';
 
 type SelectedSectionType = 'favorite' | 'envoy';
 
 export const UserProfile = () => {
-  const { userDatas } = appUseSelector((state) => state.user);
+  const userAccount = useProfileAccount().data;
   const [selectedSection, setSelectedSection] = useState<SelectedSectionType>('favorite');
 
   const handleSelectSectionToView = (type: SelectedSectionType) => {
@@ -28,16 +28,16 @@ export const UserProfile = () => {
             <IoPersonCircleSharp className={styles.user__content__profiler_picture} />
           </div>
           <p className={styles.user__content__info_user__items}>
-            <strong>Nome:</strong>
-            {userDatas?.full_name || 'desconhecido...'}
+            <strong>Nome: </strong>
+            {userAccount?.name || 'desconhecido...'}
           </p>
           <p className={styles.user__content__info_user__items}>
-            <strong>E-Mail:</strong>
-            {userDatas?.email || 'desconhecido...'}
+            <strong>E-Mail: </strong>
+            {userAccount?.email || 'desconhecido...'}
           </p>
           <p className={styles.user__content__info_user__items}>
-            <strong>CEP:</strong>
-            {userDatas?.cep || 'desconhecido...'}
+            <strong>CEP: </strong>
+            {userAccount?.cep || 'desconhecido...'}
           </p>
         </div>
 

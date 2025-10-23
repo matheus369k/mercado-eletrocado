@@ -4,10 +4,11 @@ import { appUseSelector } from '@/redux/hook';
 import { useDispatch } from 'react-redux';
 import { useRedirect } from '.';
 import { ROUTES_PATHNAMES } from '@/util/const';
+import { useProfileAccount } from '@/http/use-profile-account';
 
 export const useFavoriteProduct = (data: ProductType) => {
   const { favoriteProducts } = appUseSelector((state) => state.favorite);
-  const { userDatas } = appUseSelector((state) => state.user);
+  const notHasAuthorization = useProfileAccount().isError;
   const { handleTogglePage } = useRedirect();
   const IsFavoriteProduct = favoriteProducts.find((product) =>
     product._id === data._id ? true : false,
@@ -15,7 +16,7 @@ export const useFavoriteProduct = (data: ProductType) => {
   const dispatch = useDispatch();
 
   const handleAddRemoveFavoriteProductId = () => {
-    if (!userDatas) {
+    if (notHasAuthorization) {
       handleTogglePage({ pathName: ROUTES_PATHNAMES.USER_LOGIN });
       return;
     }

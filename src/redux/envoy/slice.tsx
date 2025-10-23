@@ -1,16 +1,18 @@
 /* eslint-disable indent */
 import { SliceProductEnvoyType } from '@/@types/product';
-import { AUTO_CONNECTION, BROWSER_STORAGE_KEYS } from '@/util/const';
+import { BROWSER_STORAGE_KEYS, COOKIES_KEYS } from '@/util/const';
 import { browserLocalStorage } from '@/util/browser-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import cookies from 'js-cookie';
 
 type InitialStateProps = {
   envoyProducts: SliceProductEnvoyType[];
 };
 
 const restoreEnvoyDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.ENVOY_PRODUCT);
+const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
 const initialState: InitialStateProps = {
-  envoyProducts: AUTO_CONNECTION && restoreEnvoyDatas ? restoreEnvoyDatas : [],
+  envoyProducts: authorizationToken && restoreEnvoyDatas ? restoreEnvoyDatas : [],
 };
 
 const envoyReducer = createSlice({

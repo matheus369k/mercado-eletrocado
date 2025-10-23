@@ -3,7 +3,6 @@ import favoriteReducer from './favorite/slice';
 import productReducer from './product/slice';
 import envoyReducer from './envoy/slice';
 import cartReducer from './cart/slice';
-import userReducer from './user/slice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +10,6 @@ export const store = configureStore({
     product: productReducer,
     envoy: envoyReducer,
     cart: cartReducer,
-    user: userReducer,
   },
 });
 

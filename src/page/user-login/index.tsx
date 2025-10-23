@@ -14,10 +14,9 @@ export const UserLogin = () => {
 
   const {
     handleSubmit,
-    setValue,
     formState: { errors },
   } = hookUseForm;
-  const { handleForgetPassword, handleUserLogin } = useLogin(setValue);
+  const { handleUserLogin } = useLogin();
 
   return (
     <div className={styles.login_container}>
@@ -53,7 +52,9 @@ export const UserLogin = () => {
               <FormFieldInput aria-label="auto connection" type="checkbox" name="auto_connection" />
               <p>Manter-me conectado(a)</p>
             </div>
-            <span onClick={handleForgetPassword} className={styles.forget_pass}>
+            <span
+              onClick={() => window.alert('Função não implementada...')}
+              className={styles.forget_pass}>
               Esqueceu a senha?
             </span>
             <Button type="submit" customClass="btn_form">

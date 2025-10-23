@@ -1,41 +1,29 @@
 import type { UserLoginType } from '@/@types/user-schema';
-import { UseFormSetValue } from 'react-hook-form';
-import { cookiesVariables } from '@/util/cookies';
-import { COOKIES_KEYS, BROWSER_STORAGE_KEYS, ROUTES_PATHNAMES } from '@/util/const';
-import { browserLocalStorage, browserSessionStorage } from '@/util/browser-storage';
+import { COOKIES_KEYS, ROUTES_PATHNAMES } from '@/util/const';
 import { useRedirect } from '@/hooks';
+import { useLoginAccount } from '../http/use-login-account';
+import cookies from 'js-cookie';
 
-export const useLogin = (setValue: UseFormSetValue<UserLoginType>) => {
+export const useLogin = () => {
+  const { mutateAsync: userLoginAccount } = useLoginAccount();
   const { handleReplacePage } = useRedirect();
-  const handleForgetPassword = () => {
-    const { email, password } = cookiesVariables.get(COOKIES_KEYS.USER_DATAS);
-    if (!email || !password) return;
-    setValue('email', email);
-    setValue('password', password);
-  };
 
-  const handleUserLogin = (data: UserLoginType) => {
-    const { email, password } = cookiesVariables.get(COOKIES_KEYS.USER_DATAS);
-    if (email !== data.email || password !== data.password) return;
-    if (data.auto_connection) {
-      browserSessionStorage.remove(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
-      browserLocalStorage.add({
-        key: BROWSER_STORAGE_KEYS.AUTO_CONNECTION,
-        value: JSON.stringify({ auto_connection: data.auto_connection }),
-      });
-    } else {
-      browserLocalStorage.remove(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
-      browserSessionStorage.add({
-        key: BROWSER_STORAGE_KEYS.AUTO_CONNECTION,
-        value: JSON.stringify({ auto_connection: data.auto_connection }),
-      });
+  const handleUserLogin = async (data: UserLoginType) => {
+    const { auto_connection, email, password } = data;
+    const result = await userLoginAccount({
+      auto_connection,
+      email,
+      password,
+    });
+    if (!result) {
+      throw new Error('Error try login user account');
     }
+    cookies.set(COOKIES_KEYS.AUTHORIZATION_TOKEN, result.token);
 
     handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
   };
 
   return {
     handleUserLogin,
-    handleForgetPassword,
   };
 };

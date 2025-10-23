@@ -1,20 +1,27 @@
 import { BROWSER_STORAGE_KEYS, COOKIES_KEYS, ROUTES_PATHNAMES } from '@/util/const';
-import { browserLocalStorage, browserSessionStorage } from '@/util/browser-storage';
-import { cookiesVariables } from '@/util/cookies';
 import { useRedirect } from '@/hooks';
+import cookies from 'js-cookie';
+import { useDeleteAccount } from '@/page/user-profile/http/use-delete-account';
+import { browserLocalStorage } from '@/util/browser-storage';
 
 export const useConfigsProfile = () => {
+  const { mutateAsync: userDeleteAccount } = useDeleteAccount();
   const { handleReplacePage } = useRedirect();
 
-  const handleDeleteAccount = () => {
-    browserLocalStorage.removeAll();
-    browserSessionStorage.removeAll();
-    cookiesVariables.delete(COOKIES_KEYS.USER_DATAS);
-    handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
+  const handleDeleteAccount = async () => {
+    try {
+      await userDeleteAccount();
+
+      browserLocalStorage.removeAll();
+      cookies.remove(COOKIES_KEYS.AUTHORIZATION_TOKEN);
+      handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleLogOut = () => {
-    browserLocalStorage.remove(BROWSER_STORAGE_KEYS.AUTO_CONNECTION);
+    cookies.remove(COOKIES_KEYS.AUTHORIZATION_TOKEN);
     handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
   };
 

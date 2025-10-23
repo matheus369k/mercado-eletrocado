@@ -1,6 +1,6 @@
 import { PiShoppingCartFill } from 'react-icons/pi';
 import { IoStorefrontSharp } from 'react-icons/io5';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { appUseSelector } from '@/redux/hook';
 import styles from './index.module.css';
 import { NavbarItemLink, NavbarItemRoot } from './NavbarItem';
@@ -9,11 +9,15 @@ import { SplitItemButton, SplitItemListContainer } from '../SplitModel/SplitItem
 import { FaUser } from 'react-icons/fa6';
 import { IoPersonAdd } from 'react-icons/io5';
 import { FiMenu } from 'react-icons/fi';
-import { ROUTES_PATHNAMES } from '@/util/const';
+import { COOKIES_KEYS, ROUTES_PATHNAMES } from '@/util/const';
+import { useProfileAccount } from '@/http/use-profile-account';
+import cookies from 'js-cookie';
+import { useRedirect } from '@/hooks';
 
 export const Navbar = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
-  const { userDatas } = appUseSelector((state) => state.user);
+  const profileAuthorization = useProfileAccount();
+  const { handleReplacePage } = useRedirect();
   const { pathname } = useLocation();
 
   const isHomePage = ROUTES_PATHNAMES.HOME === pathname;
@@ -21,6 +25,11 @@ export const Navbar = () => {
   const isRegisterPage = pathname.includes(ROUTES_PATHNAMES.USER_REGISTER);
   const isLoginPage = pathname.includes(ROUTES_PATHNAMES.USER_LOGIN);
   const isProfilerPage = pathname.includes(ROUTES_PATHNAMES.USER_PROFILER);
+
+  if (profileAuthorization.isError && isProfilerPage) {
+    cookies.remove(COOKIES_KEYS.AUTHORIZATION_TOKEN);
+    handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
+  }
 
   return (
     <nav className={styles.navbar_container}>
@@ -41,7 +50,7 @@ export const Navbar = () => {
             Carrinho
           </NavbarItemLink>
         </NavbarItemRoot>
-        {userDatas ? (
+        {profileAuthorization.isSuccess ? (
           <NavbarItemRoot isCurrentPage={isProfilerPage}>
             <NavbarItemLink to={ROUTES_PATHNAMES.USER_PROFILER}>
               <FaUser />

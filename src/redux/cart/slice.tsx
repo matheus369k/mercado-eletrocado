@@ -1,8 +1,9 @@
 /* eslint-disable indent */
 import { SliceProductCartType, ProductIdType } from '@/@types/product';
-import { AUTO_CONNECTION, BROWSER_STORAGE_KEYS } from '@/util/const';
+import { BROWSER_STORAGE_KEYS, COOKIES_KEYS } from '@/util/const';
 import { browserLocalStorage } from '@/util/browser-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import cookies from 'js-cookie';
 
 type InitialStateType = {
   cartProducts: SliceProductCartType[];
@@ -14,8 +15,9 @@ type RemoveCartProductProps = Pick<SliceProductCartType, 'quantity'> & {
 };
 
 const restoreCartDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.CART_PRODUCT);
+const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
 const initialState: InitialStateType =
-  AUTO_CONNECTION && restoreCartDatas
+  authorizationToken && restoreCartDatas
     ? restoreCartDatas
     : {
         cartProducts: [],

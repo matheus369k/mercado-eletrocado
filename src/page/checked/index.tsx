@@ -2,13 +2,13 @@ import { FormPayment, Title, ProductsCards } from './components';
 import { IoClose } from 'react-icons/io5';
 import { useRedirect } from '@/hooks';
 import { TitleContent, TitleRoot } from '@/components';
-import { appUseSelector } from '@/redux/hook';
 import styles from './index.module.css';
 import { ROUTES_PATHNAMES } from '@/util/const';
+import { useProfileAccount } from '@/http/use-profile-account';
 
 export const CheckedPage = () => {
   const { handleTogglePage } = useRedirect();
-  const { userDatas } = appUseSelector((state) => state.user);
+  const userAccount = useProfileAccount().data;
 
   const handleCloseCheckoutPage = () => {
     handleTogglePage({ pathName: ROUTES_PATHNAMES.CAR });
@@ -33,15 +33,15 @@ export const CheckedPage = () => {
           <div>
             <p className={styles.info_user_items}>
               <strong>Nome:</strong>
-              {userDatas?.full_name || 'desconhecido...'}
+              {userAccount?.name || 'desconhecido...'}
             </p>
             <p className={styles.info_user_items}>
               <strong>E-Mail:</strong>
-              {userDatas?.email || 'desconhecido...'}
+              {userAccount?.email || 'desconhecido...'}
             </p>
             <p className={styles.info_user_items}>
               <strong>CEP:</strong>
-              {userDatas?.cep || 'desconhecido...'}
+              {userAccount?.cep || 'desconhecido...'}
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { UserRegisterType, zodSchemaUserRegister } from '@/@types/user-schema';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRegister } from './hooks/useRegister';
+import { useRegister } from './hooks/use-register';
 import styles from './index.module.css';
 import { TitleContent, TitleRoot, Button, FormFieldInput, FormFieldRoot } from '@/components';
 import { MdOutlineEmail } from 'react-icons/md';
