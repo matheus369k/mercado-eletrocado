@@ -24,7 +24,7 @@ export interface ProductSelectedType {
   data: Omit<ProductType, 'id'>;
 }
 
-export interface CategoryProductsType {
+export interface AllProductsType {
   notebook: ProductType[];
   tablet: ProductType[];
   phone: ProductType[];

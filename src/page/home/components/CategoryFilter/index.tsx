@@ -5,11 +5,11 @@ import { CategoryButton } from './CategoryButton';
 import type { CategoryTypes } from '../../hook/use-products';
 
 interface CategoryFilterProps {
-  handleUpdateProducts: (filter: string) => void;
+  handleUpdateFilter: (filter: string) => void;
   filter: CategoryTypes;
 }
 
-export const CategoryFilter = ({ handleUpdateProducts, filter }: CategoryFilterProps) => {
+export const CategoryFilter = ({ handleUpdateFilter, filter }: CategoryFilterProps) => {
   const [isToggleModel, setIsToggleModel] = useState(false);
 
   const handleToggleModel = () => {
@@ -17,7 +17,7 @@ export const CategoryFilter = ({ handleUpdateProducts, filter }: CategoryFilterP
   };
 
   const handleManagerFilterModel = (category: string) => {
-    handleUpdateProducts(category);
+    handleUpdateFilter(category);
     handleToggleModel();
   };
 

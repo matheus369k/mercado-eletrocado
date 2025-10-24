@@ -6,75 +6,78 @@ import Carousel from 'react-multi-carousel';
 import styles from './index.module.css';
 import { TitleContent, TitleRoot } from '@/components';
 import { MultiCarouselHorizonResponsive } from '@/lib/mult-carousel';
-import { useProducts } from './hook/use-products';
+import { useProductsCategories } from './hook/use-products';
+import { useProducts } from './http/use-products';
 
 export const Home = () => {
-  const { stateProduct, handleUpdateProducts } = useProducts();
-  const ContentTitle =
-    stateProduct.category === 'all' ? 'Produtos' : CATEGORY_PRODUCTS_TYPES[stateProduct.category];
+  const { category, handleUpdateFilter } = useProductsCategories();
+  const ContentTitle = category === 'all' ? 'Produtos' : CATEGORY_PRODUCTS_TYPES[category];
+  const { data: products, isFetched, isFetching } = useProducts(category);
 
+  const showingAllProducts = category === 'all' && isFetched;
+  const showingLoaderAllProducts = category === 'all' && isFetching;
+  const showingCategoryProducts = category !== 'all' && isFetched;
+  const showingLoaderCategoryProducts = category !== 'all' && isFetching;
   return (
     <section className={styles.home_container}>
       <TitleRoot>
         <TitleContent>{ContentTitle}</TitleContent>
-        <CategoryFilter
-          filter={stateProduct.category}
-          handleUpdateProducts={handleUpdateProducts}
-        />
+        <CategoryFilter filter={category} handleUpdateFilter={handleUpdateFilter} />
       </TitleRoot>
 
-      {stateProduct.category !== 'all' && (
+      {showingCategoryProducts && (
         <div className={styles.products_category_container}>
-          {(stateProduct.products as ProductType[]).length > 0
-            ? (stateProduct.products as ProductType[]).map((product) => {
-                return <ProductCard key={product._id} {...product} />;
-              })
-            : Array.from({ length: 8 }).map((_, index) => {
-                return <div key={index + '_id'} className={styles.loader_card} />;
-              })}
+          {(products as ProductType[]).map((product) => {
+            return <ProductCard key={product._id} {...product} />;
+          })}
         </div>
       )}
 
-      {stateProduct.category === 'all' &&
-        (Object.keys(stateProduct.products).length ? (
-          <>
-            {Object.entries(stateProduct.products).map(([key, productsEntries]) => {
-              return (
-                <div key={key} className={styles.products_category_all_container}>
-                  <h3 className={styles.product_title}>{CATEGORY_PRODUCTS_TYPES[key]}</h3>
-                  {productsEntries && (
-                    <Carousel
-                      className={styles.carousel_container}
-                      responsive={MultiCarouselHorizonResponsive}
-                      removeArrowOnDeviceType={['tablet', 'mobile_sm', 'mobile_lg', 'mobile']}
-                      partialVisible>
-                      {(productsEntries as ProductType[]).map((product) => {
-                        return <ProductCard key={product._id} {...product} />;
-                      })}
-                    </Carousel>
-                  )}
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          Array.from({ length: 3 }).map((_, index) => {
-            return (
-              <div key={index + '_category'} className={styles.products_category_loader_container}>
-                <h3 className={styles.product_loader_title}>loading carrousel...</h3>
+      {showingLoaderCategoryProducts && (
+        <div className={styles.products_category_container}>
+          {Array.from({ length: 8 }).map((_, index) => {
+            return <div key={index + '_id'} className={styles.loader_card} />;
+          })}
+        </div>
+      )}
+
+      {showingAllProducts &&
+        Object.entries(products).map(([key, productsEntries]) => {
+          return (
+            <div key={key} className={styles.products_category_all_container}>
+              <h3 className={styles.product_title}>{CATEGORY_PRODUCTS_TYPES[key]}</h3>
+              {productsEntries && (
                 <Carousel
                   className={styles.carousel_container}
-                  partialVisible
-                  arrows={false}
-                  responsive={MultiCarouselHorizonResponsive}>
-                  {Array.from({ length: 8 }).map((_, index) => {
-                    return <div key={index + '_id'} className={styles.loader_card} />;
+                  responsive={MultiCarouselHorizonResponsive}
+                  removeArrowOnDeviceType={['tablet', 'mobile_sm', 'mobile_lg', 'mobile']}
+                  partialVisible>
+                  {(productsEntries as ProductType[]).map((product) => {
+                    return <ProductCard key={product._id} {...product} />;
                   })}
                 </Carousel>
-              </div>
-            );
-          })
-        ))}
+              )}
+            </div>
+          );
+        })}
+
+      {showingLoaderAllProducts &&
+        Array.from({ length: 3 }).map((_, index) => {
+          return (
+            <div key={index + '_category'} className={styles.products_category_loader_container}>
+              <h3 className={styles.product_loader_title}>loading carrousel...</h3>
+              <Carousel
+                className={styles.carousel_container}
+                partialVisible
+                arrows={false}
+                responsive={MultiCarouselHorizonResponsive}>
+                {Array.from({ length: 8 }).map((_, index) => {
+                  return <div key={index + '_id'} className={styles.loader_card} />;
+                })}
+              </Carousel>
+            </div>
+          );
+        })}
     </section>
   );
 };
