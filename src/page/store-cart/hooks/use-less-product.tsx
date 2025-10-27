@@ -2,7 +2,6 @@ import { ProductIdType, QuantityProductType } from '@/@types/product';
 import { ProductLessContext } from '../contexts/products-less';
 import { removeCartProduct } from '@/redux/cart/slice';
 import { useDispatch } from 'react-redux';
-import { useSelectProduct } from '@/hooks/';
 import { useContext } from 'react';
 
 type HandleLessProductProps = {
@@ -17,7 +16,6 @@ export const useProduct = () => {
     handleResetProductsCount,
     productsLessCount,
   } = useContext(ProductLessContext);
-  const { handleAddStoreProduct } = useSelectProduct();
   const dispatch = useDispatch();
 
   const handleLessProduct = ({ id, quantity }: HandleLessProductProps) => {
@@ -26,7 +24,6 @@ export const useProduct = () => {
   };
 
   return {
-    handleAddStoreProduct,
     handleLessProduct,
     handleAddProductCount,
     handleRemoveProductCount,

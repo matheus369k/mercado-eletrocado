@@ -5,9 +5,11 @@ import { Controls } from './Controls';
 import styles from './index.module.css';
 import 'swiper/css';
 import { PriceStockInfo } from '@/components';
+import { useRedirect } from '@/hooks';
 
 export const ProductsCards = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
+  const { handleRedirectionToProduct } = useRedirect();
   const SliderSetting: SwiperProps = {
     slidesPerView: 4,
     className: styles.products_cards_container,
@@ -31,7 +33,11 @@ export const ProductsCards = () => {
         {cartProducts.map((product) => {
           return (
             <SwiperSlide className={styles.products_cards_items} key={product.data._id}>
-              <img src={product.data.img} alt="" />
+              <img
+                onClick={() => handleRedirectionToProduct(product.data._id)}
+                src={product.data.img}
+                alt=""
+              />
               {product.quantity > 0 && (
                 <span className={styles.cards_quantity}>{product.quantity}X</span>
               )}

@@ -1,16 +1,16 @@
 import { FavoriteButton, PriceStockInfo } from '@/components';
 import { ProductType } from '@/@types/product';
-import { useSelectProduct } from '@/hooks';
+import { useRedirect } from '@/hooks';
 import styles from './index.module.css';
 
 export const ProductCard = (product: ProductType) => {
-  const { handleAddStoreProduct } = useSelectProduct();
+  const { handleRedirectionToProduct } = useRedirect();
 
   return (
     <div className={styles.product_card}>
       <FavoriteButton {...product} />
       <img
-        onClick={() => handleAddStoreProduct(product)}
+        onClick={() => handleRedirectionToProduct(product._id)}
         loading="lazy"
         src={product.img}
         alt={product.model}

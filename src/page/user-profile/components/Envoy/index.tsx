@@ -1,13 +1,13 @@
 import styles from './index.module.css';
 import { appUseSelector } from '@/redux/hook';
-import { useSelectProduct } from '@/hooks';
 import { Empty } from '@/components/Empty';
 import { formatter } from '@/util/formatter';
 import { PriceStockInfo } from '@/components';
+import { useRedirect } from '@/hooks';
 
 export const EnvoyProducts = () => {
   const { envoyProducts } = appUseSelector((state) => state.envoy);
-  const { handleAddStoreProduct } = useSelectProduct();
+  const { handleRedirectionToProduct } = useRedirect();
 
   return (
     <div className={styles.envoy_container}>
@@ -21,7 +21,7 @@ export const EnvoyProducts = () => {
                 return (
                   <div key={product.data._id + index} className={styles.cards_item}>
                     <img
-                      onClick={() => handleAddStoreProduct(product.data)}
+                      onClick={() => handleRedirectionToProduct(product.data._id)}
                       src={product.data.img}
                       alt={product.data.model}
                     />

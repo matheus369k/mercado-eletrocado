@@ -1,3 +1,4 @@
+import { ROUTES_PATHNAMES } from '@/util/const';
 import { useNavigate } from 'react-router-dom';
 
 export const useRedirect = () => {
@@ -15,9 +16,15 @@ export const useRedirect = () => {
     window.location.replace(pathName);
   };
 
+  const handleRedirectionToProduct = (productId: string) => {
+    const productRoute = ROUTES_PATHNAMES.PRODUCT.replace(':productId', productId);
+    navigate(productRoute);
+  };
+
   return {
     handleTogglePage,
     handleBackPage,
     handleReplacePage,
+    handleRedirectionToProduct,
   };
 };

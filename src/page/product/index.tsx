@@ -1,47 +1,49 @@
 import { ProductsAmountProvider } from './contexts/products-amount';
 import { BoyProductControls, ProductInfoItem, ProductPreviewSlide } from './components';
-import { appUseSelector } from '@/redux/hook';
 import { IoClose } from 'react-icons/io5';
-import { useProduct } from './hooks';
 import styles from './index.module.css';
 import { FavoriteButton, PriceStockInfo } from '@/components';
+import { useLocation } from 'react-router-dom';
+import { useGetOneProduct } from './http/use-get-one-product';
+import { useRedirect } from '@/hooks';
 
 export const ProductPage = () => {
-  const { selected } = appUseSelector((state) => state.product);
-  const { handleRemoveStoreProduct } = useProduct();
+  const { pathname } = useLocation();
+  const { data: product } = useGetOneProduct({ productId: pathname.split('/')[2] });
+  const { handleBackPage } = useRedirect();
 
-  if (!selected) return null;
+  if (!product) return null;
 
   return (
     <ProductsAmountProvider>
       <div className={styles.product_container}>
-        <i className={styles.icon_close_container} onClick={handleRemoveStoreProduct}>
+        <i className={styles.icon_close_container} onClick={handleBackPage}>
           <IoClose />
         </i>
         <div className={styles.product_content}>
           <div className={styles.product_previews_container}>
-            <ProductPreviewSlide img={selected.img} model={selected.model} slide={selected.slide} />
-            <FavoriteButton customClass="product_selected" {...selected} />
+            <ProductPreviewSlide img={product.img} model={product.model} slide={product.slide} />
+            <FavoriteButton customClass="product_selected" {...product} />
           </div>
 
           <div className={styles.product_info_container}>
-            <h3>{selected.model}</h3>
+            <h3>{product.model}</h3>
             <ul className={styles.product_descriptions_container}>
-              <ProductInfoItem label="Tela" info={selected.screen} />
-              <ProductInfoItem label="Processador" info={selected.processor} />
-              <ProductInfoItem label="Memoria" info={selected.memory} />
-              {selected.placeVideo ? (
-                <ProductInfoItem label="Placa de video" info={selected.placeVideo} />
+              <ProductInfoItem label="Tela" info={product.screen} />
+              <ProductInfoItem label="Processador" info={product.processor} />
+              <ProductInfoItem label="Memoria" info={product.memory} />
+              {product.placeVideo ? (
+                <ProductInfoItem label="Placa de video" info={product.placeVideo} />
               ) : (
-                <ProductInfoItem label="Bateria" info={selected.battery} />
+                <ProductInfoItem label="Bateria" info={product.battery} />
               )}
             </ul>
             <PriceStockInfo
               customClass="product_selected"
-              _id={selected._id}
-              price={selected.price}
+              _id={product._id}
+              price={product.price}
             />
-            <BoyProductControls data={selected} />
+            <BoyProductControls data={product} />
           </div>
         </div>
       </div>

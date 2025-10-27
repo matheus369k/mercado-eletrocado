@@ -1,32 +1,55 @@
-import { addFavoriteProduct, removeFavoriteProduct } from '@/redux/favorite/slice';
 import { ProductType } from '@/@types/product';
-import { appUseSelector } from '@/redux/hook';
-import { useDispatch } from 'react-redux';
 import { useRedirect } from '.';
 import { ROUTES_PATHNAMES } from '@/util/const';
 import { useProfileAccount } from '@/http/use-profile-account';
+import { useCreateFavoriteProduct } from '@/http/use-create-favorite-products';
+import { useDeleteFavoriteProduct } from '@/http/use-delete-favorite-products';
+import { useQueryClient } from '@tanstack/react-query';
+import { useGetAllFavoriteProduct } from '@/http/use-get-all-favorite-products';
 
-export const useFavoriteProduct = (data: ProductType) => {
-  const { favoriteProducts } = appUseSelector((state) => state.favorite);
-  const notHasAuthorization = useProfileAccount().isError;
-  const { handleTogglePage } = useRedirect();
-  const IsFavoriteProduct = favoriteProducts.find((product) =>
-    product._id === data._id ? true : false,
+interface UseFavoriteProductProps extends Pick<ProductType, '_id' | 'img' | 'model' | 'price'> {}
+
+export const useFavoriteProduct = (props: UseFavoriteProductProps) => {
+  const { mutateAsync: createFavoriteProduct } = useCreateFavoriteProduct();
+  const { mutateAsync: deleteFavoriteProduct } = useDeleteFavoriteProduct();
+  const IsFavoriteProduct = useGetAllFavoriteProduct().data?.some(
+    (favorite) => favorite.productId === props._id,
   );
-  const dispatch = useDispatch();
+  const unauthorized = useProfileAccount().isError;
 
-  const handleAddRemoveFavoriteProductId = () => {
-    if (notHasAuthorization) {
-      handleTogglePage({ pathName: ROUTES_PATHNAMES.USER_LOGIN });
-      return;
+  const { handleTogglePage } = useRedirect();
+  const queryClient = useQueryClient();
+
+  const handleAddRemoveFavoriteProductId = async () => {
+    try {
+      if (unauthorized) {
+        handleTogglePage({ pathName: ROUTES_PATHNAMES.USER_LOGIN });
+        return;
+      }
+
+      if (IsFavoriteProduct) {
+        await deleteFavoriteProduct({
+          productId: props._id,
+        });
+      } else {
+        await createFavoriteProduct({
+          productId: props._id,
+          image: props.img,
+          name: props.model,
+          price: props.price,
+        });
+      }
+
+      queryClient.invalidateQueries({
+        queryKey: ['favorite-products', 'all-favorites-products'],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ['favorite-products', props._id],
+      });
+    } catch (error) {
+      console.error(error);
     }
-
-    if (IsFavoriteProduct) {
-      dispatch(removeFavoriteProduct(data._id));
-      return;
-    }
-
-    dispatch(addFavoriteProduct(data));
   };
 
   return {
