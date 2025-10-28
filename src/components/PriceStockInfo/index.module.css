@@ -86,6 +86,7 @@
 .product_checkout li,
 .product_user li,
 .product_store_cart li {
+  &.discount,
   &.old_price,
   &.plots {
     display: none;

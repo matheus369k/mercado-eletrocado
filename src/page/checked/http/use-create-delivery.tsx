@@ -3,7 +3,7 @@ import { COOKIES_KEYS } from '@/util/const';
 import cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
 
-type UseCreateDeliveriesProductsRequest = {
+export type UseCreateDeliveriesProductsRequest = {
   price: number;
   image: string;
   name: string;
