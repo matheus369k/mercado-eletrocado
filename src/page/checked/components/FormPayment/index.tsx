@@ -1,6 +1,5 @@
 import { appUseSelector } from '@/redux/hook';
 import { useRedirect } from '@/hooks';
-import { addEnvoyProducts } from '@/redux/envoy/slice';
 import { removeAllCartProducts } from '@/redux/cart/slice';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -9,22 +8,46 @@ import { useState } from 'react';
 import { Button } from '@/components';
 import { Title } from '../Title';
 import { ROUTES_PATHNAMES } from '@/util/const';
+import {
+  useCreateDeliveriesProducts,
+  type UseCreateDeliveriesProductsRequest,
+} from '../../http/use-create-delivery';
 
 type PaymentType = 'credit-card' | 'debit-card' | 'pix' | 'ticket';
 
 export const FormPayment = () => {
   const { cartProducts, totalPrice } = appUseSelector((state) => state.cart);
   const [payment, setPayment] = useState<PaymentType>();
+  const { mutateAsync: createDeliveriesProducts } = useCreateDeliveriesProducts();
   const { handleTogglePage } = useRedirect();
   const dispatch = useDispatch();
   const TAX = 23.0;
 
-  const handleSubmitPayment = () => {
-    if (!payment) return;
-    dispatch(addEnvoyProducts({ products: cartProducts, payment_type: payment }));
-    dispatch(removeAllCartProducts());
-    toast.success('Compra feita com sucesso');
-    handleTogglePage({ pathName: ROUTES_PATHNAMES.HOME });
+  const handleSubmitPayment = async (event) => {
+    try {
+      event.preventDefault();
+      if (!payment) return;
+
+      const deliveriesProducts = cartProducts.reduce((acc, curr) => {
+        for (let index = 0; index < curr.quantity; index++) {
+          acc.push({
+            name: curr.data.model,
+            price: curr.data.price,
+            image: curr.data.img,
+          });
+        }
+
+        return acc;
+      }, [] as UseCreateDeliveriesProductsRequest);
+
+      await createDeliveriesProducts(deliveriesProducts);
+      dispatch(removeAllCartProducts());
+
+      toast.success('Compra feita com sucesso');
+      handleTogglePage({ pathName: ROUTES_PATHNAMES.HOME });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleAddPayment = (type: PaymentType) => {

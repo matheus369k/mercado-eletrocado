@@ -1,15 +1,14 @@
-import { useRedirect, useSelectProduct } from '@/hooks';
+import { useRedirect } from '@/hooks';
 import { FavoriteButton, PriceStockInfo } from '@/components';
 import { Empty } from '@/components/Empty';
 import styles from './index.module.css';
 import { useGetAllFavoriteProduct } from '@/http/use-get-all-favorite-products';
-import { ROUTES_PATHNAMES } from '@/util/const';
 
 export const FavoriteProducts = () => {
-  const { data: favoritesProducts, isFetching, isFetched } = useGetAllFavoriteProduct();
+  const { data: favoritesProducts, isFetching, isFetched, isError } = useGetAllFavoriteProduct();
   const { handleRedirectionToProduct } = useRedirect();
 
-  const notHaveFavoriteProducts = favoritesProducts?.length === 0 && isFetching;
+  const notHaveFavoriteProducts = (favoritesProducts?.length === 0 && isFetching) || isError;
   const haveFavoriteProducts = favoritesProducts?.length > 0 && isFetched;
 
   return (

@@ -1,5 +1,5 @@
 import { TitleContent, TitleRoot } from '@/components';
-import { ProfileSettings, EnvoyProducts, FavoriteProducts } from './components';
+import { ProfileSettings, DeliveriesProducts, FavoriteProducts } from './components';
 import styles from './index.module.css';
 import { IoPersonCircleSharp } from 'react-icons/io5';
 import { useState } from 'react';
@@ -57,7 +57,7 @@ export const UserProfile = () => {
             </button>
           </div>
           <div className={styles.user__content__favorite_envoy__main}>
-            {selectedSection === 'favorite' ? <FavoriteProducts /> : <EnvoyProducts />}
+            {selectedSection === 'favorite' ? <FavoriteProducts /> : <DeliveriesProducts />}
           </div>
         </div>
       </div>
