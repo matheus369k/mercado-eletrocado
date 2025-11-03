@@ -1,6 +1,4 @@
 import { axiosBackEndAPI } from '@/lib/axios';
-import { COOKIES_KEYS } from '@/util/const';
-import cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
 
 type UseDeleteFavoriteProductRequest = {
@@ -10,20 +8,23 @@ type UseDeleteFavoriteProductRequest = {
 export const useDeleteFavoriteProduct = () => {
   return useMutation({
     mutationFn: async ({ productId }: UseDeleteFavoriteProductRequest) => {
-      try {
-        const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
-        if (!authorizationToken) {
-          throw new Error('User not have authorization');
-        }
+      await axiosBackEndAPI
+        .delete(`/api/products/favorite/${productId}`, {
+          withCredentials: true,
+        })
+        .catch(async (error) => {
+          if (error.status === 401) {
+            const result = await axiosBackEndAPI.get('/token', {
+              withCredentials: true,
+            });
 
-        await axiosBackEndAPI.delete(`/products/favorite/${productId}`, {
-          headers: {
-            Authorization: 'Bearer '.concat(authorizationToken),
-          },
+            if (result.status === 200) {
+              await axiosBackEndAPI.delete(`/api/products/favorite/${productId}`, {
+                withCredentials: true,
+              });
+            }
+          }
         });
-      } catch (error) {
-        console.error(error);
-      }
     },
   });
 };

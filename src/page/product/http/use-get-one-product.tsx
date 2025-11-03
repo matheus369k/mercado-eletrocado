@@ -25,7 +25,7 @@ export const useGetOneProduct = ({ productId }: { productId: string }) => {
     staleTime: 1000 * 60 * 60 * 24,
     queryFn: async () => {
       try {
-        const response = await axiosBackEndAPI.get(`/products?productId=${productId}`);
+        const response = await axiosBackEndAPI.get(`/api/products?productId=${productId}`);
         const result: ProductType = await response.data;
 
         if (!result) {

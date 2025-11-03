@@ -1,6 +1,6 @@
 import { PiShoppingCartFill } from 'react-icons/pi';
 import { IoStorefrontSharp } from 'react-icons/io5';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { appUseSelector } from '@/redux/hook';
 import styles from './index.module.css';
 import { NavbarItemLink, NavbarItemRoot } from './NavbarItem';
@@ -9,9 +9,8 @@ import { SplitItemButton, SplitItemListContainer } from '../SplitModel/SplitItem
 import { FaUser } from 'react-icons/fa6';
 import { IoPersonAdd } from 'react-icons/io5';
 import { FiMenu } from 'react-icons/fi';
-import { COOKIES_KEYS, ROUTES_PATHNAMES } from '@/util/const';
+import { ROUTES_PATHNAMES } from '@/util/const';
 import { useProfileAccount } from '@/http/use-profile-account';
-import cookies from 'js-cookie';
 import { useRedirect } from '@/hooks';
 
 export const Navbar = () => {
@@ -27,7 +26,6 @@ export const Navbar = () => {
   const isProfilerPage = pathname.includes(ROUTES_PATHNAMES.USER_PROFILER);
 
   if (profileAuthorization.isError && isProfilerPage) {
-    cookies.remove(COOKIES_KEYS.AUTHORIZATION_TOKEN);
     handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
   }
 
@@ -46,7 +44,7 @@ export const Navbar = () => {
         <NavbarItemRoot isCurrentPage={isCarPage}>
           <NavbarItemLink to={ROUTES_PATHNAMES.CAR}>
             <PiShoppingCartFill />
-            {cartProducts.length > 0 && <span className={styles.product_car_point}></span>}
+            {cartProducts?.length > 0 && <span className={styles.product_car_point}></span>}
             Carrinho
           </NavbarItemLink>
         </NavbarItemRoot>

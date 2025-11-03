@@ -14,15 +14,10 @@ type RemoveCartProductProps = Pick<SliceProductCartType, 'quantity'> & {
   id: ProductIdType;
 };
 
-const restoreCartDatas = browserLocalStorage.get(BROWSER_STORAGE_KEYS.CART_PRODUCT);
-const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
-const initialState: InitialStateType =
-  authorizationToken && restoreCartDatas
-    ? restoreCartDatas
-    : {
-        cartProducts: [],
-        totalPrice: 0,
-      };
+const initialState: InitialStateType = {
+  cartProducts: [],
+  totalPrice: 0,
+};
 
 const cartReducer = createSlice({
   name: 'cart',

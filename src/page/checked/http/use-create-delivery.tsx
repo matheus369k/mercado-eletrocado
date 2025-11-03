@@ -1,7 +1,5 @@
 import { axiosBackEndAPI } from '@/lib/axios';
-import { COOKIES_KEYS } from '@/util/const';
-import cookies from 'js-cookie';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export type UseCreateDeliveriesProductsRequest = {
   price: number;
@@ -10,30 +8,45 @@ export type UseCreateDeliveriesProductsRequest = {
 }[];
 
 export const useCreateDeliveriesProducts = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (data: UseCreateDeliveriesProductsRequest) => {
-      try {
-        const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
-        if (!authorizationToken) {
-          throw new Error('User not have authorization');
-        }
+      const deliveriesProducts = data.map((product) => {
+        return {
+          ...product,
+          price: Number((product.price % 1).toFixed(2)) * 100 + Math.floor(product.price) * 100,
+        };
+      });
 
-        const deliveriesProducts = data.map((product) => {
-          return {
-            ...product,
-            price: Number((product.price % 1).toFixed(2)) * 100 + Math.floor(product.price) * 100,
-          };
-        });
-
-        await axiosBackEndAPI.post('/products/delivery', deliveriesProducts, {
+      await axiosBackEndAPI
+        .post('/api/products/delivery', deliveriesProducts, {
+          withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer '.concat(authorizationToken),
           },
+        })
+        .catch(async (error) => {
+          if (error.status === 401) {
+            const result = await axiosBackEndAPI.get('/token', {
+              withCredentials: true,
+            });
+
+            if (result.status === 200) {
+              await axiosBackEndAPI.post('/api/products/delivery', deliveriesProducts, {
+                withCredentials: true,
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+            }
+          }
         });
-      } catch (error) {
-        console.error(error);
-      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['deliveries-products', 'all-deliveries-products'],
+      });
     },
   });
 };

@@ -33,7 +33,7 @@ export const useProducts = (category: CategoryTypes) => {
       staleTime: 1000 * 60 * 60 * 24,
       queryFn: async () => {
         try {
-          const response = await axiosBackEndAPI.get('/products');
+          const response = await axiosBackEndAPI.get('/api/products');
           const result: AllProductsType = await response.data;
 
           if (!result) {
@@ -53,7 +53,7 @@ export const useProducts = (category: CategoryTypes) => {
     staleTime: 1000 * 60 * 60 * 24,
     queryFn: async () => {
       try {
-        const response = await axiosBackEndAPI.get(`/products/${category}`);
+        const response = await axiosBackEndAPI.get(`/api/products/${category}`);
         const result: ProductType[] = await response.data;
 
         if (!result) {

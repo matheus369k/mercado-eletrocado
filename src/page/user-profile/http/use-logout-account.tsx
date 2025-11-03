@@ -1,13 +1,13 @@
 import { axiosBackEndAPI } from '@/lib/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useDeleteAccount = () => {
+export const useLogoutAccount = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async () => {
-      const responseDelete = await axiosBackEndAPI
-        .delete('/api/users/delete', {
+      const responseLogout = await axiosBackEndAPI
+        .delete('/api/users/logout', {
           withCredentials: true,
         })
         .catch(async (error) => {
@@ -17,12 +17,12 @@ export const useDeleteAccount = () => {
           });
 
           if (responseToken.status !== 200) return error;
-          return await axiosBackEndAPI.delete('/api/users/delete', {
+          return await axiosBackEndAPI.delete('/api/users/logout', {
             withCredentials: true,
           });
         });
 
-      if (responseDelete.status === 200) {
+      if (responseLogout.status === 200) {
         await axiosBackEndAPI.delete('/token', {
           withCredentials: true,
         });

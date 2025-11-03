@@ -2,9 +2,9 @@ import * as Page from '@/page';
 import { createBrowserRouter } from 'react-router-dom';
 import { ErrorRoute } from '@/components';
 import { Layout } from '@/root/layout';
-import { COOKIES_KEYS, ROUTES_PATHNAMES } from '@/util/const';
+import { ROUTES_PATHNAMES } from '@/util/const';
 import 'react-multi-carousel/lib/styles.css';
-import cookies from 'js-cookie';
+import { useProfileAccount } from '@/http/use-profile-account';
 
 export const routes = createBrowserRouter([
   {
@@ -18,11 +18,8 @@ export const routes = createBrowserRouter([
       {
         path: ROUTES_PATHNAMES.USER_PROFILER,
         element: <Page.UserProfile />,
-        loader: () => {
-          const authorizationToken = cookies.get(COOKIES_KEYS.AUTHORIZATION_TOKEN);
-          if (authorizationToken) {
-            return new Error('User not have authorization');
-          }
+        action: async () => {
+          return useProfileAccount();
         },
       },
       {

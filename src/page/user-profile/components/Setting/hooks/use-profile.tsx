@@ -3,9 +3,11 @@ import { useRedirect } from '@/hooks';
 import cookies from 'js-cookie';
 import { useDeleteAccount } from '@/page/user-profile/http/use-delete-account';
 import { browserLocalStorage } from '@/util/browser-storage';
+import { useLogoutAccount } from '@/page/user-profile/http/use-logout-account';
 
 export const useConfigsProfile = () => {
   const { mutateAsync: userDeleteAccount } = useDeleteAccount();
+  const { mutateAsync: userLogoutAccount } = useLogoutAccount();
   const { handleReplacePage } = useRedirect();
 
   const handleDeleteAccount = async () => {
@@ -13,16 +15,20 @@ export const useConfigsProfile = () => {
       await userDeleteAccount();
 
       browserLocalStorage.removeAll();
-      cookies.remove(COOKIES_KEYS.AUTHORIZATION_TOKEN);
       handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleLogOut = () => {
-    cookies.remove(COOKIES_KEYS.AUTHORIZATION_TOKEN);
-    handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
+  const handleLogOut = async () => {
+    try {
+      await userLogoutAccount();
+
+      handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return {
