@@ -12,6 +12,43 @@
   gap: 1rem;
 }
 
+.loader_card {
+  height: 14.5rem;
+  width: 14.5rem;
+  padding: 2rem 1rem;
+  margin-inline: auto;
+  background-color: var(--zinc-100);
+  animation-name: pulse-card-loader;
+  animation-duration: 1000ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  position: relative;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--zinc-300);
+    opacity: 0.6;
+    z-index: 10;
+  }
+
+  &::after {
+    width: 7.625rem;
+    height: 7.625rem;
+    top: 2rem;
+  }
+
+  &::before {
+    height: 4.5rem;
+    width: calc(100% - 2rem);
+    margin-inline: auto;
+    bottom: 2rem;
+  }
+}
+
 .cards_item {
   display: flex;
   flex-direction: column;
@@ -79,6 +116,24 @@
         width: 5.625rem;
         height: 5.625rem;
       }
+    }
+  }
+
+  .loader_card {
+    width: 10.5rem;
+    height: 12.5rem;
+    padding: 1rem 0.5rem;
+
+    &::after {
+      width: 6rem;
+      height: 6rem;
+      top: 1rem;
+    }
+
+    &::before {
+      height: 3rem;
+      width: calc(100% - 2rem);
+      bottom: 2rem;
     }
   }
 }

@@ -5,17 +5,22 @@ import { useRedirect } from '@/hooks';
 import { useGetAllDeliveriesProduct } from '../../http/use-get-all-deliveries';
 
 export const DeliveriesProducts = () => {
-  const { data: deliveriesProducts, isFetched, isFetching, isError } = useGetAllDeliveriesProduct();
+  const { data: deliveriesProducts, isSuccess, isPending, isError } = useGetAllDeliveriesProduct();
   const { handleRedirectionToProduct } = useRedirect();
-
-  const notHaveFavoriteProducts = (deliveriesProducts?.length === 0 && isFetching) || isError;
-  const haveFavoriteProducts = deliveriesProducts?.length > 0 && isFetched;
 
   return (
     <div className={styles.delivery_container}>
-      {notHaveFavoriteProducts && <Empty message="Compre mais produtos..." />}
+      {isError && <Empty message="Compre mais produtos..." />}
 
-      {haveFavoriteProducts && (
+      {isPending && (
+        <div className={styles.delivery_cards}>
+          {Array.from({ length: 8 }).map((_, index) => {
+            return <div key={index + '_id'} className={styles.loader_card} />;
+          })}
+        </div>
+      )}
+
+      {isSuccess && (
         <div className={styles.delivery_cards}>
           {deliveriesProducts.map((product) => {
             return (

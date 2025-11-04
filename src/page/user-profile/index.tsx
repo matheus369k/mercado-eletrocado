@@ -5,7 +5,7 @@ import { IoPersonCircleSharp } from 'react-icons/io5';
 import { useState } from 'react';
 import { useProfileAccount } from '@/http/use-profile-account';
 
-type SelectedSectionType = 'favorite' | 'envoy';
+type SelectedSectionType = 'favorite' | 'delivery';
 
 export const UserProfile = () => {
   const userAccount = useProfileAccount().data;
@@ -21,28 +21,28 @@ export const UserProfile = () => {
         <TitleContent>Perfil do Usuario</TitleContent>
       </TitleRoot>
 
-      <div className={styles.user__content}>
-        <div className={styles.user__content__info_container}>
-          <div className={styles.user__content__profiler_picture_container}>
+      <div className={styles.user_container}>
+        <div className={styles.user_info}>
+          <div className={styles.picture_container}>
             <ProfileSettings />
-            <IoPersonCircleSharp className={styles.user__content__profiler_picture} />
+            <IoPersonCircleSharp className={styles.profile_picture} />
           </div>
-          <p className={styles.user__content__info_user__items}>
+          <p className={styles.info_items}>
             <strong>Nome: </strong>
             {userAccount?.name || 'desconhecido...'}
           </p>
-          <p className={styles.user__content__info_user__items}>
+          <p className={styles.info_items}>
             <strong>E-Mail: </strong>
             {userAccount?.email || 'desconhecido...'}
           </p>
-          <p className={styles.user__content__info_user__items}>
+          <p className={styles.info_items}>
             <strong>CEP: </strong>
             {userAccount?.cep || 'desconhecido...'}
           </p>
         </div>
 
-        <div className={styles.user__content__favorite_envoy_container}>
-          <div className={styles.user__content__favorite_envoy__header}>
+        <div className={styles.favorite_envoy_container}>
+          <div className={styles.favorite_envoy_header}>
             <button
               disabled={selectedSection === 'favorite'}
               type="button"
@@ -50,14 +50,15 @@ export const UserProfile = () => {
               Favoritos
             </button>
             <button
-              disabled={selectedSection === 'envoy'}
+              disabled={selectedSection === 'delivery'}
               type="button"
-              onClick={() => handleSelectSectionToView('envoy')}>
+              onClick={() => handleSelectSectionToView('delivery')}>
               Enviados
             </button>
           </div>
-          <div className={styles.user__content__favorite_envoy__main}>
-            {selectedSection === 'favorite' ? <FavoriteProducts /> : <DeliveriesProducts />}
+          <div className={styles.favorite_envoy_main}>
+            {selectedSection === 'favorite' && <FavoriteProducts />}
+            {selectedSection === 'delivery' && <DeliveriesProducts />}
           </div>
         </div>
       </div>

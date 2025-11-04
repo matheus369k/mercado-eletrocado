@@ -5,17 +5,22 @@ import styles from './index.module.css';
 import { useGetAllFavoriteProduct } from '@/http/use-get-all-favorite-products';
 
 export const FavoriteProducts = () => {
-  const { data: favoritesProducts, isFetching, isFetched, isError } = useGetAllFavoriteProduct();
+  const { data: favoritesProducts, isSuccess, isPending, isError } = useGetAllFavoriteProduct();
   const { handleRedirectionToProduct } = useRedirect();
-
-  const notHaveFavoriteProducts = (favoritesProducts?.length === 0 && isFetching) || isError;
-  const haveFavoriteProducts = favoritesProducts?.length > 0 && isFetched;
 
   return (
     <div className={styles.favorite_container}>
-      {notHaveFavoriteProducts && <Empty message="Adicione mais produtos aos favoritos..." />}
+      {isError && <Empty message="Adicione mais produtos aos favoritos..." />}
 
-      {haveFavoriteProducts && (
+      {isPending && (
+        <div className={styles.favorite_cards}>
+          {Array.from({ length: 8 }).map((_, index) => {
+            return <div key={index + '_id'} className={styles.loader_card} />;
+          })}
+        </div>
+      )}
+
+      {isSuccess && (
         <div className={styles.favorite_cards}>
           {favoritesProducts.map((product) => {
             return (
