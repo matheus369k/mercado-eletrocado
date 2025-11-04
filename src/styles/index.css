@@ -44,14 +44,6 @@
   }
 }
 
-.Toastify__progress-bar--success {
-  background: var(--primary-color) !important;
-}
-
-.Toastify__progress-bar--error {
-  background: var(--wrong-color) !important;
-}
-
 .react-multiple-carousel__arrow {
   min-width: 32px;
   min-height: 32px;

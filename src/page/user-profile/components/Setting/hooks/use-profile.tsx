@@ -4,6 +4,7 @@ import cookies from 'js-cookie';
 import { useDeleteAccount } from '@/page/user-profile/http/use-delete-account';
 import { browserLocalStorage } from '@/util/browser-storage';
 import { useLogoutAccount } from '@/page/user-profile/http/use-logout-account';
+import { toast } from 'react-toastify';
 
 export const useConfigsProfile = () => {
   const { mutateAsync: userDeleteAccount } = useDeleteAccount();
@@ -17,6 +18,7 @@ export const useConfigsProfile = () => {
       browserLocalStorage.removeAll();
       handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
     } catch (error) {
+      toast.error('Error ao tentar deletar');
       console.error(error);
     }
   };
@@ -27,6 +29,7 @@ export const useConfigsProfile = () => {
 
       handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
     } catch (error) {
+      toast.error('Error ao tentar sair');
       console.error(error);
     }
   };

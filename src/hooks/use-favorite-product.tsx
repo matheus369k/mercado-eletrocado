@@ -6,15 +6,15 @@ import { useCreateFavoriteProduct } from '@/http/use-create-favorite-products';
 import { useDeleteFavoriteProduct } from '@/http/use-delete-favorite-products';
 import { useQueryClient } from '@tanstack/react-query';
 import { useGetAllFavoriteProduct } from '@/http/use-get-all-favorite-products';
+import { toast } from 'react-toastify';
 
 interface UseFavoriteProductProps extends Pick<ProductType, '_id' | 'img' | 'model' | 'price'> {}
 
 export const useFavoriteProduct = (props: UseFavoriteProductProps) => {
   const { mutateAsync: createFavoriteProduct } = useCreateFavoriteProduct();
   const { mutateAsync: deleteFavoriteProduct } = useDeleteFavoriteProduct();
-  const IsFavoriteProduct = useGetAllFavoriteProduct().data?.some(
-    (favorite) => favorite.productId === props._id,
-  );
+  const { data: favoriteProducts } = useGetAllFavoriteProduct();
+  const IsFavoriteProduct = favoriteProducts?.some((favorite) => favorite.productId === props._id);
   const unauthorized = useProfileAccount().isError;
 
   const { handleTogglePage } = useRedirect();
@@ -40,14 +40,15 @@ export const useFavoriteProduct = (props: UseFavoriteProductProps) => {
         });
       }
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ['favorite-products', 'all-favorites-products'],
       });
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ['favorite-products', props._id],
       });
     } catch (error) {
+      toast.error('Error ao tentar adicionar favorito');
       console.error(error);
     }
   };

@@ -46,6 +46,7 @@ export const FormPayment = () => {
       toast.success('Compra feita com sucesso');
       handleTogglePage({ pathName: ROUTES_PATHNAMES.HOME });
     } catch (error) {
+      toast.error('Error ao tentar compar');
       console.error(error);
     }
   };

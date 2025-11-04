@@ -19,23 +19,18 @@ export const useGetAllFavoriteProduct = () => {
           withCredentials: true,
         })
         .catch(async (error) => {
-          if (error.status === 401) {
-            const result = await axiosBackEndAPI.get('/token', {
-              withCredentials: true,
-            });
+          if (error.status !== 401) return error;
+          const result = await axiosBackEndAPI.get('/token', {
+            withCredentials: true,
+          });
 
-            if (result.status === 200) {
-              return await axiosBackEndAPI.get(`/api/products/favorite`, {
-                withCredentials: true,
-              });
-            }
-          }
+          if (result.status !== 200) return error;
+          return await axiosBackEndAPI.get(`/api/products/favorite`, {
+            withCredentials: true,
+          });
         });
 
       const result: UseFavoriteProductResponse = await response.data;
-      if (!result[0]) {
-        throw new Error('Not found favorites products');
-      }
 
       return result;
     },

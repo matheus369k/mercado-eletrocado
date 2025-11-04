@@ -4,14 +4,12 @@ import 'react-toastify/dist/ReactToastify.css';
 export const AlertMessage = () => {
   return (
     <ToastContainer
-      position="bottom-right"
-      autoClose={10000}
+      position="top-center"
+      autoClose={5000}
       limit={1}
       style={{
         fontWeight: 'bold',
       }}
-      hideProgressBar={false}
-      newestOnTop={false}
       closeOnClick
       rtl={false}
       pauseOnFocusLoss

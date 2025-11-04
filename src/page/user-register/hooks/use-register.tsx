@@ -2,6 +2,7 @@ import { UserRegisterType } from '@/@types/user-schema';
 import { useRedirect } from '@/hooks';
 import { ROUTES_PATHNAMES } from '@/util/const';
 import { useRegisterAccount } from '../http/use-register-account';
+import { toast } from 'react-toastify';
 
 export const useRegister = () => {
   const { mutateAsync: userRegisterAccount } = useRegisterAccount();
@@ -21,6 +22,7 @@ export const useRegister = () => {
 
       handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
     } catch (error) {
+      toast.error('Error ao tentar registra-se');
       console.error(error);
     }
   };
