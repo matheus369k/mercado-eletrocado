@@ -31,8 +31,9 @@ export const FormPayment = () => {
       const deliveriesProducts = cartProducts.reduce((acc, curr) => {
         for (let index = 0; index < curr.quantity; index++) {
           acc.push({
-            name: curr.data.model,
+            productId: curr.data._id,
             price: curr.data.price,
+            name: curr.data.model,
             image: curr.data.img,
           });
         }

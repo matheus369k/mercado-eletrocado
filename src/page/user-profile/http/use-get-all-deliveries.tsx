@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 type UseDeliveriesProductResponse = {
   deliveryDate: string;
+  productId: string;
   price: number;
   image: string;
   name: string;

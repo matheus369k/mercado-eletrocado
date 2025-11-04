@@ -21,7 +21,7 @@ export const DeliveriesProducts = () => {
             return (
               <div key={product.id} className={styles.cards_item}>
                 <img
-                  onClick={() => handleRedirectionToProduct(product.id)}
+                  onClick={() => handleRedirectionToProduct(product.productId)}
                   src={product.image}
                   alt={product.name}
                 />
