@@ -3,8 +3,11 @@ import styles from './index.module.css';
 
 interface ButtonProps extends ComponentProps<'button'> {
   customClass?: string;
+  btnType?: 'outline' | 'default';
 }
 
-export const Button = ({ customClass = '', ...props }: ButtonProps) => {
-  return <button {...props} className={`${styles[customClass]} ${styles.btn}`} />;
+export const Button = ({ customClass = '', btnType = 'default', ...props }: ButtonProps) => {
+  return (
+    <button {...props} data-btn-type={btnType} className={`${styles[customClass]} ${styles.btn}`} />
+  );
 };

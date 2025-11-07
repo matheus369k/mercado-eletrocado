@@ -9,7 +9,7 @@
   max-width: 37.5rem;
   position: relative;
 
-  &:focus-within {
+  &:has(input:read-write):focus-within {
     outline-color: var(--primary-color);
 
     svg {
@@ -62,5 +62,46 @@
     width: 2rem;
     height: 2rem;
     color: var(--zinc-400);
+  }
+}
+
+.form_field_container.user_avatar {
+  justify-content: center;
+  border-radius: 50%;
+  max-width: auto;
+  width: 9rem;
+  height: 9rem;
+  position: relative;
+  margin-inline: auto;
+
+  &[data-error] {
+    outline-color: transparent;
+
+    &::before {
+      content: attr(data-error);
+      font-size: 1.2rem;
+      background-color: var(--zinc-950);
+      color: var(--wrong-color);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  & > svg {
+    position: absolute;
+    right: -0.2rem;
+    bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--zinc-950);
+    background-color: var(--zinc-100);
+    border-radius: 50%;
+    padding: 2px;
   }
 }

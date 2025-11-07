@@ -8,10 +8,17 @@
   padding: 0.5rem 3.5rem;
   border-radius: 4px;
   cursor: pointer;
-  color: var(--zinc-100);
-  background: var(--primary-color);
   width: fit-content;
   transition: 0.8s ease-in-out;
+
+  svg {
+    font-size: 1.5rem;
+  }
+}
+
+.btn[data-btn-type='default'] {
+  color: var(--zinc-100);
+  background: var(--primary-color);
 
   &:hover {
     background: var(--primary-color-hover);
@@ -21,9 +28,18 @@
     background: var(--zinc-400);
     cursor: no-drop;
   }
+}
 
-  svg {
-    font-size: 1.5rem;
+.btn[data-btn-type='outline'] {
+  color: var(--zinc-400);
+  background: transparent;
+  border: 1px solid var(--zinc-600);
+
+  &:disabled {
+    color: var(--zinc-100);
+    border-color: transparent;
+    background: var(--zinc-400);
+    cursor: no-drop;
   }
 }
 
