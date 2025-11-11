@@ -87,7 +87,7 @@ export const DropdownModelRoot = ({
     }
   };
 
-  const closeToClickedDropdownModel = (event: Event) => {
+  const closeToClickedDropdownModel = () => {
     if (openModal) {
       setOpenModal(false);
     }

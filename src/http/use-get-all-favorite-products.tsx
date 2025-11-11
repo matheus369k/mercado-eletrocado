@@ -15,7 +15,7 @@ export const useGetAllFavoriteProduct = () => {
     queryKey: ['favorite-products', 'all-favorites-products'],
     queryFn: async () => {
       const response = await axiosBackEndAPI
-        .get(`/api/products/favorite`, {
+        .get('/api/products/favorite', {
           withCredentials: true,
         })
         .catch(async (error) => {
@@ -25,7 +25,7 @@ export const useGetAllFavoriteProduct = () => {
           });
 
           if (result.status !== 200) return error;
-          return await axiosBackEndAPI.get(`/api/products/favorite`, {
+          return await axiosBackEndAPI.get('/api/products/favorite', {
             withCredentials: true,
           });
         });

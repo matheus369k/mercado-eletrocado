@@ -1,9 +1,8 @@
 /* eslint-disable indent */
 import { SliceProductCartType, ProductIdType } from '@/@types/product';
-import { BROWSER_STORAGE_KEYS, COOKIES_KEYS } from '@/util/const';
+import { BROWSER_STORAGE_KEYS } from '@/util/const';
 import { browserLocalStorage } from '@/util/browser-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import cookies from 'js-cookie';
 
 type InitialStateType = {
   cartProducts: SliceProductCartType[];

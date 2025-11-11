@@ -27,7 +27,6 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
     defaultValues: { cep: props.cep, full_name: props.full_name },
     reValidateMode: 'onChange',
   });
-  const { handleReplacePage } = useRedirect();
   const {
     watch,
     handleSubmit,

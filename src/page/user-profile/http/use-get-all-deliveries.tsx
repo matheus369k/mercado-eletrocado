@@ -15,7 +15,7 @@ export const useGetAllDeliveriesProduct = () => {
     queryKey: ['deliveries-products', 'all-deliveries-products'],
     queryFn: async () => {
       const response = await axiosBackEndAPI
-        .get(`/api/products/delivery`, {
+        .get('/api/products/delivery', {
           withCredentials: true,
         })
         .catch(async (error) => {
@@ -25,7 +25,7 @@ export const useGetAllDeliveriesProduct = () => {
             });
 
             if (result.status === 200) {
-              return await axiosBackEndAPI.get(`/api/products/delivery`, {
+              return await axiosBackEndAPI.get('/api/products/delivery', {
                 withCredentials: true,
               });
             }
