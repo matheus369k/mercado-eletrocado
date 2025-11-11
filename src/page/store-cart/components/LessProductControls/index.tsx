@@ -2,7 +2,7 @@ import { useProduct } from '../../hooks/use-less-product';
 import { ProductIdType } from '@/@types/product';
 import { FaMinus } from 'react-icons/fa6';
 import styles from './index.module.css';
-import { FaPlus, FaTrashAlt } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import { FiTrash } from 'react-icons/fi';
 
 type RenderButtonsProps = { _id: ProductIdType };

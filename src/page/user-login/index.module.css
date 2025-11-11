@@ -24,7 +24,7 @@
     gap: 0.5rem;
 
     p {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 500;
     }
   }
@@ -32,6 +32,7 @@
 
 .forget_pass {
   color: gray;
+  font-size: 1rem;
   font-weight: bold;
   margin-top: 10px;
   width: max-content;

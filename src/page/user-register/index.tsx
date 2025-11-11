@@ -13,10 +13,11 @@ export const UserRegister = () => {
   const { handleRegisterUserForm } = useRegister();
   const hookUseForm = useForm<UserRegisterType>({
     resolver: zodResolver(zodSchemaUserRegister),
+    defaultValues: { agree_terms: true, auto_connection: true },
   });
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = hookUseForm;
 
   return (
@@ -32,6 +33,7 @@ export const UserRegister = () => {
           className={styles.form_container}>
           <FormFieldRoot {...(errors.full_name && { 'data-error': errors.full_name.message })}>
             <FormFieldInput
+              readOnly={isSubmitting}
               aria-label="full name"
               placeholder="Digite seu nome completo..."
               type="text"
@@ -43,6 +45,7 @@ export const UserRegister = () => {
 
           <FormFieldRoot {...(errors.email && { 'data-error': errors.email.message })}>
             <FormFieldInput
+              readOnly={isSubmitting}
               aria-label="email"
               type="email"
               name="email"
@@ -54,6 +57,7 @@ export const UserRegister = () => {
 
           <FormFieldRoot {...(errors.password && { 'data-error': errors.password.message })}>
             <FormFieldInput
+              readOnly={isSubmitting}
               aria-label="password"
               type="password"
               name="password"
@@ -65,6 +69,7 @@ export const UserRegister = () => {
 
           <FormFieldRoot {...(errors.cep && { 'data-error': errors.cep.message })}>
             <FormFieldInput
+              readOnly={isSubmitting}
               aria-label="cep"
               type="text"
               name="cep"
@@ -76,12 +81,22 @@ export const UserRegister = () => {
 
           <div className={styles.contract_options_container}>
             <div>
-              <FormFieldInput aria-label="auto connection" type="checkbox" name="auto_connection" />
+              <FormFieldInput
+                readOnly={isSubmitting}
+                aria-label="auto connection"
+                type="checkbox"
+                name="auto_connection"
+              />
               <label htmlFor="auto_connection">Manter-me conectado(a)</label>
             </div>
 
             <div>
-              <FormFieldInput aria-label="agree terms" type="checkbox" name="agree_terms" />
+              <FormFieldInput
+                readOnly={isSubmitting}
+                aria-label="agree terms"
+                type="checkbox"
+                name="agree_terms"
+              />
               <label htmlFor="agree_terms">
                 Ao selecionar, você concorda com nossos{' '}
                 <a href="#" referrerPolicy="no-referrer">
@@ -94,7 +109,7 @@ export const UserRegister = () => {
                 .
               </label>
             </div>
-            <Button type="submit" customClass="btn_form">
+            <Button disabled={isSubmitting} type="submit" customClass="btn_form">
               Registra-se
             </Button>
           </div>

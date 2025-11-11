@@ -10,11 +10,12 @@ import { FormFieldInput, FormFieldRoot } from '@/components';
 export const UserLogin = () => {
   const hookUseForm = useForm<UserLoginType>({
     resolver: zodResolver(zodSchemaUserLogin),
+    defaultValues: { auto_connection: true },
   });
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = hookUseForm;
   const { handleUserLogin } = useLogin();
 
@@ -27,6 +28,7 @@ export const UserLogin = () => {
         <form onSubmit={handleSubmit(handleUserLogin)} className={styles.form_container}>
           <FormFieldRoot {...(errors.email && { 'data-error': errors.email.message })}>
             <FormFieldInput
+              readOnly={isSubmitting}
               aria-label="email"
               type="email"
               name="email"
@@ -38,6 +40,7 @@ export const UserLogin = () => {
 
           <FormFieldRoot {...(errors.password && { 'data-error': errors.password.message })}>
             <FormFieldInput
+              readOnly={isSubmitting}
               aria-label="password"
               type="password"
               name="password"
@@ -49,7 +52,12 @@ export const UserLogin = () => {
 
           <div className={styles.options_container}>
             <div>
-              <FormFieldInput aria-label="auto connection" type="checkbox" name="auto_connection" />
+              <FormFieldInput
+                readOnly={isSubmitting}
+                aria-label="auto connection"
+                type="checkbox"
+                name="auto_connection"
+              />
               <p>Manter-me conectado(a)</p>
             </div>
             <span
@@ -57,7 +65,7 @@ export const UserLogin = () => {
               className={styles.forget_pass}>
               Esqueceu a senha?
             </span>
-            <Button type="submit" customClass="btn_form">
+            <Button disabled={isSubmitting} type="submit" customClass="btn_form">
               Entrar
             </Button>
           </div>
