@@ -1,31 +1,48 @@
 import { useConfigsProfile } from '../../hooks/use-profile';
 import { FaGear } from 'react-icons/fa6';
 import styles from './index.module.css';
-import { SplitItemButton, SplitItemListContainer } from '@/components/SplitModel/SplitItems';
-import { ToggleModelContext } from '../../contexts/toggle-model-context';
-import { useContext } from 'react';
+import {
+  DropdownModelRoot,
+  DropdownModelContent,
+  DropdownModelItem,
+  DropdownModelToggle,
+} from '@/components';
+import { ImExit } from 'react-icons/im';
+import { FaUserEdit } from 'react-icons/fa';
+import { AiFillDelete } from 'react-icons/ai';
 
 export const ProfileSettings = () => {
   const { handleDeleteAccount, handleLogOut } = useConfigsProfile();
-  const { openModel } = useContext(ToggleModelContext);
 
   return (
-    <div className={styles.settings_container}>
-      <SplitItemButton>
+    <DropdownModelRoot
+      referenceId="setting"
+      mode="dropdown"
+      customClass={styles.settings_container}>
+      <DropdownModelToggle referenceId="setting" mode="dropdown">
         <FaGear className={styles.icon} />
-      </SplitItemButton>
+      </DropdownModelToggle>
 
-      <SplitItemListContainer className={styles.options_model}>
-        <button className={styles.model_items} type="button" onClick={openModel}>
-          Atualizar Perfil
-        </button>
-        <button className={styles.model_items} type="button" onClick={handleLogOut}>
-          Desconectar-se
-        </button>
-        <button className={styles.model_items} onClick={handleDeleteAccount} type="button">
-          Deletar Conta
-        </button>
-      </SplitItemListContainer>
-    </div>
+      <DropdownModelContent
+        className={styles.settings_content}
+        referenceId="setting"
+        mode="dropdown">
+        <DropdownModelItem className={styles.settings_item} referenceId="setting" mode="dropdown">
+          <DropdownModelToggle mode="model" referenceId="updateProfile">
+            <FaUserEdit /> Atualizar Perfil
+          </DropdownModelToggle>
+        </DropdownModelItem>
+        <DropdownModelItem referenceId="setting" className={styles.settings_item} mode="dropdown">
+          <button type="button" onClick={handleLogOut}>
+            <ImExit /> Desconectar-se
+          </button>
+        </DropdownModelItem>
+        <DropdownModelItem referenceId="setting" className={styles.settings_item} mode="dropdown">
+          <button type="button" onClick={handleDeleteAccount}>
+            <AiFillDelete /> Deletar Conta
+          </button>
+        </DropdownModelItem>
+      </DropdownModelContent>
+    </DropdownModelRoot>
   );
 };

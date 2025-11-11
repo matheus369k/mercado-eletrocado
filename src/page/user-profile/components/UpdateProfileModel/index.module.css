@@ -8,26 +8,10 @@
   border-radius: 8px;
   color: var(--zinc-950);
   font-weight: 700;
-  position: absolute;
-  left: 50%;
-  top: 10vh;
   width: 100%;
   height: fit-content;
   max-width: 34rem;
   transition: all 550ms;
-  overflow: hidden;
-}
-
-.update_model_container[data-open-model='close'] {
-  opacity: 0;
-  z-index: -10;
-  transform: translate(-50%, -15vh);
-}
-
-.update_model_container[data-open-model='open'] {
-  opacity: 1;
-  z-index: 10;
-  transform: translate(-50%, -10vh);
 }
 
 .update_model_header {
@@ -83,7 +67,7 @@
 }
 
 .buttons_container {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }

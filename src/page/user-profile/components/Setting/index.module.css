@@ -2,66 +2,64 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  row-gap: 0.5rem;
   background-color: var(--zinc-50);
   padding: 2px;
   border-radius: 50%;
-  gap: 8px;
   position: absolute;
   right: 0.25rem;
   top: 0.5rem;
   z-index: 10;
+}
 
-  .icon {
-    font-size: 1.5rem;
-    color: var(--zinc-950);
-  }
+.settings_content {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  background-color: var(--zinc-100);
+  border: 1px solid var(--zinc-300);
+  border-radius: 8px;
+  color: var(--zinc-950);
+  font-weight: 700;
+  position: absolute;
+  width: max-content;
+}
 
-  .options_model {
+.icon {
+  font-size: 1.5rem;
+  color: var(--zinc-950);
+}
+
+.settings_item {
+  font-weight: bold;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  border-bottom: 1px solid var(--zinc-300);
+  color: var(--zinc-950);
+
+  & > button {
     display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    background-color: var(--zinc-100);
-    border: 1px solid var(--zinc-300);
-    border-radius: 8px;
+    column-gap: 0.5rem;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: transparent;
     color: var(--zinc-950);
-    font-weight: 700;
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    width: max-content;
-    transition: all 550ms;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
 
-    .model_items {
-      font-size: 1rem;
-      color: var(--zinc-100);
-      font-weight: bold;
-      padding: 1rem 0;
-      border: none;
-      outline: none;
-      box-shadow: none;
-      background-color: transparent;
-      border-bottom: 1px solid var(--zinc-300);
-      color: var(--zinc-950) !important;
+    &:hover {
+      color: var(--zinc-300);
+    }
 
-      &:hover {
-        color: var(--zinc-300) !important;
-      }
-
-      &:last-of-type {
-        border-bottom-color: transparent;
-      }
+    & > svg {
+      font-size: 1.5rem;
     }
   }
 
-  &:has(button[data-open='true']) .options_model {
-    opacity: 1;
-    z-index: 100;
-    transform: translateY(0px);
-  }
-
-  &:has(button[data-open='false']) .options_model {
-    opacity: 0;
-    z-index: -100;
-    transform: translateY(-20px);
+  &:last-of-type {
+    border-bottom-color: transparent;
   }
 }

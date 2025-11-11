@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { ToggleModelContext } from '../contexts/toggle-model-context';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRedirect } from '@/hooks';
@@ -23,7 +22,6 @@ type UserUpdateProfileType = z.infer<typeof zodSchemaUpdateProfile>;
 export const useUpdateForm = (props: UpdateProfileModelForm) => {
   const { handleUpdateProfile } = useConfigsProfile();
   const [previewUrl, setPreviewUrl] = useState<null | string>(null);
-  const { showModel, closeModel } = useContext(ToggleModelContext);
   const hookUseForm = useForm<UserUpdateProfileType>({
     resolver: zodResolver(zodSchemaUpdateProfile),
     defaultValues: { cep: props.cep, full_name: props.full_name },
@@ -55,7 +53,6 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
       }
 
       await handleUpdateProfile(formData);
-      closeModel();
     } catch (error) {
       toast.error('Error ao tentar atualizar o perfil');
       console.error(error);
@@ -92,8 +89,6 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
     handlePreviewAvatar();
   }
   return {
-    showModel,
-    closeModel,
     previewUrl,
     handleSubmitted,
     errors,

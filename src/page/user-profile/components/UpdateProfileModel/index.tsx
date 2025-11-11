@@ -1,4 +1,4 @@
-import { Button, FormFieldInput, FormFieldRoot } from '@/components';
+import * as UI from '@/components';
 import { FormProvider } from 'react-hook-form';
 import { HiCamera } from 'react-icons/hi';
 import { GoPeople } from 'react-icons/go';
@@ -29,23 +29,27 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
   const updateForm = useUpdateForm(props);
 
   return (
-    <div data-open-model={updateForm.showModel} className={styles.update_model_container}>
+    <UI.DropdownModelContent
+      mode="model"
+      referenceId="updateProfile"
+      className={styles.update_model_container}>
       <div className={styles.update_model_header}>
         <h3>Atualiza Perfil</h3>
-        <button
+        <UI.DropdownModelClose
+          mode="model"
+          referenceId="updateProfile"
           type="button"
           aria-label="close model"
-          disabled={updateForm.isSubmitting}
-          onClick={updateForm.closeModel}>
+          disabled={updateForm.isSubmitting}>
           <GrFormClose className={styles.icon} />
-        </button>
+        </UI.DropdownModelClose>
       </div>
 
       <FormProvider {...updateForm.hookUseForm}>
         <form
           className={styles.model_form}
           onSubmit={updateForm.handleSubmit(updateForm.handleSubmitted)}>
-          <FormFieldRoot
+          <UI.FormFieldRoot
             customClass="user_avatar"
             {...(updateForm.errors.avatar && { 'data-error': updateForm.errors.avatar.message })}>
             <label
@@ -58,7 +62,7 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
                 name={props?.full_name || 'desconhecido'}
               />
             </label>
-            <FormFieldInput
+            <UI.FormFieldInput
               readOnly={updateForm.isSubmitting}
               aria-label="avatar"
               type="file"
@@ -68,13 +72,13 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
               multiple={false}
             />
             <HiCamera />
-          </FormFieldRoot>
+          </UI.FormFieldRoot>
 
-          <FormFieldRoot
+          <UI.FormFieldRoot
             {...(updateForm.errors.full_name && {
               'data-error': updateForm.errors.full_name.message,
             })}>
-            <FormFieldInput
+            <UI.FormFieldInput
               readOnly={updateForm.isSubmitting}
               aria-label="full name"
               placeholder="Digite seu nome completo..."
@@ -83,11 +87,11 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
               maxLength={30}
             />
             <GoPeople />
-          </FormFieldRoot>
+          </UI.FormFieldRoot>
 
-          <FormFieldRoot
+          <UI.FormFieldRoot
             {...(updateForm.errors.cep && { 'data-error': updateForm.errors.cep.message })}>
-            <FormFieldInput
+            <UI.FormFieldInput
               readOnly={updateForm.isSubmitting}
               aria-label="cep"
               type="text"
@@ -96,23 +100,24 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
               placeholder="Digite seu cep..."
             />
             <MdOutlineLocationOn />
-          </FormFieldRoot>
+          </UI.FormFieldRoot>
 
           <div className={styles.buttons_container}>
-            <Button
-              onClick={updateForm.closeModel}
-              disabled={updateForm.isSubmitting}
-              btnType="outline"
-              type="button"
-              customClass="btn_form">
-              cancelar
-            </Button>
-            <Button disabled={updateForm.isSubmitting} type="submit" customClass="btn_form">
+            <UI.DropdownModelClose type="button" mode="model" referenceId="updateProfile">
+              <UI.Button
+                disabled={updateForm.isSubmitting}
+                type="button"
+                btnType="outline"
+                customClass="btn_form">
+                cancelar
+              </UI.Button>
+            </UI.DropdownModelClose>
+            <UI.Button disabled={updateForm.isSubmitting} type="submit" customClass="btn_form">
               Confirmar
-            </Button>
+            </UI.Button>
           </div>
         </form>
       </FormProvider>
-    </div>
+    </UI.DropdownModelContent>
   );
 };
