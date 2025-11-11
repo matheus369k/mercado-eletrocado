@@ -1,7 +1,24 @@
+@keyframes fallAboveHeader {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 .header_container {
   background-color: var(--zinc-950);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  z-index: 100;
+  position: relative;
+
+  animation-name: fallAboveHeader;
+  animation-duration: 750ms;
+  animation-delay: 550ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
 }

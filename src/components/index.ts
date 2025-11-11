@@ -2,6 +2,7 @@ export { FavoriteButton } from './FavoriteButton';
 export { PriceStockInfo } from './PriceStockInfo';
 export { RequestError, ErrorBoundary, ErrorRoute } from './Errors';
 export { AlertMessage } from './AlertMessage';
+export * from './DropdownModel';
 export { LogoDisplay } from './Logo';
 export { Footer } from './Footer';
 export { Header } from './Header';
