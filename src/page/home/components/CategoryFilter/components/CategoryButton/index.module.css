@@ -1,12 +1,22 @@
 .dropdown_category_button {
   border-bottom: 1px solid var(--zinc-300);
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
 
   &:last-of-type {
     border: none;
   }
+
+  & svg {
+    font-size: 1.2rem;
+  }
 }
 
 .category_button {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
   text-transform: capitalize;
   font-weight: bold;
   padding: 0.5rem 1rem;
@@ -17,6 +27,10 @@
   width: 100%;
   transition: background 0.2s;
   cursor: pointer;
+
+  & svg {
+    font-size: 1.2rem;
+  }
 
   &:hover,
   &[data-active='true'] {
@@ -47,6 +61,10 @@
     &[data-active='true'] {
       color: var(--zinc-300);
       background-color: transparent;
+    }
+
+    & svg {
+      font-size: 1.2rem;
     }
   }
 }

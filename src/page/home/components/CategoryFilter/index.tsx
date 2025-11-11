@@ -4,6 +4,10 @@ import { CategoryButton, CategoryButtonDropdown } from './components/CategoryBut
 import type { CategoryTypes } from '../../hook/use-products';
 import { useDetectedScreenMode } from '@/hooks';
 import { DropdownModelContent, DropdownModelRoot, DropdownModelToggle } from '@/components';
+import { MdLaptop } from 'react-icons/md';
+import { MdOutlinePhoneAndroid } from 'react-icons/md';
+import { MdOutlineFilterListOff } from 'react-icons/md';
+import { FaTabletScreenButton } from 'react-icons/fa6';
 
 interface CategoryFilterProps {
   handleUpdateFilter: (filter: string) => void;
@@ -33,6 +37,7 @@ export const CategoryFilter = ({ handleUpdateFilter, filter }: CategoryFilterPro
           className={styles.filters_content_mobile}>
           <CategoryButtonDropdown>
             <CategoryButton category="all" filter={filter} handleClick={handleManagerFilterModel}>
+              <MdOutlineFilterListOff />
               Todos
             </CategoryButton>
           </CategoryButtonDropdown>
@@ -42,7 +47,7 @@ export const CategoryFilter = ({ handleUpdateFilter, filter }: CategoryFilterPro
               category="notebook"
               filter={filter}
               handleClick={handleManagerFilterModel}>
-              Notebook
+              <MdLaptop /> Notebook
             </CategoryButton>
           </CategoryButtonDropdown>
 
@@ -51,13 +56,13 @@ export const CategoryFilter = ({ handleUpdateFilter, filter }: CategoryFilterPro
               category="tablet"
               filter={filter}
               handleClick={handleManagerFilterModel}>
-              Tablet
+              <FaTabletScreenButton /> Tablet
             </CategoryButton>
           </CategoryButtonDropdown>
 
           <CategoryButtonDropdown>
             <CategoryButton category="phone" filter={filter} handleClick={handleManagerFilterModel}>
-              Celular
+              <MdOutlinePhoneAndroid /> Celular
             </CategoryButton>
           </CategoryButtonDropdown>
         </DropdownModelContent>
@@ -69,16 +74,16 @@ export const CategoryFilter = ({ handleUpdateFilter, filter }: CategoryFilterPro
     <div className={styles.category_container_desktop}>
       <div className={styles.filters_content_desktop}>
         <CategoryButton category="all" filter={filter} handleClick={handleManagerFilterModel}>
-          Todos
+          <MdOutlineFilterListOff /> Todos
         </CategoryButton>
         <CategoryButton category="notebook" filter={filter} handleClick={handleManagerFilterModel}>
-          Notebook
+          <MdLaptop /> Notebook
         </CategoryButton>
         <CategoryButton category="tablet" filter={filter} handleClick={handleManagerFilterModel}>
-          Tablet
+          <FaTabletScreenButton /> Tablet
         </CategoryButton>
         <CategoryButton category="phone" filter={filter} handleClick={handleManagerFilterModel}>
-          Celular
+          <MdOutlinePhoneAndroid /> Celular
         </CategoryButton>
       </div>
     </div>
