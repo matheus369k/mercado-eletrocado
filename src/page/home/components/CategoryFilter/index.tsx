@@ -1,8 +1,9 @@
 import { IoFilterSharp } from 'react-icons/io5';
 import styles from './index.module.css';
-import { useEffect, useState } from 'react';
-import { CategoryButton } from './CategoryButton';
+import { CategoryButton, CategoryButtonDropdown } from './components/CategoryButton';
 import type { CategoryTypes } from '../../hook/use-products';
+import { useDetectedScreenMode } from '@/hooks';
+import { DropdownModelContent, DropdownModelRoot, DropdownModelToggle } from '@/components';
 
 interface CategoryFilterProps {
   handleUpdateFilter: (filter: string) => void;
@@ -10,31 +11,63 @@ interface CategoryFilterProps {
 }
 
 export const CategoryFilter = ({ handleUpdateFilter, filter }: CategoryFilterProps) => {
-  const [isToggleModel, setIsToggleModel] = useState(false);
-
-  const handleToggleModel = () => {
-    setIsToggleModel((state) => !state);
-  };
+  const { isMobileMode } = useDetectedScreenMode({ maxWidth: 549 });
 
   const handleManagerFilterModel = (category: string) => {
     handleUpdateFilter(category);
-    handleToggleModel();
   };
 
-  useEffect(() => {
-    document.addEventListener('keyup', (event) => {
-      if (/Escape/i.test(event.code)) {
-        setIsToggleModel(false);
-      }
-    });
-  }, []);
+  if (isMobileMode) {
+    return (
+      <DropdownModelRoot
+        mode="dropdown"
+        referenceId="categoryFilters"
+        customClass={styles.category_container_mobile}>
+        <DropdownModelToggle mode="dropdown" referenceId="categoryFilters">
+          <IoFilterSharp className={styles.icon} />
+        </DropdownModelToggle>
+
+        <DropdownModelContent
+          mode="dropdown"
+          referenceId="categoryFilters"
+          className={styles.filters_content_mobile}>
+          <CategoryButtonDropdown>
+            <CategoryButton category="all" filter={filter} handleClick={handleManagerFilterModel}>
+              Todos
+            </CategoryButton>
+          </CategoryButtonDropdown>
+
+          <CategoryButtonDropdown>
+            <CategoryButton
+              category="notebook"
+              filter={filter}
+              handleClick={handleManagerFilterModel}>
+              Notebook
+            </CategoryButton>
+          </CategoryButtonDropdown>
+
+          <CategoryButtonDropdown>
+            <CategoryButton
+              category="tablet"
+              filter={filter}
+              handleClick={handleManagerFilterModel}>
+              Tablet
+            </CategoryButton>
+          </CategoryButtonDropdown>
+
+          <CategoryButtonDropdown>
+            <CategoryButton category="phone" filter={filter} handleClick={handleManagerFilterModel}>
+              Celular
+            </CategoryButton>
+          </CategoryButtonDropdown>
+        </DropdownModelContent>
+      </DropdownModelRoot>
+    );
+  }
 
   return (
-    <div className={styles.category_container}>
-      <i onClick={handleToggleModel} className={styles.icon_container}>
-        <IoFilterSharp className={styles.icon} />
-      </i>
-      <div data-toggle-model={isToggleModel} className={styles.filters}>
+    <div className={styles.category_container_desktop}>
+      <div className={styles.filters_content_desktop}>
         <CategoryButton category="all" filter={filter} handleClick={handleManagerFilterModel}>
           Todos
         </CategoryButton>

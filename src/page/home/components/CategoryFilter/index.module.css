@@ -1,113 +1,55 @@
-.category_container {
-  position: relative;
+div[data-content-dropdown='categoryFilters'] {
+  left: auto !important;
+  right: 0 !important;
 }
 
-.icon_container {
-  display: flex;
-  place-items: center;
-  position: absolute;
-  transition: 250ms;
-  width: 100%;
-  opacity: 0;
-  z-index: -50;
+.filters_content_mobile {
+  display: none;
 }
 
-.filters {
+.filters_content_desktop {
   height: max-content;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-
-  button {
-    text-transform: capitalize;
-    font-weight: bold;
-    padding: 0.3rem 1rem;
-    border: 0.0625rem solid var(--primary-color);
-    color: var(--primary-color);
-    background: transparent;
-    border-radius: 0.5rem;
-    position: relative;
-    transition: background 0.2s;
-    cursor: pointer;
-  }
-
-  .active,
-  button:hover {
-    background-color: var(--primary-color);
-    color: var(--zinc-100);
-  }
 }
 
 @media (width < 549px) {
-  .icon_container {
-    position: relative;
-    opacity: 1;
-    z-index: 10;
+  .filters_content_desktop {
+    display: none;
+  }
 
-    .icon {
-      font-size: 2rem;
-      color: var(--primary-color);
-      cursor: pointer;
-    }
+  .category_container_mobile {
+    position: relative;
+    z-index: 50;
+  }
+
+  .icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    cursor: pointer;
 
     &:hover {
       transform: scale(110%);
     }
   }
 
-  .filters {
+  .filters_content_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    position: absolute;
-    right: 0;
-    top: 3.5rem;
-    gap: 0;
     background-color: var(--zinc-100);
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
     border-radius: 8px;
     border: 1px solid var(--zinc-300);
-    transition: all 550ms;
-
-    button {
-      border: none;
-      color: var(--zinc-950);
-      border-radius: 0;
-      width: 100%;
-      padding: 1rem 0;
-      text-align: start;
-      border-bottom: 1px solid var(--zinc-300);
-
-      &:hover {
-        background-color: transparent;
-        color: var(--zinc-400);
-      }
-
-      &.active {
-        color: var(--zinc-300);
-        background-color: transparent;
-      }
-
-      &:last-of-type {
-        border: none;
-      }
-    }
-
-    &[data-toggle-model='true'] {
-      opacity: 1;
-      z-index: 100;
-      transform: translateY(0px);
-    }
-
-    &[data-toggle-model='false'] {
-      opacity: 0;
-      z-index: -50;
-      transform: translateY(-20px);
-    }
+    width: min-content;
   }
 }
 
 @media (max-width: 500px) {
-  .filters {
+  .filters_content_mobile {
     font-size: 0.9rem;
   }
 }
