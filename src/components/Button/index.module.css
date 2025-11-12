@@ -31,14 +31,14 @@
 }
 
 .btn[data-btn-type='outline'] {
-  color: var(--zinc-400);
-  background: transparent;
-  border: 1px solid var(--zinc-600);
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
 
   &:disabled {
     color: var(--zinc-100);
     border-color: transparent;
-    background: var(--zinc-400);
+    background-color: var(--zinc-400);
     cursor: no-drop;
   }
 }
