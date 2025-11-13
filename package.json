@@ -9,7 +9,6 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "lint": "eslint src --ext ts,tsx, --fix",
-        "dev:server": "json-server -w db.json",
         "preview": "vite preview",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d dist"

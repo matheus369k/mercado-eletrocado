@@ -1,4 +1,3 @@
-import { useConfigsProfile } from '../../hooks/use-profile';
 import { FaGear } from 'react-icons/fa6';
 import styles from './index.module.css';
 import {
@@ -12,8 +11,6 @@ import { FaUserEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 
 export const ProfileSettings = () => {
-  const { handleDeleteAccount, handleLogOut } = useConfigsProfile();
-
   return (
     <DropdownModelRoot
       referenceId="setting"

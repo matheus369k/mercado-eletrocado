@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRedirect } from '@/hooks';
 import { zodSchemaUserRegister } from '@/@types/user-schema';
 import { z } from 'zod';
 import type { UpdateProfileModelForm } from '../components';
