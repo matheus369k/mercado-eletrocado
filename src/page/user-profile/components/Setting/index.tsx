@@ -33,14 +33,14 @@ export const ProfileSettings = () => {
           </DropdownModelToggle>
         </DropdownModelItem>
         <DropdownModelItem referenceId="setting" className={styles.settings_item} mode="dropdown">
-          <button type="button" onClick={handleLogOut}>
+          <DropdownModelToggle mode="model" referenceId="userLogout">
             <ImExit /> Desconectar-se
-          </button>
+          </DropdownModelToggle>
         </DropdownModelItem>
         <DropdownModelItem referenceId="setting" className={styles.settings_item} mode="dropdown">
-          <button type="button" onClick={handleDeleteAccount}>
+          <DropdownModelToggle mode="model" referenceId="userDelete">
             <AiFillDelete /> Deletar Conta
-          </button>
+          </DropdownModelToggle>
         </DropdownModelItem>
       </DropdownModelContent>
     </DropdownModelRoot>
