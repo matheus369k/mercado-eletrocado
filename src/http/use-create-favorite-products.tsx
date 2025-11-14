@@ -12,11 +12,10 @@ export const useCreateFavoriteProduct = () => {
   return useMutation({
     mutationFn: async (data: UseCreateFavoriteProductRequest) => {
       const { image, name, price, productId } = data;
-      const formattedPrice = Number((price % 1).toFixed(2)) * 100 + Math.floor(price) * 100;
       await axiosBackEndAPI
         .post(
           '/api/products/favorite',
-          { productId, image, name, price: formattedPrice },
+          { productId, image, name, price },
           {
             withCredentials: true,
             headers: {
@@ -33,7 +32,7 @@ export const useCreateFavoriteProduct = () => {
             if (result.status === 200) {
               await axiosBackEndAPI.post(
                 '/api/products/favorite',
-                { productId, image, name, price: formattedPrice },
+                { productId, image, name, price },
                 {
                   withCredentials: true,
                   headers: {

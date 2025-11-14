@@ -13,15 +13,8 @@ export const useCreateDeliveriesProducts = () => {
 
   return useMutation({
     mutationFn: async (data: UseCreateDeliveriesProductsRequest) => {
-      const deliveriesProducts = data.map((product) => {
-        return {
-          ...product,
-          price: Number((product.price % 1).toFixed(2)) * 100 + Math.floor(product.price) * 100,
-        };
-      });
-
       await axiosBackEndAPI
-        .post('/api/products/delivery', deliveriesProducts, {
+        .post('/api/products/delivery', data, {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -34,7 +27,7 @@ export const useCreateDeliveriesProducts = () => {
           });
 
           if (responseToken.status !== 200) return error;
-          return await axiosBackEndAPI.post('/api/products/delivery', deliveriesProducts, {
+          return await axiosBackEndAPI.post('/api/products/delivery', data, {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
