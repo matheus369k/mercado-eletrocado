@@ -67,5 +67,10 @@
 .buttons_container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  place-items: center;
   gap: 2rem;
+
+  button {
+    width: 100%;
+  }
 }

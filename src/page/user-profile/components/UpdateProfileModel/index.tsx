@@ -104,15 +104,11 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
 
           <div className={styles.buttons_container}>
             <UI.DropdownModelClose type="button" mode="model" referenceId="updateProfile">
-              <UI.Button
-                disabled={updateForm.isSubmitting}
-                type="button"
-                btnType="outline"
-                customClass="btn_form">
+              <UI.Button disabled={updateForm.isSubmitting} type="button" btnType="outline">
                 cancelar
               </UI.Button>
             </UI.DropdownModelClose>
-            <UI.Button disabled={updateForm.isSubmitting} type="submit" customClass="btn_form">
+            <UI.Button disabled={updateForm.isSubmitting} type="submit">
               Confirmar
             </UI.Button>
           </div>
