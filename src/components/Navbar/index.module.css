@@ -32,6 +32,7 @@ div[data-content-dropdown='userWithoutAccount'] {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     column-gap: 0.3125rem;
 
     &::before {

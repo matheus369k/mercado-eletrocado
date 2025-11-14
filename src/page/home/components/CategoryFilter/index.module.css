@@ -37,9 +37,9 @@ div[data-content-dropdown='categoryFilters'] {
 
   .filters_content_mobile {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     background-color: var(--zinc-100);
     padding: 0.5rem 1rem;
     border-radius: 8px;

@@ -43,6 +43,7 @@
     display: flex;
     column-gap: 0.5rem;
     align-items: center;
+    justify-content: flex-start;
     padding: 1rem 0;
     background-color: transparent;
     color: var(--zinc-950);
