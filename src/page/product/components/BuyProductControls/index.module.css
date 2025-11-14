@@ -25,7 +25,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  background: var(--zinc-100);
+  background-color: var(--zinc-300);
   border-radius: 6px;
 
   span {

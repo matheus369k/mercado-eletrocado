@@ -58,10 +58,11 @@
   height: fit-content;
   position: relative;
   animation: loading-page 0.7s ease-out;
-  max-width: 1124px;
+  max-width: 1324px;
   width: 100%;
   margin-inline: auto;
   padding: 2rem 1rem;
+  background-color: var(--zinc-100);
 }
 
 @media (width < 768px) {

@@ -73,7 +73,9 @@
 div.products_cards_items {
   display: grid;
   grid-template-columns: calc(var(--card-h) - (var(--card-p) * 2)) calc(100% - var(--card-h));
-  background-color: var(--zinc-100);
+  background-color: var(--zinc-50);
+  border: 1px solid var(--zinc-100);
+  border-radius: 8px;
   margin-top: var(--card-m-top);
   padding: var(--card-p);
   align-items: center;

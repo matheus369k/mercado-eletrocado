@@ -23,7 +23,7 @@ export const FormPayment = () => {
   const dispatch = useDispatch();
   const TAX = 23.0;
 
-  const handleSubmitPayment = async (event) => {
+  const handleSubmitPayment = async (event: React.FormEvent) => {
     try {
       event.preventDefault();
       if (!payment) return;
