@@ -48,6 +48,11 @@ export const Home = () => {
               <h3 className={styles.product_title}>{CATEGORY_PRODUCTS_TYPES[key]}</h3>
               {productsEntries && (
                 <Carousel
+                  swipeable
+                  draggable
+                  minimumTouchDrag={10}
+                  transitionDuration={280}
+                  customTransition="transform 280ms cubic-bezier(.17,.67,.36,1)"
                   className={styles.carousel_container}
                   responsive={MultiCarouselHorizonResponsive}
                   removeArrowOnDeviceType={['tablet', 'mobile_sm', 'mobile_lg', 'mobile']}
