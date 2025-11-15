@@ -38,6 +38,7 @@
 
 @media (width < 549px) {
   .product_card {
+    width: 100%;
     padding-inline: 0.5rem;
     gap: 0.5rem;
   }

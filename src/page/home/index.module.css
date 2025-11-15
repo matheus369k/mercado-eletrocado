@@ -97,10 +97,15 @@
 @media (width < 549px) {
   .home_container {
     --card-h: 14.5rem;
-    --card-w: 11rem;
+    --card-w: minmax(11rem, 15.5rem);
+  }
+
+  .products_category_container {
+    grid-template-columns: repeat(2, var(--card-w));
   }
 
   .loader_card {
+    width: 100%;
     padding-inline: 0.5rem;
   }
 }

@@ -104,12 +104,17 @@
 @media (width < 549px) {
   .delivery_container {
     --card-h: 12.5rem;
-    --card-w: 11rem;
+    --card-w: minmax(11rem, 14.5rem);
     --max-img-h: calc(var(--card-h) * 45 / 100);
+  }
+
+  .delivery_cards {
+    grid-template-columns: repeat(2, var(--card-w));
   }
 
   .loader_card,
   .cards_item {
+    width: 100%;
     padding-inline: 0.5rem;
   }
 }

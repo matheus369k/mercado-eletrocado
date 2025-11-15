@@ -90,12 +90,17 @@
 @media (width < 549px) {
   .favorite_container {
     --card-h: 10.5rem;
-    --card-w: 11rem;
+    --card-w: minmax(11rem, 14.5rem);
     --max-img-h: calc(var(--card-h) * 50 / 100);
+  }
+
+  .favorite_cards {
+    grid-template-columns: repeat(2, var(--card-w));
   }
 
   .loader_card,
   .cards_item {
+    width: 100%;
     padding-inline: 0.5rem;
   }
 }

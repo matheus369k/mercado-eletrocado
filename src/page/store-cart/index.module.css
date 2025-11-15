@@ -25,9 +25,13 @@
 @media (width < 549px) {
   .cart_container {
     --card-h: 14.25rem;
-    --card-w: 11rem;
+    --card-w: minmax(11rem, 15.5rem);
     --max-img-h: calc(var(--card-h) * 45 / 100);
 
     gap: 0.5rem;
+  }
+
+  .cart_product_container {
+    grid-template-columns: repeat(2, var(--card-w));
   }
 }
