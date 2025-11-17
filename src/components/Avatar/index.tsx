@@ -8,7 +8,7 @@ type AvatarProps = {
 };
 
 export const Avatar = ({ avatarUrl, previewUrl, name }: AvatarProps) => {
-  let imgUrl = `https:placehold.co/250x250/f4f4f5/09090b?text=${name.at(0).toUpperCase()}`;
+  let imgUrl = `https://placehold.co/250x250/f4f4f5/09090b?text=${name.at(0).toUpperCase()}`;
 
   if (avatarUrl) {
     imgUrl = env.VITE_DATABASE_URL.concat('/' + avatarUrl);
