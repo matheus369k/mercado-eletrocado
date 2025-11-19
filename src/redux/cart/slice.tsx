@@ -108,8 +108,19 @@ const cartReducer = createSlice({
       state.cartProducts = initialState.cartProducts;
       state.totalPrice = initialState.totalPrice;
     },
+    restoreCartProducts: (state) => {
+      const restoreCartDatas: InitialStateType = browserLocalStorage.get(
+        BROWSER_STORAGE_KEYS.CART_PRODUCT,
+      );
+
+      if (restoreCartDatas) {
+        state.cartProducts = restoreCartDatas.cartProducts;
+        state.totalPrice = restoreCartDatas.totalPrice;
+      }
+    },
   },
 });
 
-export const { addCartProducts, removeCartProduct, removeAllCartProducts } = cartReducer.actions;
+export const { addCartProducts, removeCartProduct, removeAllCartProducts, restoreCartProducts } =
+  cartReducer.actions;
 export default cartReducer.reducer;

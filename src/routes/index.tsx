@@ -17,9 +17,18 @@ export const routes = createBrowserRouter([
       { path: ROUTES_PATHNAMES.CHECKED, element: <Page.CheckedPage /> },
       {
         path: ROUTES_PATHNAMES.USER_PROFILER,
-        element: <Page.UserProfile />,
-        action: async () => {
-          return useProfileAccount();
+        Component: () => {
+          const userAuthorization = useProfileAccount();
+
+          if (userAuthorization.isPending) {
+            return null;
+          }
+
+          if (userAuthorization.isError) {
+            return <ErrorRoute />;
+          }
+
+          return <Page.UserProfile />;
         },
       },
       {

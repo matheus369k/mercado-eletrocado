@@ -6,9 +6,6 @@ export const ErrorRoute = () => {
   const { handleReplacePage } = useRedirect();
 
   const handleResetPage = () => {
-    sessionStorage.removeItem('statusFetchApi');
-    localStorage.setItem('autLogin', 'false');
-
     handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
   };
 

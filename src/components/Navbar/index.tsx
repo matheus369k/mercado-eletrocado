@@ -8,16 +8,18 @@ import { FaUser } from 'react-icons/fa6';
 import { FiMenu } from 'react-icons/fi';
 import { ROUTES_PATHNAMES } from '@/util/const';
 import { useProfileAccount } from '@/http/use-profile-account';
-import { useDetectedScreenMode, useRedirect } from '@/hooks';
+import { useDetectedScreenMode } from '@/hooks';
 import { DropdownModelContent, DropdownModelRoot, DropdownModelToggle } from '../DropdownModel';
 import { GoTriangleDown } from 'react-icons/go';
+import { useDispatch } from 'react-redux';
+import { restoreCartProducts } from '@/redux/cart/slice';
 
 export const Navbar = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
   const { isMobileMode } = useDetectedScreenMode({ maxWidth: 769 });
   const userAccount = useProfileAccount();
-  const { handleReplacePage } = useRedirect();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const isHomePage = ROUTES_PATHNAMES.HOME === pathname;
   const isCarPage = pathname.includes(ROUTES_PATHNAMES.CAR);
@@ -25,9 +27,9 @@ export const Navbar = () => {
   const isRegisterPage = pathname.includes(ROUTES_PATHNAMES.USER_REGISTER);
   const isLoginPage = pathname.includes(ROUTES_PATHNAMES.USER_LOGIN);
 
-  const userNotHaveAccount = userAccount.isError;
-  if (userNotHaveAccount && isProfilerPage) {
-    handleReplacePage({ pathName: ROUTES_PATHNAMES.HOME });
+  const hastProductsInCart = cartProducts?.length > 0;
+  if (userAccount.isSuccess && !hastProductsInCart) {
+    dispatch(restoreCartProducts());
   }
 
   if (isMobileMode) {
@@ -54,7 +56,7 @@ export const Navbar = () => {
           <NavbarDropdownItemRoot referenceId="navbarMenu" isCurrentPage={isCarPage}>
             <NavbarItemLink to={ROUTES_PATHNAMES.CAR}>
               <PiShoppingCartFill />
-              {cartProducts?.length > 0 && <span className={styles.product_car_point} />}
+              {hastProductsInCart && <span className={styles.product_car_point} />}
               Carrinho
             </NavbarItemLink>
           </NavbarDropdownItemRoot>

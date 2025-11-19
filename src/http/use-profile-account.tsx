@@ -12,6 +12,7 @@ type UserProfileResponse = {
 export const useProfileAccount = () => {
   return useQuery({
     queryKey: ['get-user', 'user-account', 'user-authorization'],
+    experimental_prefetchInRender: true,
     queryFn: async () => {
       const response = await axiosBackEndAPI
         .get('/api/users/profile', {
