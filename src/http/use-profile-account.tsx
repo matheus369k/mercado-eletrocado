@@ -19,17 +19,15 @@ export const useProfileAccount = () => {
           withCredentials: true,
         })
         .catch(async (error) => {
-          if (error.status === 401) {
-            const result = await axiosBackEndAPI.get('/token', {
-              withCredentials: true,
-            });
+          if (error.status !== 401) return error;
+          const result = await axiosBackEndAPI.get('/token', {
+            withCredentials: true,
+          });
 
-            if (result.status === 200) {
-              return axiosBackEndAPI.get('/api/users/profile', {
-                withCredentials: true,
-              });
-            }
-          }
+          if (result.status !== 200) return error;
+          return axiosBackEndAPI.get('/api/users/profile', {
+            withCredentials: true,
+          });
         });
 
       const result: UserProfileResponse = await response.data;

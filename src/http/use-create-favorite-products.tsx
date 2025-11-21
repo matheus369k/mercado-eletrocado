@@ -24,24 +24,22 @@ export const useCreateFavoriteProduct = () => {
           },
         )
         .catch(async (error) => {
-          if (error.status === 401) {
-            const result = await axiosBackEndAPI.get('/token', {
-              withCredentials: true,
-            });
+          if (error.status !== 401) return error;
+          const result = await axiosBackEndAPI.get('/token', {
+            withCredentials: true,
+          });
 
-            if (result.status === 200) {
-              await axiosBackEndAPI.post(
-                '/api/products/favorite',
-                { productId, image, name, price },
-                {
-                  withCredentials: true,
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                },
-              );
-            }
-          }
+          if (result.status !== 200) return error;
+          await axiosBackEndAPI.post(
+            '/api/products/favorite',
+            { productId, image, name, price },
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            },
+          );
         });
     },
   });
