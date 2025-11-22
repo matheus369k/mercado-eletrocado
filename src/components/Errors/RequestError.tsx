@@ -2,8 +2,6 @@ import styles from './index.module.css';
 
 export const RequestError = () => {
   const handleReloadPage = () => {
-    localStorage.removeItem('statusFetchApi');
-
     window.location.reload();
   };
 

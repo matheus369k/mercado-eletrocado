@@ -3,9 +3,6 @@ import styles from './index.module.css';
 
 export const ErrorBoundary = ({ children }: { children: React.ReactNode }) => {
   const handleResetPage = () => {
-    sessionStorage.removeItem('statusFetchApi');
-    localStorage.setItem('autLogin', 'false');
-
     window.location.reload();
   };
 
