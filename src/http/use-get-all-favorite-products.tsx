@@ -11,7 +11,7 @@ type UseFavoriteProductResponse = {
 }[];
 
 export const useGetAllFavoriteProduct = () => {
-  return useQuery({
+  return useQuery<UseFavoriteProductResponse>({
     queryKey: ['favorite-products', 'all-favorites-products'],
     queryFn: async () => {
       const response = await axiosBackEndAPI
@@ -30,9 +30,7 @@ export const useGetAllFavoriteProduct = () => {
           });
         });
 
-      const result: UseFavoriteProductResponse = await response.data;
-
-      return result;
+      return await response.data;
     },
   });
 };

@@ -10,7 +10,7 @@ type UserProfileResponse = {
 };
 
 export const useProfileAccount = () => {
-  return useQuery({
+  return useQuery<UserProfileResponse>({
     queryKey: ['get-user', 'user-account', 'user-authorization'],
     experimental_prefetchInRender: true,
     queryFn: async () => {
@@ -30,12 +30,7 @@ export const useProfileAccount = () => {
           });
         });
 
-      const result: UserProfileResponse = await response.data;
-      if (!result) {
-        throw new Error('Not found user account');
-      }
-
-      return result;
+      return await response.data;
     },
   });
 };
