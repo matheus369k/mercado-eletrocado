@@ -15,6 +15,7 @@ export default defineConfig({
     env: process.env,
     clearMocks: true,
     mockReset: true,
+    setupFiles: ['src/vitest.setup.ts'],
     coverage: {
       provider: 'v8',
       clean: true,
