@@ -21,7 +21,7 @@ export const CheckedPage = () => {
         <i
           className={styles.icon_close_container}
           onClick={handleCloseCheckoutPage}
-          aria-label="Voltar"
+          aria-label="close checked page"
           title="Voltar">
           <IoClose />
         </i>

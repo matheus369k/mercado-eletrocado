@@ -32,14 +32,20 @@ export const ProductsCards = () => {
         <Controls />
         {cartProducts.map((product) => {
           return (
-            <SwiperSlide className={styles.products_cards_items} key={product.data._id}>
+            <SwiperSlide
+              aria-label={`product cart - id ${product.data._id}`}
+              className={styles.products_cards_items}
+              key={product.data._id}>
               <img
+                aria-label={`product cart of picture - id ${product.data._id}`}
                 onClick={() => handleRedirectionToProduct(product.data._id)}
                 src={product.data.img}
                 alt=""
               />
               {product.quantity > 0 && (
-                <span className={styles.cards_quantity}>{product.quantity}X</span>
+                <span aria-label="quantity of products" className={styles.cards_quantity}>
+                  {product.quantity}X
+                </span>
               )}
               <div className={styles.cards_info}>
                 <PriceStockInfo

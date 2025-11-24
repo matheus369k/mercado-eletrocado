@@ -39,6 +39,7 @@ export const Controls = () => {
   return (
     <div className={styles.cards_controls_container}>
       <button
+        aria-label="prev card"
         disabled={isSlide.first}
         type="button"
         className="swiper-slide-prev"
@@ -46,6 +47,7 @@ export const Controls = () => {
         <SlArrowUp />
       </button>
       <button
+        aria-label="next card"
         disabled={isSlide.last}
         className="swiper-slide-next"
         onClick={handleNextSlide}

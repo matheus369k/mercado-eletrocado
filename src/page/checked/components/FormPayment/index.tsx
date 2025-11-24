@@ -63,20 +63,35 @@ export const FormPayment = () => {
         <span>Selecione abaixo a forma de pagamento.</span>
       </div>
 
-      <div className={styles.options_container}>
-        <div className={styles.options_items} onClick={() => handleAddPayment('credit-card')}>
+      <div
+        aria-label="payment content"
+        data-payment-type={payment}
+        className={styles.options_container}>
+        <div
+          aria-label="credit card option"
+          className={styles.options_items}
+          onClick={() => handleAddPayment('credit-card')}>
           <input type="radio" name="payment_type" />
           Cart Credito
         </div>
-        <div className={styles.options_items} onClick={() => handleAddPayment('debit-card')}>
+        <div
+          aria-label="debit card option"
+          className={styles.options_items}
+          onClick={() => handleAddPayment('debit-card')}>
           <input type="radio" name="payment_type" />
           Cart Debito
         </div>
-        <div className={styles.options_items} onClick={() => handleAddPayment('pix')}>
+        <div
+          aria-label="pix option"
+          className={styles.options_items}
+          onClick={() => handleAddPayment('pix')}>
           <input type="radio" name="payment_type" />
           Pix
         </div>
-        <div className={styles.options_items} onClick={() => handleAddPayment('ticket')}>
+        <div
+          aria-label="ticket option"
+          className={styles.options_items}
+          onClick={() => handleAddPayment('ticket')}>
           <input type="radio" name="payment_type" />
           Boleto
         </div>
