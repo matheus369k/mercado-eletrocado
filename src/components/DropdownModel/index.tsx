@@ -41,25 +41,25 @@ export const DropdownModelRoot = ({
       `[data-close-${mode}=${referenceId}]`,
     );
 
-    dropdownToggleBtn.addEventListener('click', toggleBtnDropdownModel);
+    dropdownToggleBtn?.addEventListener('click', toggleBtnDropdownModel);
     dropdownsCloseBtn.forEach((dropdownCloseBtn) => {
-      dropdownCloseBtn.addEventListener('click', closeToClickedDropdownModel);
+      dropdownCloseBtn?.addEventListener('click', closeToClickedDropdownModel);
     });
-    window.addEventListener('keyup', keyPressDropdownModel);
+    window?.addEventListener('keyup', keyPressDropdownModel);
     dropdownItems.forEach((dropdownItem) => {
-      dropdownItem.addEventListener('click', closeToClickedDropdownModel);
+      dropdownItem?.addEventListener('click', closeToClickedDropdownModel);
     });
-    window.addEventListener('click', overDownClickedDropdownModel);
+    window?.addEventListener('click', overDownClickedDropdownModel);
 
     return () => {
-      window.removeEventListener('click', overDownClickedDropdownModel);
-      dropdownToggleBtn.removeEventListener('click', toggleBtnDropdownModel);
+      window?.removeEventListener('click', overDownClickedDropdownModel);
+      dropdownToggleBtn?.removeEventListener('click', toggleBtnDropdownModel);
       dropdownsCloseBtn.forEach((dropdownCloseBtn) => {
-        dropdownCloseBtn.removeEventListener('click', closeToClickedDropdownModel);
+        dropdownCloseBtn?.removeEventListener('click', closeToClickedDropdownModel);
       });
-      window.removeEventListener('keyup', keyPressDropdownModel);
+      window?.removeEventListener('keyup', keyPressDropdownModel);
       dropdownItems.forEach((dropdownItem) => {
-        dropdownItem.removeEventListener('click', closeToClickedDropdownModel);
+        dropdownItem?.removeEventListener('click', closeToClickedDropdownModel);
       });
     };
   }, [openModal, pathname]);
@@ -116,6 +116,7 @@ export const DropdownModelRoot = ({
       {...props}
       id={referenceId}
       data-dropdown-model={mode}
+      aria-label={`${mode} ${referenceId} root`}
       className={`${className} ${customClass}`}
       data-open={openModal}
       ref={divRef}>
@@ -126,12 +127,24 @@ export const DropdownModelRoot = ({
 
 type DropdownModelToggleProps = react.ComponentProps<'button'> & DropdownModelProps;
 export const DropdownModelToggle = ({ mode, referenceId, ...props }: DropdownModelToggleProps) => {
-  return <button {...props} {...{ [`data-toggle-${mode}`]: referenceId }} />;
+  return (
+    <button
+      {...props}
+      aria-label={`${mode} ${referenceId} toggle`}
+      {...{ [`data-toggle-${mode}`]: referenceId }}
+    />
+  );
 };
 
 type DropdownModelCloseProps = react.ComponentProps<'button'> & DropdownModelProps;
 export const DropdownModelClose = ({ mode, referenceId, ...props }: DropdownModelCloseProps) => {
-  return <button {...props} {...{ [`data-close-${mode}`]: referenceId }} />;
+  return (
+    <button
+      {...props}
+      aria-label={`${mode} ${referenceId} close`}
+      {...{ [`data-close-${mode}`]: referenceId }}
+    />
+  );
 };
 
 type DropdownModelContentProps = react.ComponentProps<'div'> & DropdownModelProps;
@@ -140,10 +153,22 @@ export const DropdownModelContent = ({
   referenceId,
   ...props
 }: DropdownModelContentProps) => {
-  return <div {...props} {...{ [`data-content-${mode}`]: referenceId }} />;
+  return (
+    <div
+      {...props}
+      aria-label={`${mode} ${referenceId} content`}
+      {...{ [`data-content-${mode}`]: referenceId }}
+    />
+  );
 };
 
 type DropdownModelItemProps = react.ComponentProps<'div'> & DropdownModelProps;
 export const DropdownModelItem = ({ mode, referenceId, ...props }: DropdownModelItemProps) => {
-  return <div {...props} {...{ [`data-item-${mode}`]: referenceId }} />;
+  return (
+    <div
+      {...props}
+      aria-label={`${mode} ${referenceId} item`}
+      {...{ [`data-item-${mode}`]: referenceId }}
+    />
+  );
 };
