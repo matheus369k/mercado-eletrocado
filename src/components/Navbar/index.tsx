@@ -104,7 +104,13 @@ export const Navbar = () => {
         <NavbarItemRoot isCurrentPage={isCarPage}>
           <NavbarItemLink to={ROUTES_PATHNAMES.CAR}>
             <PiShoppingCartFill />
-            {cartProducts?.length > 0 && <span className={styles.product_car_point} />}
+            {cartProducts?.length > 0 && (
+              <span
+                aria-label="carts count"
+                data-cart-count={cartProducts?.length}
+                className={styles.product_car_point}
+              />
+            )}
             Carrinho
           </NavbarItemLink>
         </NavbarItemRoot>
