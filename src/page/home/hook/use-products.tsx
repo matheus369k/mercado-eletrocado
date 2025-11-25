@@ -13,7 +13,7 @@ export const useProductsCategories = () => {
     return 'all';
   });
 
-  const handleUpdateFilter = async (filter: CategoryTypes) => {
+  const handleUpdateFilter = (filter: CategoryTypes) => {
     searchParams.addSearchParam({
       key: 'filter',
       value: filter,

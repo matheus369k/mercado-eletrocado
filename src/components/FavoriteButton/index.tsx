@@ -10,11 +10,14 @@ interface FavoriteButtonProps extends Pick<ProductType, '_id' | 'img' | 'model' 
 export const FavoriteButton = ({ customClass, ...data }: FavoriteButtonProps) => {
   const { handleAddRemoveFavoriteProductId, IsFavoriteProduct } = useFavoriteProduct(data);
 
+  const labelTitleTextButton = (IsFavoriteProduct ? 'remover dos' : 'adicionar aos').concat(
+    ' favoritos',
+  );
   return (
     <button
-      aria-label="adicionar aos favoritos"
+      aria-label={labelTitleTextButton}
       data-is-favorite={!!IsFavoriteProduct}
-      title="Adicionar aos favoritos"
+      title={labelTitleTextButton}
       onClick={handleAddRemoveFavoriteProductId}
       className={`${styles.btn_favorite} ${styles.product_favorite} ${styles[customClass]}`}
       type="button">
