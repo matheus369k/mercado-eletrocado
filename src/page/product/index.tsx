@@ -17,7 +17,10 @@ export const ProductPage = () => {
   return (
     <ProductsAmountProvider>
       <div className={styles.product_container}>
-        <i className={styles.icon_close_container} onClick={handleBackPage}>
+        <i
+          aria-label="close product page"
+          className={styles.icon_close_container}
+          onClick={handleBackPage}>
           <IoClose />
         </i>
         <div className={styles.product_content}>

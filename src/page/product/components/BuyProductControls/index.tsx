@@ -38,7 +38,7 @@ export const BoyProductControls = ({ data }: Omit<SliceProductCartType, 'quantit
           <FaPlus />
         </button>
 
-        <span>{productsAmount}</span>
+        <span aria-label="count product">{productsAmount}</span>
 
         <button
           onClick={handleRemoveProduct}

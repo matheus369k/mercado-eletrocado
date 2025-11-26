@@ -1,23 +1,45 @@
+import type { ComponentProps } from 'react';
 import styles from './index.module.css';
 
-interface ProductSlideItemProps {
+interface ProductSlideItemRootProps extends ComponentProps<'div'> {
   mainImage: string;
-  SlidePreview: string;
-  model: string;
-  handleSetNewPreviewImage: (SlidePreview: string) => void;
+  slidePreview: string;
+  handleClick: (slidePreview: string) => void;
 }
 
-export const ProductSlideItem = ({
+export const ProductSlideItemRoot = ({
   mainImage,
-  SlidePreview,
-  model,
-  handleSetNewPreviewImage,
-}: ProductSlideItemProps) => {
+  slidePreview,
+  handleClick,
+  ...props
+}: ProductSlideItemRootProps) => {
   return (
-    <li
-      onClick={() => handleSetNewPreviewImage(SlidePreview)}
-      className={`${styles.pictures_previews_items} ${mainImage === SlidePreview ? styles.current_slide : ''}`}>
-      <img src={SlidePreview} alt={model} loading="lazy" />
-    </li>
+    <div
+      {...props}
+      aria-label="preview product item"
+      onClick={() => handleClick(slidePreview)}
+      className={`${styles.pictures_previews_items} ${mainImage === slidePreview ? styles.current_slide : ''}`}
+    />
+  );
+};
+
+interface ProductSlideItemImageProps extends ComponentProps<'img'> {
+  model: string;
+  slidePreview: string;
+}
+
+export const ProductSlideItemImage = ({
+  slidePreview,
+  model,
+  ...props
+}: ProductSlideItemImageProps) => {
+  return (
+    <img
+      {...props}
+      src={slidePreview}
+      alt={model}
+      loading="lazy"
+      aria-label="images product item"
+    />
   );
 };

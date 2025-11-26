@@ -1,4 +1,4 @@
-import { ProductSlideItem } from './ProductPreviewSlideItem';
+import { ProductSlideItemImage, ProductSlideItemRoot } from './ProductPreviewSlideItem';
 import { usePreview } from '../../hooks/use-preview';
 import { ProductType } from '@/@types/product';
 import styles from './index.module.css';
@@ -19,31 +19,34 @@ export const ProductPreviewSlide = ({ img, model, slide }: ProductPreviewSlidePr
       <img
         onLoad={handleFinishLoadingPreviewImage}
         className={`${styles.image_main} ${isLoading ? styles.animation_switch_img : ''}`}
+        aria-label="main preview image"
         loading="lazy"
         src={previewImage}
         alt={model}
       />
 
-      <ul className={styles.pictures_previews_list}>
-        <ProductSlideItem
-          handleSetNewPreviewImage={handleSetNewPreviewImage}
+      <div className={styles.pictures_previews_list}>
+        <ProductSlideItemRoot
+          slidePreview={slide.slide2}
+          handleClick={handleSetNewPreviewImage}
+          mainImage={previewImage}>
+          <ProductSlideItemImage slidePreview={slide.slide2} model={model} />
+        </ProductSlideItemRoot>
+
+        <ProductSlideItemRoot
+          handleClick={handleSetNewPreviewImage}
           mainImage={previewImage}
-          SlidePreview={slide.slide2}
-          model={model}
-        />
-        <ProductSlideItem
-          handleSetNewPreviewImage={handleSetNewPreviewImage}
+          slidePreview={slide.slide1}>
+          <ProductSlideItemImage slidePreview={slide.slide1} model={model} />
+        </ProductSlideItemRoot>
+
+        <ProductSlideItemRoot
+          handleClick={handleSetNewPreviewImage}
           mainImage={previewImage}
-          SlidePreview={slide.slide1}
-          model={model}
-        />
-        <ProductSlideItem
-          handleSetNewPreviewImage={handleSetNewPreviewImage}
-          mainImage={previewImage}
-          SlidePreview={slide.slide3}
-          model={model}
-        />
-      </ul>
+          slidePreview={slide.slide3}>
+          <ProductSlideItemImage slidePreview={slide.slide3} model={model} />
+        </ProductSlideItemRoot>
+      </div>
     </div>
   );
 };
