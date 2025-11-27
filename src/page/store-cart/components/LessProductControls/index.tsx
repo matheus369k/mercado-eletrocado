@@ -7,7 +7,7 @@ import { FiTrash } from 'react-icons/fi';
 
 type RenderButtonsProps = { _id: ProductIdType };
 
-export const LessProductDisplay = ({ _id }: RenderButtonsProps) => {
+export const LessProductControls = ({ _id }: RenderButtonsProps) => {
   const { handleAddProductCount, handleLessProduct, handleRemoveProductCount, productsLessCount } =
     useProduct();
 
@@ -15,17 +15,17 @@ export const LessProductDisplay = ({ _id }: RenderButtonsProps) => {
     <div className={styles.less_product_controls_container}>
       <div className={styles.control_count}>
         <button
-          aria-label="Aumentar"
+          aria-label="increment count"
           onClick={() => handleAddProductCount(_id)}
           title="Aumentar contador"
           type="button">
           <FaPlus />
         </button>
 
-        <span>{productsLessCount}</span>
+        <span aria-label="count product">{productsLessCount}</span>
 
         <button
-          aria-label="Diminuir"
+          aria-label="decrement count"
           disabled={productsLessCount === 1}
           onClick={handleRemoveProductCount}
           title="Diminuir contador"
@@ -35,7 +35,7 @@ export const LessProductDisplay = ({ _id }: RenderButtonsProps) => {
       </div>
 
       <button
-        aria-label="Remover produtos do carrinho"
+        aria-label="remove product to cart"
         title="Remover produtos do carrinho"
         onClick={() => handleLessProduct({ id: _id, quantity: productsLessCount })}
         className={`flex-center ${styles.btn_less_product}`}

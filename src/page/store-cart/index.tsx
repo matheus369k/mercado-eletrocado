@@ -32,7 +32,7 @@ export const StoreCart = () => {
       </TitleRoot>
 
       {hasProductDatas && (
-        <div className={styles.cart_product_container}>
+        <div aria-label="cart products list" className={styles.cart_product_container}>
           {cartProducts.map((product) => {
             return <ProductCard key={product.data._id} {...product} />;
           })}

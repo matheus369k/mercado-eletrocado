@@ -1,2 +1,2 @@
-export { LessProductDisplay } from './LessProductControls';
+export { LessProductControls } from './LessProductControls';
 export { ProductCard } from './ProductCard';
