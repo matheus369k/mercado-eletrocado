@@ -26,7 +26,8 @@ export type UpdateProfileModelForm = Omit<UserUpdateProfileType, 'avatar'> & {
 };
 
 export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
-  const updateForm = useUpdateForm(props);
+  const { errors, handleSubmit, handleSubmitted, hookUseForm, isSubmitting, previewUrl } =
+    useUpdateForm(props);
 
   return (
     <UI.DropdownModelContent
@@ -39,32 +40,30 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
           mode="model"
           referenceId="updateProfile"
           type="button"
-          aria-label="close model"
-          disabled={updateForm.isSubmitting}>
+          disabled={isSubmitting}>
           <GrFormClose className={styles.icon} />
         </UI.DropdownModelClose>
       </div>
 
-      <FormProvider {...updateForm.hookUseForm}>
-        <form
-          className={styles.model_form}
-          onSubmit={updateForm.handleSubmit(updateForm.handleSubmitted)}>
+      <FormProvider {...hookUseForm}>
+        <form className={styles.model_form} onSubmit={handleSubmit(handleSubmitted)}>
           <UI.FormFieldRoot
             customClass="user_avatar"
-            {...(updateForm.errors.avatar && { 'data-error': updateForm.errors.avatar.message })}>
+            {...(errors.avatar && { 'data-error': errors.avatar.message })}>
             <label
-              data-readonly={updateForm.isSubmitting}
+              aria-label="avatar label field"
+              data-readonly={isSubmitting}
               htmlFor="avatar"
               className={styles.avatar_selected_area}>
               <Avatar
-                {...(updateForm.previewUrl && { previewUrl: updateForm.previewUrl })}
-                {...(!updateForm.previewUrl && props.avatarUrl && { avatarUrl: props.avatarUrl })}
+                {...(previewUrl && { previewUrl: previewUrl })}
+                {...(!previewUrl && props.avatarUrl && { avatarUrl: props.avatarUrl })}
                 name={props?.full_name || 'desconhecido'}
               />
             </label>
             <UI.FormFieldInput
-              readOnly={updateForm.isSubmitting}
-              aria-label="avatar"
+              readOnly={isSubmitting}
+              aria-label="avatar field"
               type="file"
               id="avatar"
               name="avatar"
@@ -75,12 +74,12 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
           </UI.FormFieldRoot>
 
           <UI.FormFieldRoot
-            {...(updateForm.errors.full_name && {
-              'data-error': updateForm.errors.full_name.message,
+            {...(errors.full_name && {
+              'data-error': errors.full_name.message,
             })}>
             <UI.FormFieldInput
-              readOnly={updateForm.isSubmitting}
-              aria-label="full name"
+              readOnly={isSubmitting}
+              aria-label="full name field"
               placeholder="Digite seu nome completo..."
               type="text"
               name="full_name"
@@ -89,11 +88,10 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
             <GoPeople />
           </UI.FormFieldRoot>
 
-          <UI.FormFieldRoot
-            {...(updateForm.errors.cep && { 'data-error': updateForm.errors.cep.message })}>
+          <UI.FormFieldRoot {...(errors.cep && { 'data-error': errors.cep.message })}>
             <UI.FormFieldInput
-              readOnly={updateForm.isSubmitting}
-              aria-label="cep"
+              readOnly={isSubmitting}
+              aria-label="cep field"
               type="text"
               name="cep"
               maxLength={9}
@@ -104,11 +102,11 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
 
           <div className={styles.buttons_container}>
             <UI.DropdownModelClose type="button" mode="model" referenceId="updateProfile">
-              <UI.Button disabled={updateForm.isSubmitting} type="button" btnType="outline">
+              <UI.Button disabled={isSubmitting} type="button" btnType="outline">
                 cancelar
               </UI.Button>
             </UI.DropdownModelClose>
-            <UI.Button disabled={updateForm.isSubmitting} type="submit">
+            <UI.Button disabled={isSubmitting} type="submit">
               Confirmar
             </UI.Button>
           </div>

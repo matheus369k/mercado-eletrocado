@@ -13,7 +13,7 @@ export const DeliveriesProducts = () => {
       {isError && <Empty message="Compre mais produtos..." />}
 
       {isPending && (
-        <div className={styles.delivery_cards}>
+        <div aria-label="loading delivery cards" className={styles.delivery_cards}>
           {Array.from({ length: 8 }).map((_, index) => {
             return <div key={index + '_id'} className={styles.loader_card} />;
           })}
@@ -21,7 +21,7 @@ export const DeliveriesProducts = () => {
       )}
 
       {isSuccess && (
-        <div className={styles.delivery_cards}>
+        <div aria-label="delivery cards" className={styles.delivery_cards}>
           {deliveriesProducts.map((product) => {
             return (
               <div key={product.id} className={styles.cards_item}>

@@ -37,8 +37,9 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
 
   const handleSubmitted = async (props: UserUpdateProfileType) => {
     try {
-      if (invalidateSizeAvatarImage()) return;
       const avatarImage = props.avatar?.[0];
+      if (avatarImage && invalidateSizeAvatarImage(avatarImage)) return;
+
       const formData = new FormData();
       if (props.full_name) {
         formData.append('name', props.full_name);
@@ -57,12 +58,10 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
     }
   };
 
-  const handlePreviewAvatar = () => {
-    if (!avatarPreview) return;
-
+  const handlePreviewAvatar = (avatarPreview: Blob) => {
     const fileReader = new FileReader();
     fileReader.onload = function (event) {
-      const fileUrl = event.target.result;
+      const fileUrl = event.target?.result;
       if (typeof fileUrl === 'string') {
         setPreviewUrl(fileUrl);
       }
@@ -70,10 +69,8 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
     fileReader.readAsDataURL(avatarPreview);
   };
 
-  const invalidateSizeAvatarImage = () => {
-    if (!avatarPreview) return;
-
-    const isAvatarExceedsMaxSize = avatarPreview.size >= 5_240_880;
+  const invalidateSizeAvatarImage = (file: Blob) => {
+    const isAvatarExceedsMaxSize = file.size >= 5_240_880;
     if (isAvatarExceedsMaxSize) {
       setError('avatar', { message: 'Máximo 5MB' });
       return isAvatarExceedsMaxSize;
@@ -83,8 +80,8 @@ export const useUpdateForm = (props: UpdateProfileModelForm) => {
     return isAvatarExceedsMaxSize;
   };
 
-  if (avatarPreview) {
-    handlePreviewAvatar();
+  if (avatarPreview instanceof Blob) {
+    handlePreviewAvatar(avatarPreview);
   }
   return {
     previewUrl,

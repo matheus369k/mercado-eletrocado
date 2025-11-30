@@ -13,7 +13,7 @@ export const FavoriteProducts = () => {
       {isError && <Empty message="Adicione mais produtos aos favoritos..." />}
 
       {isPending && (
-        <div className={styles.favorite_cards}>
+        <div aria-label="loading favorite cards" className={styles.favorite_cards}>
           {Array.from({ length: 8 }).map((_, index) => {
             return <div key={index + '_id'} className={styles.loader_card} />;
           })}
@@ -21,7 +21,7 @@ export const FavoriteProducts = () => {
       )}
 
       {isSuccess && (
-        <div className={styles.favorite_cards}>
+        <div aria-label="favorite cards" className={styles.favorite_cards}>
           {favoritesProducts.map((product) => {
             return (
               <div key={product.id} className={styles.cards_item}>

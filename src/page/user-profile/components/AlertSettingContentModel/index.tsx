@@ -35,7 +35,7 @@ export const AlertSettingsActionContentModel = (props: AlertSettingsActionConten
         <DropdownModelClose type="button" mode="model" referenceId={referenceId}>
           <Button type="button">cancelar</Button>
         </DropdownModelClose>
-        <Button btnType="outline" onClick={handleClick}>
+        <Button aria-label={`confirm ${message}`} btnType="outline" onClick={handleClick}>
           Confirmar
         </Button>
       </div>

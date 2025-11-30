@@ -11,7 +11,7 @@ type UseDeliveriesProductResponse = {
 }[];
 
 export const useGetAllDeliveriesProduct = () => {
-  return useQuery({
+  return useQuery<UseDeliveriesProductResponse>({
     queryKey: ['deliveries-products', 'all-deliveries-products'],
     queryFn: async () => {
       const response = await axiosBackEndAPI
@@ -19,25 +19,18 @@ export const useGetAllDeliveriesProduct = () => {
           withCredentials: true,
         })
         .catch(async (error) => {
-          if (error.status === 401) {
-            const result = await axiosBackEndAPI.get('/token', {
-              withCredentials: true,
-            });
+          if (error.status !== 401) return error;
+          const result = await axiosBackEndAPI.get('/token', {
+            withCredentials: true,
+          });
 
-            if (result.status === 200) {
-              return await axiosBackEndAPI.get('/api/products/delivery', {
-                withCredentials: true,
-              });
-            }
-          }
+          if (result.status !== 200) return error;
+          return await axiosBackEndAPI.get('/api/products/delivery', {
+            withCredentials: true,
+          });
         });
 
-      const result: UseDeliveriesProductResponse = await response.data;
-      if (!result[0]) {
-        throw new Error('Not found Deliveries products');
-      }
-
-      return result;
+      return await response.data;
     },
   });
 };

@@ -111,5 +111,3 @@ export const UserProfile = () => {
     </DropdownModelRoot>
   );
 };
-
-export default UserProfile;
