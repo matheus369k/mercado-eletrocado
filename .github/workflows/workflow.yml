@@ -1,0 +1,58 @@
+name: Continuous Integration - Continuous Delivery
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VITE_DATABASE_URL: ${{ secrets.VITE_DATABASE_URL}}
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloning repository
+        uses: actions/checkout@v3
+
+      - name: Using Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 23.
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Testing Project
+        run: npm run test
+
+      - name: building Project
+        run: npm run build
+
+  continuous-delivery:
+    needs: continuous-integration
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloning Repository
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Building Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        continue-on-error: true
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN}}
