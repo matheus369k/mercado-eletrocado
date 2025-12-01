@@ -1,4 +1,4 @@
-import { useRef, type ComponentRef } from 'react';
+import { useState } from 'react';
 import styles from './index.module.css';
 import { env } from '@/env';
 
@@ -9,27 +9,26 @@ type AvatarProps = {
 };
 
 export const Avatar = ({ avatarUrl, previewUrl, name }: AvatarProps) => {
-  const imageRef = useRef<null | ComponentRef<'img'>>(null);
-  let imageUrl: string | null = null;
+  const firstLetterOfName = name.at(0).toUpperCase();
+  const placeholdAvatar = `https://placehold.co/250x250/f4f4f5/09090b?text=${firstLetterOfName}`;
+  const [avatar, setAvatar] = useState<string>(() => {
+    if (avatarUrl) return `${env.VITE_DATABASE_URL}/${avatarUrl}`;
 
-  if (avatarUrl) {
-    imageUrl = env.VITE_DATABASE_URL.concat('/' + avatarUrl);
-  }
+    return placeholdAvatar;
+  });
 
-  if (previewUrl) {
-    imageUrl = previewUrl;
+  if (previewUrl && avatar !== previewUrl) {
+    setAvatar(previewUrl);
   }
 
   const handleErrorImage = () => {
-    const firstLetterOfName = name.at(0).toUpperCase();
-    imageRef.current.src = `https://placehold.co/250x250/f4f4f5/09090b?text=${firstLetterOfName}`;
+    setAvatar(placeholdAvatar);
   };
 
   return (
     <div className={styles.img_container}>
       <img
-        ref={imageRef}
-        src={imageUrl}
+        src={avatar}
         onError={handleErrorImage}
         alt="avatar profile image"
         className={styles.profile_img}
