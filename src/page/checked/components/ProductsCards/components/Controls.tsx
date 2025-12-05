@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useSwiper } from 'swiper/react';
-import styles from './index.module.css';
+import styles from '../index.module.css';
 import { useEffect, useState } from 'react';
 import { SlArrowDown } from 'react-icons/sl';
 import { SlArrowUp } from 'react-icons/sl';

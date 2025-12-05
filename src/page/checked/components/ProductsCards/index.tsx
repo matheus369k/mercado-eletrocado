@@ -1,28 +1,29 @@
 import { appUseSelector } from '@/redux/hook';
 import { Swiper, SwiperSlide, type SwiperProps } from 'swiper/react';
 import { Title } from '../Title';
-import { Controls } from './Controls';
+import { Controls } from './components/Controls';
 import styles from './index.module.css';
 import 'swiper/css';
 import { PriceStockInfo } from '@/components';
 import { useRedirect } from '@/hooks';
 
+export const SliderSetting: SwiperProps = {
+  slidesPerView: 4,
+  className: styles.products_cards_container,
+  direction: 'vertical',
+  breakpoints: {
+    1024: {
+      slidesPerView: 4,
+    },
+    300: {
+      slidesPerView: 3,
+    },
+  },
+};
+
 export const ProductsCards = () => {
   const { cartProducts } = appUseSelector((state) => state.cart);
   const { handleRedirectionToProduct } = useRedirect();
-  const SliderSetting: SwiperProps = {
-    slidesPerView: 4,
-    className: styles.products_cards_container,
-    direction: 'vertical',
-    breakpoints: {
-      1024: {
-        slidesPerView: 4,
-      },
-      300: {
-        slidesPerView: 3,
-      },
-    },
-  };
 
   return (
     <div className={styles.products_cards_sections}>
