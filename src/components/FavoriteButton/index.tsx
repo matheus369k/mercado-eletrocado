@@ -3,7 +3,7 @@ import { useFavoriteProduct } from '@/hooks';
 import styles from './index.module.css';
 import { TbHeartFilled } from 'react-icons/tb';
 
-interface FavoriteButtonProps extends Pick<ProductType, '_id' | 'img' | 'model' | 'price'> {
+export interface FavoriteButtonProps extends Pick<ProductType, '_id' | 'img' | 'model' | 'price'> {
   customClass?: string;
 }
 

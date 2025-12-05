@@ -3,7 +3,7 @@ import styles from '../index.module.css';
 import type { ComponentProps } from 'react';
 import { DropdownModelItem } from '@/components/DropdownModel';
 
-interface NavbarItemRootProps extends ComponentProps<'li'> {
+export interface NavbarItemRootProps extends ComponentProps<'li'> {
   isCurrentPage: boolean;
 }
 

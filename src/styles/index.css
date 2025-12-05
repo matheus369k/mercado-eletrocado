@@ -46,6 +46,7 @@
 
 body {
   background-color: var(--zinc-100);
+  font-family: 'Roboto', sans-serif;
 }
 
 .react-multiple-carousel__arrow {

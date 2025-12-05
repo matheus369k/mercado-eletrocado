@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import styles from './index.module.css';
 import { useFormContext } from 'react-hook-form';
 
-interface FormFieldRootProps extends ComponentProps<'div'> {
+export interface FormFieldRootProps extends ComponentProps<'div'> {
   customClass?: string;
 }
 

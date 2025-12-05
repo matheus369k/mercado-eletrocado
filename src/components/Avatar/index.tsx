@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './index.module.css';
 import { env } from '@/env';
 
-type AvatarProps = {
+export type AvatarProps = {
   avatarUrl?: string | null;
   previewUrl?: string | null;
   name?: string;

@@ -2,13 +2,13 @@ import { useLocation } from 'react-router-dom';
 import styles from './index.module.css';
 import react from 'react';
 
-type DropdownModelRootProps = react.ComponentProps<'div'> & {
+export type DropdownModelRootProps = react.ComponentProps<'div'> & {
   mode: 'dropdown' | 'model';
   customClass?: string;
   referenceId: string;
 };
 
-type DropdownModelProps = Pick<DropdownModelRootProps, 'referenceId' | 'mode'>;
+export type DropdownModelProps = Pick<DropdownModelRootProps, 'referenceId' | 'mode'>;
 
 export const DropdownModelRoot = ({
   children,
