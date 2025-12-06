@@ -5,9 +5,9 @@ import styles from './index.module.css';
 import { FaPlus } from 'react-icons/fa';
 import { FiTrash } from 'react-icons/fi';
 
-type RenderButtonsProps = { _id: ProductIdType };
+export type LessProductControlsProps = { _id: ProductIdType };
 
-export const LessProductControls = ({ _id }: RenderButtonsProps) => {
+export const LessProductControls = ({ _id }: LessProductControlsProps) => {
   const { handleAddProductCount, handleLessProduct, handleRemoveProductCount, productsLessCount } =
     useProduct();
 
