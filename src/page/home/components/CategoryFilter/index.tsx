@@ -9,7 +9,7 @@ import { MdOutlinePhoneAndroid } from 'react-icons/md';
 import { MdOutlineFilterListOff } from 'react-icons/md';
 import { FaTabletScreenButton } from 'react-icons/fa6';
 
-interface CategoryFilterProps {
+export interface CategoryFilterProps {
   handleUpdateFilter: (filter: string) => void;
   filter: CategoryTypes;
 }

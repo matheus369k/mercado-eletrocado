@@ -3,7 +3,7 @@ import styles from './index.module.css';
 import type { CategoryTypes } from '../../../../hook/use-products';
 import { DropdownModelItem } from '@/components';
 
-interface CategoryButtonProps extends ComponentProps<'button'> {
+export interface CategoryButtonProps extends ComponentProps<'button'> {
   filter: CategoryTypes;
   category: CategoryTypes;
   handleClick: (category: CategoryTypes) => void;
