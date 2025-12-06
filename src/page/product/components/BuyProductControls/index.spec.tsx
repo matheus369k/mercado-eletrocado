@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ProductsAmountProvider } from '../../contexts/products-amount';
 import type { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
-import { BoyProductControls } from '.';
+import { BuyProductControls } from '.';
 import { faker } from '@faker-js/faker/locale/pt_BR';
 import userEvent from '@testing-library/user-event';
 import { configureStore } from '@reduxjs/toolkit';
@@ -46,7 +46,7 @@ describe('buy products controls component', () => {
   };
 
   it('should increment value when is clicked in plus button', async () => {
-    render(<BoyProductControls data={product} />, { wrapper });
+    render(<BuyProductControls data={product} />, { wrapper });
 
     await userEvents.click(screen.getByLabelText(/aumenta contador/i));
 
@@ -54,7 +54,7 @@ describe('buy products controls component', () => {
   });
 
   it('should decrement value when is clicked in minus button', async () => {
-    render(<BoyProductControls data={product} />, { wrapper });
+    render(<BuyProductControls data={product} />, { wrapper });
 
     await userEvents.click(screen.getByLabelText(/aumenta contador/i));
     await userEvents.click(screen.getByLabelText(/aumenta contador/i));
@@ -67,7 +67,7 @@ describe('buy products controls component', () => {
   });
 
   it('should increment value when is clicked in plus button', async () => {
-    render(<BoyProductControls data={product} />, { wrapper });
+    render(<BuyProductControls data={product} />, { wrapper });
 
     await userEvents.click(screen.getByLabelText(/aumenta contador/i));
 
@@ -75,7 +75,7 @@ describe('buy products controls component', () => {
   });
 
   it('should saved value when is clicked in adicionar', async () => {
-    render(<BoyProductControls data={product} />, { wrapper });
+    render(<BuyProductControls data={product} />, { wrapper });
 
     await userEvents.click(screen.getByLabelText(/aumenta contador/i));
     await userEvents.click(screen.getByLabelText(/aumenta contador/i));

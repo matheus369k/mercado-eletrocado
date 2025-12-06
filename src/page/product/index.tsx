@@ -1,5 +1,5 @@
 import { ProductsAmountProvider } from './contexts/products-amount';
-import { BoyProductControls, ProductInfoItem, ProductPreviewSlide } from './components';
+import { BuyProductControls, ProductInfoItem, ProductPreviewSlide } from './components';
 import { IoClose } from 'react-icons/io5';
 import styles from './index.module.css';
 import { FavoriteButton, PriceStockInfo } from '@/components';
@@ -46,7 +46,7 @@ export const ProductPage = () => {
               _id={product._id}
               price={product.price}
             />
-            <BoyProductControls data={product} />
+            <BuyProductControls data={product} />
           </div>
         </div>
       </div>

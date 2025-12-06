@@ -9,7 +9,7 @@ import { ProductAmountContext } from '../../contexts/products-amount';
 import { useDispatch } from 'react-redux';
 import { addCartProducts } from '@/redux/cart/slice';
 
-export const BoyProductControls = ({ data }: Omit<SliceProductCartType, 'quantity'>) => {
+export const BuyProductControls = ({ data }: Omit<SliceProductCartType, 'quantity'>) => {
   const { productsAmount, handleResetProducts, handleAddProduct, handleRemoveProduct } =
     useContext(ProductAmountContext);
   const dispatch = useDispatch();

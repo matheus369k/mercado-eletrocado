@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
-import styles from './index.module.css';
+import styles from '../index.module.css';
 
-interface ProductSlideItemRootProps extends ComponentProps<'div'> {
+export interface ProductSlideItemRootProps extends ComponentProps<'div'> {
   mainImage: string;
   slidePreview: string;
   handleClick: (slidePreview: string) => void;
@@ -23,7 +23,7 @@ export const ProductSlideItemRoot = ({
   );
 };
 
-interface ProductSlideItemImageProps extends ComponentProps<'img'> {
+export interface ProductSlideItemImageProps extends ComponentProps<'img'> {
   model: string;
   slidePreview: string;
 }

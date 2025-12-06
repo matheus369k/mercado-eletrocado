@@ -11,7 +11,7 @@
 .buy_controls_container {
   display: flex;
   justify-content: space-between;
-  height: 2.8125rem;
+  height: 3.125rem;
   width: 100%;
   grid-column: 2;
   grid-row: 4;

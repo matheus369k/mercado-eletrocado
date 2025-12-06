@@ -1,4 +1,4 @@
-import { ProductSlideItemImage, ProductSlideItemRoot } from './ProductPreviewSlideItem';
+import { ProductSlideItemImage, ProductSlideItemRoot } from './components/ProductPreviewSlideItem';
 import { usePreview } from '../../hooks/use-preview';
 import { ProductType } from '@/@types/product';
 import styles from './index.module.css';
