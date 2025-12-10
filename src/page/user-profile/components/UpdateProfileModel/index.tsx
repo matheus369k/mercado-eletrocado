@@ -21,11 +21,11 @@ const zodSchemaUpdateProfile = zodSchemaUserRegister
 
 type UserUpdateProfileType = z.infer<typeof zodSchemaUpdateProfile>;
 
-export type UpdateProfileModelForm = Omit<UserUpdateProfileType, 'avatar'> & {
+export type UpdateProfileModelFormProps = Omit<UserUpdateProfileType, 'avatar'> & {
   avatarUrl?: string | null;
 };
 
-export const UpdateProfileModelForm = (props: UpdateProfileModelForm) => {
+export const UpdateProfileModelForm = (props: UpdateProfileModelFormProps) => {
   const { errors, handleSubmit, handleSubmitted, hookUseForm, isSubmitting, previewUrl } =
     useUpdateForm(props);
 

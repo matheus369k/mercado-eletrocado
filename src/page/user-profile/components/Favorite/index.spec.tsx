@@ -53,7 +53,7 @@ describe('favorite component', () => {
   });
 
   it('should render empty component when not receive data', async () => {
-    axiosFetch.onGet(favoriteProductRoutes).reply(404);
+    axiosFetch.onGet(favoriteProductRoutes).reply(200, []);
     render(<FavoriteProducts />, { wrapper });
 
     await screen.findByText(/Adicione mais produtos aos favoritos.../i);

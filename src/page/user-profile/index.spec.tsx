@@ -213,7 +213,7 @@ describe('user update page', () => {
   });
 
   it('should logout when clicked in setting icon > Desconectar-se > Confirmar', async () => {
-    axiosFetch.onDelete('/api/users/delete').reply(200);
+    axiosFetch.onDelete('/api/users/logout').reply(200);
     axiosFetch.onDelete('/token').reply(200);
     const mockReplace = vi.fn();
     vi.spyOn(window, 'location', 'get').mockReturnValue({

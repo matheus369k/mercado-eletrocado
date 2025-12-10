@@ -45,25 +45,43 @@ describe('products request', () => {
     axiosFetch.reset();
   });
 
-  it('should request for all products', async () => {
+  it('should checked configuration from get all product', async () => {
     axiosFetch.onGet(allProductsRoute).reply(200, cartProductsCache);
     const { result } = renderHook(useProducts, { wrapper, initialProps: 'all' });
 
     await waitFor(() => result.current.promise as Promise<AllProductsType>);
-    const requestStories = axiosFetch.history[0];
 
-    expect(result.current.data).toMatchObject(cartProductsCache);
-    expect(requestStories.url).toBe(allProductsRoute);
+    const useGetAllProductRequest = axiosFetch.history[0];
+    expect(useGetAllProductRequest).includes({ url: allProductsRoute, method: 'get' });
   });
 
-  it('should request for categories products', async () => {
+  it('should returned all products', async () => {
+    axiosFetch.onGet(allProductsRoute).reply(200, cartProductsCache);
+    const { result } = renderHook(useProducts, { wrapper, initialProps: 'all' });
+
+    await waitFor(() => expect(result.current.data).toMatchObject(cartProductsCache));
+
+    const useGetAllProductRequest = axiosFetch.history[0];
+    expect(useGetAllProductRequest.url).toBe(allProductsRoute);
+  });
+
+  it('should checked configuration from get for category product', async () => {
     axiosFetch.onGet(categoryProductsRoute).reply(200, cartProductsCache);
     const { result } = renderHook(useProducts, { wrapper, initialProps: 'notebook' });
 
-    await waitFor(() => result.current.promise as Promise<ProductType[]>);
-    const requestStories = axiosFetch.history[0];
+    await waitFor(() => result.current.promise as Promise<AllProductsType>);
 
-    expect(result.current.data).toMatchObject(cartProductsCache);
-    expect(requestStories.url).toBe(categoryProductsRoute);
+    const useGetAllProductRequest = axiosFetch.history[0];
+    expect(useGetAllProductRequest).includes({ url: categoryProductsRoute, method: 'get' });
+  });
+
+  it('should returned for categories products', async () => {
+    axiosFetch.onGet(categoryProductsRoute).reply(200, cartProductsCache);
+    const { result } = renderHook(useProducts, { wrapper, initialProps: 'notebook' });
+
+    await waitFor(() => expect(result.current.data).toMatchObject(cartProductsCache));
+
+    const useGetForCategoryProductRequest = axiosFetch.history[0];
+    expect(useGetForCategoryProductRequest.url).toBe(categoryProductsRoute);
   });
 });

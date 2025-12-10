@@ -11,8 +11,9 @@ import { vi } from 'vitest';
 import { toast } from 'react-toastify';
 import { ROUTES_PATHNAMES } from '@/util/const';
 import { afterEach } from 'vitest';
+import { beforeEach } from 'vitest';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({ defaultOptions: { mutations: { retry: false } } });
 const wrapper = ({ children }: { children: ReactNode }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
@@ -22,97 +23,167 @@ vi.mock('react-router-dom');
 
 describe('profile custom hook', () => {
   const axiosFetch = new axiosMockAdapter(axiosBackEndAPI);
-  const deleteAccountRoute = '/api/users/delete';
-  const logoutAccountRoute = '/api/users/logout';
-  const updateAccountRoute = '/api/users/update';
   const authorizationTokenRoute = '/token';
+  const mockReplace = vi.fn();
+
+  beforeEach(() => {
+    vi.spyOn(window, 'location', 'get').mockReturnValue({
+      ...window.location,
+      replace: mockReplace,
+    } as Location);
+  });
 
   afterEach(() => {
     queryClient.clear();
     axiosFetch.reset();
   });
 
-  it('should delete account data and redirected to home page when call handleDeleteAccount', async () => {
-    axiosFetch.onDelete(deleteAccountRoute).reply(200);
-    axiosFetch.onDelete(authorizationTokenRoute).reply(200);
-    const mockReplace = vi.fn();
-    vi.spyOn(window, 'location', 'get').mockReturnValue({
-      ...window.location,
-      replace: mockReplace,
-    } as Location);
-    const { result } = renderHook(useConfigsProfile, { wrapper });
+  describe('delete account function', () => {
+    const deleteAccountRoute = '/api/users/delete';
 
-    await waitFor(() => result.current.handleDeleteAccount());
+    it('should delete account data and redirected to home page when call handleDeleteAccount', async () => {
+      axiosFetch.onDelete(deleteAccountRoute).reply(200);
+      axiosFetch.onDelete(authorizationTokenRoute).reply(200);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
 
-    expect(axiosFetch.history[0].url).toBe(deleteAccountRoute);
-    expect(axiosFetch.history[1].url).toBe(authorizationTokenRoute);
-    expect(mockReplace).toBeCalledWith(ROUTES_PATHNAMES.HOME);
-    expect(toast.error).toBeCalledTimes(0);
+      await waitFor(result.current.handleDeleteAccount);
+
+      const deleteAccountRequest = axiosFetch.history[0];
+      expect(deleteAccountRequest).includes({ url: deleteAccountRoute, method: 'delete' });
+      const deleteAuthTokenRequest = axiosFetch.history[1];
+      expect(deleteAuthTokenRequest).includes({
+        url: authorizationTokenRoute,
+        method: 'delete',
+      });
+      expect(mockReplace).toBeCalledWith(ROUTES_PATHNAMES.HOME);
+      expect(toast.error).toBeCalledTimes(0);
+    });
+
+    it('no should recall delete account request when generate new auth token fall request', async () => {
+      axiosFetch.onDelete(deleteAccountRoute).replyOnce(401);
+      axiosFetch.onDelete(deleteAccountRoute).reply(200);
+      axiosFetch.onDelete(authorizationTokenRoute).reply(200);
+      axiosFetch.onGet(authorizationTokenRoute).reply(401);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
+
+      await waitFor(result.current.handleDeleteAccount);
+
+      const deleteAccountRequest = axiosFetch.history[0];
+      expect(deleteAccountRequest).includes({ url: deleteAccountRoute, method: 'delete' });
+      const generateNewAccessTokenRequest = axiosFetch.history[1];
+      expect(generateNewAccessTokenRequest).includes({
+        url: authorizationTokenRoute,
+        method: 'get',
+      });
+      const recallDeleteAccountRequest = axiosFetch.history[2];
+      expect(recallDeleteAccountRequest).toBeUndefined();
+    });
+
+    it('should alert mensagem when call handleDeleteAccount and receive error', async () => {
+      axiosFetch.onDelete(deleteAccountRoute).replyOnce(401);
+      axiosFetch.onDelete(deleteAccountRoute).reply(200);
+      axiosFetch.onGet(authorizationTokenRoute).reply(401);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
+
+      await waitFor(result.current.handleDeleteAccount);
+
+      expect(toast.error).toBeCalledTimes(1);
+    });
   });
 
-  it('should alert mensagem when call handleDeleteAccount and receive error', async () => {
-    axiosFetch.onDelete(deleteAccountRoute).replyOnce(401);
-    axiosFetch.onDelete(deleteAccountRoute).reply(200);
-    axiosFetch.onGet(authorizationTokenRoute).reply(401);
-    const { result } = renderHook(useConfigsProfile, { wrapper });
+  describe('logout account function', () => {
+    const logoutAccountRoute = '/api/users/logout';
 
-    await waitFor(() => result.current.handleDeleteAccount());
+    it('should logout data and redirected to home page when call handleLogOut', async () => {
+      axiosFetch.onDelete(logoutAccountRoute).reply(200);
+      axiosFetch.onDelete(authorizationTokenRoute).reply(200);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
 
-    expect(toast.error).toBeCalledTimes(1);
+      await waitFor(result.current.handleLogOut);
+
+      const logoutAccountRequest = axiosFetch.history[0];
+      expect(logoutAccountRequest).includes({ url: logoutAccountRoute, method: 'delete' });
+      const deleteAuthTokenRequest = axiosFetch.history[1];
+      expect(deleteAuthTokenRequest).includes({ url: authorizationTokenRoute, method: 'delete' });
+      expect(mockReplace).toBeCalledWith(ROUTES_PATHNAMES.HOME);
+      expect(toast.error).toBeCalledTimes(0);
+    });
+
+    it('no should recall logout request when generate new auth token fall request', async () => {
+      axiosFetch.onDelete(logoutAccountRoute).replyOnce(401);
+      axiosFetch.onDelete(logoutAccountRoute).reply(200);
+      axiosFetch.onDelete(authorizationTokenRoute).reply(200);
+      axiosFetch.onGet(authorizationTokenRoute).reply(401);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
+
+      await waitFor(result.current.handleLogOut);
+
+      const logoutAccountRequest = axiosFetch.history[0];
+      expect(logoutAccountRequest).includes({ url: logoutAccountRoute, method: 'delete' });
+      const generateNewAccessTokenRequest = axiosFetch.history[1];
+      expect(generateNewAccessTokenRequest).includes({
+        url: authorizationTokenRoute,
+        method: 'get',
+      });
+      const recallLogoutAccountRequest = axiosFetch.history[2];
+      expect(recallLogoutAccountRequest).toBeUndefined();
+    });
+
+    it('should alert mensagem when call handleLogOut and receive error', async () => {
+      axiosFetch.onDelete(logoutAccountRoute).replyOnce(401);
+      axiosFetch.onDelete(logoutAccountRoute).reply(200);
+      axiosFetch.onGet(authorizationTokenRoute).reply(401);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
+
+      await waitFor(result.current.handleLogOut);
+
+      expect(toast.error).toBeCalledTimes(1);
+    });
   });
 
-  it('should logout account data and redirected to home page when call handleLogOut', async () => {
-    axiosFetch.onDelete(logoutAccountRoute).reply(200);
-    axiosFetch.onDelete(authorizationTokenRoute).reply(200);
-    const mockReplace = vi.fn();
-    vi.spyOn(window, 'location', 'get').mockReturnValue({
-      ...window.location,
-      replace: mockReplace,
-    } as Location);
-    const { result } = renderHook(useConfigsProfile, { wrapper });
+  describe('update account function', () => {
+    const updateAccountRoute = '/api/users/update';
 
-    await waitFor(() => result.current.handleLogOut());
+    it('should update account data and redirected to home page when call handleUpdateProfile', async () => {
+      axiosFetch.onPatch(updateAccountRoute).reply(200);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
 
-    expect(axiosFetch.history[0].url).toBe(logoutAccountRoute);
-    expect(axiosFetch.history[1].url).toBe(authorizationTokenRoute);
-    expect(mockReplace).toBeCalledWith(ROUTES_PATHNAMES.HOME);
-    expect(toast.error).toBeCalledTimes(0);
-  });
+      await waitFor(() => result.current.handleUpdateProfile(new FormData()));
 
-  it('should alert mensagem when call handleLogOut and receive error', async () => {
-    axiosFetch.onDelete(logoutAccountRoute).replyOnce(401);
-    axiosFetch.onDelete(logoutAccountRoute).reply(200);
-    axiosFetch.onGet(authorizationTokenRoute).reply(401);
-    const { result } = renderHook(useConfigsProfile, { wrapper });
+      const updateAccountRequest = axiosFetch.history[0];
+      expect(updateAccountRequest.url).toBe(updateAccountRoute);
+      expect(mockReplace).toBeCalledWith(ROUTES_PATHNAMES.USER_PROFILER);
+      expect(toast.error).toBeCalledTimes(0);
+    });
 
-    await waitFor(() => result.current.handleLogOut());
+    it('no should recall update request when generate new auth token fall request', async () => {
+      axiosFetch.onPatch(updateAccountRoute).replyOnce(401);
+      axiosFetch.onPatch(updateAccountRoute).reply(200);
+      axiosFetch.onDelete(authorizationTokenRoute).reply(200);
+      axiosFetch.onGet(authorizationTokenRoute).reply(401);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
 
-    expect(toast.error).toBeCalledTimes(1);
-  });
+      await waitFor(() => result.current.handleUpdateProfile(new FormData()));
 
-  it('should update account data and redirected to home page when call handleUpdateProfile', async () => {
-    axiosFetch.onPatch(updateAccountRoute).reply(200);
-    const mockReplace = vi.fn();
-    vi.spyOn(window, 'location', 'get').mockReturnValue({
-      ...window.location,
-      replace: mockReplace,
-    } as Location);
-    const { result } = renderHook(useConfigsProfile, { wrapper });
+      const updateAccountRequest = axiosFetch.history[0];
+      expect(updateAccountRequest).includes({ url: updateAccountRoute, method: 'patch' });
+      const generateNewAccessTokenRequest = axiosFetch.history[1];
+      expect(generateNewAccessTokenRequest).includes({
+        url: authorizationTokenRoute,
+        method: 'get',
+      });
+      const recallUpdateAccountRequest = axiosFetch.history[2];
+      expect(recallUpdateAccountRequest).toBeUndefined();
+    });
 
-    await waitFor(() => result.current.handleUpdateProfile(new FormData()));
+    it('should alert mensagem when call handleUpdateProfile and receive error', async () => {
+      axiosFetch.onPatch(updateAccountRoute).reply(401);
+      axiosFetch.onGet(authorizationTokenRoute).reply(401);
+      const { result } = renderHook(useConfigsProfile, { wrapper });
 
-    expect(axiosFetch.history[0].url).toBe(updateAccountRoute);
-    expect(mockReplace).toBeCalledWith(ROUTES_PATHNAMES.USER_PROFILER);
-    expect(toast.error).toBeCalledTimes(0);
-  });
+      await waitFor(() => result.current.handleUpdateProfile(new FormData()));
 
-  it('should alert mensagem when call handleUpdateProfile and receive error', async () => {
-    axiosFetch.onPatch(updateAccountRoute).reply(401);
-    axiosFetch.onGet(authorizationTokenRoute).reply(401);
-    const { result } = renderHook(useConfigsProfile, { wrapper });
-
-    await waitFor(() => result.current.handleUpdateProfile(new FormData()));
-
-    expect(toast.error).toBeCalledTimes(1);
+      expect(toast.error).toBeCalledTimes(1);
+    });
   });
 });

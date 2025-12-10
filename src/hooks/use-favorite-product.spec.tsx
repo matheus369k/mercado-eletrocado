@@ -120,7 +120,7 @@ describe('custom hook favorite product', () => {
   });
 
   it('should access delete favorite product when product is already saved', async () => {
-    axiosFetch.onDelete(deleteFavoriteProductRoute);
+    axiosFetch.onDelete(deleteFavoriteProductRoute).reply(200);
     const spyInvalidateQueries = vi.spyOn(queryClient, 'invalidateQueries');
     const { result } = renderHook(
       () => useFavoriteProduct({ ...product, _id: favoriteProducts[0].productId }),
@@ -143,7 +143,7 @@ describe('custom hook favorite product', () => {
   });
 
   it('should access add favorite product when product is not already saved', async () => {
-    axiosFetch.onPost(createFavoriteProductRoute);
+    axiosFetch.onPost(createFavoriteProductRoute).reply(200);
     const spyInvalidateQueries = vi.spyOn(queryClient, 'invalidateQueries');
     const { result } = renderHook(() => useFavoriteProduct(product), { wrapper });
 

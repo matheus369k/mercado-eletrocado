@@ -1,92 +1,77 @@
 import { axiosBackEndAPI } from '@/lib/axios';
-import { faker } from '@faker-js/faker/locale/pt_BR';
-import { render, renderHook, waitFor } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 import axiosMockAdapter from 'axios-mock-adapter';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { useUpdateAccount } from './use-update-profile';
 import type { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      retry: false,
+    },
+  },
+});
 const wrapper = ({ children }: { children: ReactNode }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
 
-describe('update account request', () => {
+describe('update account http', () => {
   const axiosFetch = new axiosMockAdapter(axiosBackEndAPI);
   const updateAccountRoute = '/api/users/update';
+  const tokenRoute = '/token';
 
-  beforeEach(() => {
+  afterEach(() => {
     queryClient.clear();
     axiosFetch.reset();
   });
 
-  it('should complete request', async () => {
-    axiosFetch.onPatch(updateAccountRoute);
+  it('should checked configuration from update account', async () => {
+    axiosFetch.onPatch(updateAccountRoute).reply(200);
     const { result } = renderHook(useUpdateAccount, { wrapper });
 
     await waitFor(() => result.current.mutateAsync(new FormData()));
-    const requestStories = axiosFetch.history[0];
 
-    expect(requestStories.headers).includes({
+    const updateAccountRequest = axiosFetch.history[0];
+    expect(updateAccountRequest).includes({
+      withCredentials: true,
+      url: updateAccountRoute,
+      method: 'patch',
+    });
+    expect(updateAccountRequest.headers).includes({
       'Content-Type': 'multipart/form-data',
     });
-    expect(requestStories.withCredentials).toBeTruthy();
+    expect(updateAccountRequest.data).instanceOf(FormData);
   });
 
-  it('should call token api when receive error 401(not authorization)', async () => {
-    axiosFetch.onPatch(updateAccountRoute).replyOnce(401, { status: 401 });
-    axiosFetch.onGet('/token').reply(200, { status: 200 });
+  it('should update account and invalidation user profile query', async () => {
+    axiosFetch.onPatch(updateAccountRoute).reply(200);
+    const spyInvalidateQueries = vi.spyOn(queryClient, 'invalidateQueries');
     const { result } = renderHook(useUpdateAccount, { wrapper });
 
     await waitFor(() => result.current.mutateAsync(new FormData()));
 
-    for (let index = 0; index < 3; index++) {
-      const requestStories = axiosFetch.history[index];
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include('/token');
-        continue;
-      }
-
-      expect(requestStories.headers).toMatchObject({
-        'Content-Type': 'multipart/form-data',
-      });
-      expect(requestStories.url).include(updateAccountRoute);
-    }
+    const updateAccountRequest = axiosFetch.history[0];
+    expect(updateAccountRequest).includes({ url: updateAccountRoute });
+    expect(spyInvalidateQueries).toHaveBeenCalledWith({
+      queryKey: ['get-user', 'user-account', 'user-authorization'],
+    });
   });
 
-  it('no should recall update account api when token api not return status 200', async () => {
-    axiosFetch.onPatch(updateAccountRoute).reply(401, { status: 401 });
-    axiosFetch.onGet('/token').reply(201, { status: 201 });
+  it('should recall request when receive error 401 and request to generate new token is complete', async () => {
+    axiosFetch.onPatch(updateAccountRoute).replyOnce(401);
+    axiosFetch.onPatch(updateAccountRoute).reply(200);
+    axiosFetch.onGet(tokenRoute).reply(200);
     const { result } = renderHook(useUpdateAccount, { wrapper });
 
     await waitFor(() => result.current.mutateAsync(new FormData()));
 
-    for (let index = 0; index < 3; index++) {
-      const requestStories = axiosFetch.history[index];
-
-      const isRecallUpdateAccountRequest = index === 2;
-      if (isRecallUpdateAccountRequest) {
-        expect(requestStories).toBeUndefined();
-        continue;
-      }
-
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include('/token');
-        continue;
-      }
-
-      expect(requestStories.headers).toMatchObject({
-        'Content-Type': 'multipart/form-data',
-      });
-
-      expect(requestStories.url).include(updateAccountRoute);
-    }
+    const updateAccountRequest = axiosFetch.history[0];
+    expect(updateAccountRequest).includes({ url: updateAccountRoute, method: 'patch' });
+    const generateNewAccessTokenRequest = axiosFetch.history[1];
+    expect(generateNewAccessTokenRequest).includes({ url: tokenRoute, method: 'get' });
+    const recallUpdateAccountRequest = axiosFetch.history[2];
+    expect(recallUpdateAccountRequest).includes({ url: updateAccountRoute, method: 'patch' });
   });
 });

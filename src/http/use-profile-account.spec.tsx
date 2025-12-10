@@ -19,6 +19,7 @@ const wrapper = ({ children }: { children: ReactNode }) => {
 };
 
 describe('user profile account', () => {
+  const tokenRoute = '/token';
   const axiosFetch = new axiosMockAdapter(axiosBackEndAPI);
   const userProfileAccountRoute = '/api/users/profile';
   const userProfileAccount = {
@@ -34,70 +35,50 @@ describe('user profile account', () => {
     axiosFetch.reset();
   });
 
-  it('should complete request', async () => {
+  it('should checked configuration from profile account', async () => {
     axiosFetch.onGet(userProfileAccountRoute).reply(200, userProfileAccount);
     const { result } = renderHook(useProfileAccount, { wrapper });
 
     await waitFor(() => result.current.promise);
-    const requestStories = axiosFetch.history[0];
+
+    const userProfileAccountRequest = axiosFetch.history[0];
+    expect(userProfileAccountRequest).includes({
+      url: userProfileAccountRoute,
+      method: 'get',
+      withCredentials: true,
+    });
+  });
+
+  it('should returned profile account', async () => {
+    axiosFetch.onGet(userProfileAccountRoute).reply(200, userProfileAccount);
+    const { result } = renderHook(useProfileAccount, { wrapper });
+
+    await waitFor(() => result.current.promise);
 
     expect(result.current.data).toMatchObject(userProfileAccount);
-    expect(requestStories.url).toBe(userProfileAccountRoute);
-    expect(requestStories.withCredentials).toBeTruthy();
   });
 
-  it('should call token api when receive error 401(not authorization)', async () => {
+  it('should recall request when receive error 401 and request to generate new token is complete', async () => {
     axiosFetch.onGet(userProfileAccountRoute).replyOnce(401);
     axiosFetch.onGet(userProfileAccountRoute).reply(200, userProfileAccount);
-    axiosFetch.onGet('/token').reply(200);
+    axiosFetch.onGet(tokenRoute).reply(200);
     const { result } = renderHook(useProfileAccount, { wrapper });
 
-    await waitFor(() => result.current.promise);
+    await waitFor(() => {
+      expect(result.current.data).toMatchObject(userProfileAccount);
+    });
 
-    for (let index = 0; index <= 2; index++) {
-      const requestStories = axiosFetch.history[index];
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include('/token');
-        continue;
-      }
-
-      const isRecallGetAllFavoriteRequest = index === 2;
-      if (isRecallGetAllFavoriteRequest) {
-        expect(result.current.data).toMatchObject(userProfileAccount);
-      }
-
-      expect(requestStories.url).include(userProfileAccountRoute);
-    }
-  });
-
-  it('no should recall get profile account api when token api not return status 200', async () => {
-    axiosFetch.onGet(userProfileAccountRoute).reply(401);
-    axiosFetch.onGet('/token').reply(201);
-    const { result } = renderHook(useProfileAccount, { wrapper });
-
-    await waitFor(() => expect(result.current.promise).rejects);
-
-    for (let index = 0; index <= 2; index++) {
-      const requestStories = axiosFetch.history[index];
-
-      const isRecallGetAllFavoriteRequest = index === 2;
-      if (isRecallGetAllFavoriteRequest) {
-        expect(requestStories).toBeUndefined();
-        continue;
-      }
-
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include('/token');
-        continue;
-      }
-
-      expect(requestStories.url).include(userProfileAccountRoute);
-    }
+    const profileAccountRequest = axiosFetch.history[0];
+    expect(profileAccountRequest).includes({
+      url: userProfileAccountRoute,
+      method: 'get',
+    });
+    const generateNewAccessTokenRequest = axiosFetch.history[1];
+    expect(generateNewAccessTokenRequest).includes({ url: tokenRoute, method: 'get' });
+    const recallProfileAccountRequest = axiosFetch.history[2];
+    expect(recallProfileAccountRequest).includes({
+      url: userProfileAccountRoute,
+      method: 'get',
+    });
   });
 });

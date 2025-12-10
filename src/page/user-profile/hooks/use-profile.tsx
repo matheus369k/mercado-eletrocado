@@ -38,6 +38,7 @@ export const useConfigsProfile = () => {
   const handleUpdateProfile = async (formData: FormData) => {
     try {
       await userUpdateAccount(formData);
+
       handleReplacePage({ pathName: ROUTES_PATHNAMES.USER_PROFILER });
     } catch (error) {
       toast.error('Error ao tentar atualizar o perfil');

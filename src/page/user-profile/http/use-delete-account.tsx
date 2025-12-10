@@ -1,37 +1,39 @@
+import { useGenerateAccessToken } from '@/http/use-generate-access-token';
 import { axiosBackEndAPI } from '@/lib/axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import type { AxiosRequestConfig } from 'axios';
 
 export const useDeleteAccount = () => {
-  const queryClient = useQueryClient();
+  const { mutateAsync: generateAccessToken } = useGenerateAccessToken();
 
   return useMutation({
+    mutationKey: ['delete-account'],
     mutationFn: async () => {
-      const responseDelete = await axiosBackEndAPI
-        .delete('/api/users/delete', {
-          withCredentials: true,
-        })
-        .catch(async (error) => {
-          if (error.status !== 401) return error;
-          const responseToken = await axiosBackEndAPI.get('/token', {
-            withCredentials: true,
-          });
+      const requestUrl = '/api/users/delete';
+      const requestConfig: AxiosRequestConfig<any> = {
+        withCredentials: true,
+      };
 
-          if (responseToken.status !== 200) return error;
-          return await axiosBackEndAPI.delete('/api/users/delete', {
-            withCredentials: true,
-          });
-        });
+      return await axiosBackEndAPI.delete(requestUrl, requestConfig).catch(async (response) => {
+        const isNotAuthorizationError = response.status !== 401;
+        if (isNotAuthorizationError) throw new Error(response.statusText);
+        const responseGenerateToken = await generateAccessToken();
 
-      if (responseDelete.status === 200) {
-        await axiosBackEndAPI.delete('/token', {
-          withCredentials: true,
+        const isNotGenerateNewAccessToken = responseGenerateToken.status !== 200;
+        if (isNotGenerateNewAccessToken) throw new Error(response.statusText);
+        return await axiosBackEndAPI.delete(requestUrl, requestConfig);
+      });
+    },
+    onSuccess: async (_, __, ___, { client }) => {
+      const response = await axiosBackEndAPI.delete('/token', {
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        client.invalidateQueries({
+          queryKey: ['get-user', 'user-account', 'user-authorization'],
         });
       }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['get-user', 'user-account', 'user-authorization'],
-      });
     },
   });
 };

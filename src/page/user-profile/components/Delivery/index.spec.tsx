@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
@@ -27,16 +27,14 @@ describe('delivery component', () => {
   const userEvents = userEvent.setup();
   const axiosFetch = new axiosMockAdapter(axiosBackEndAPI);
   const deliveriesProductRoutes = '/api/products/delivery';
-  const deliveriesProducts = Array.from({ length: 3 }).map(() => {
-    return {
-      deliveryDate: faker.date.past().toISOString(),
-      productId: faker.database.mongodbObjectId(),
-      image: faker.image.url(),
-      name: faker.commerce.productName(),
-      price: faker.number.int({ min: 156899, max: 347299 }),
-      id: faker.database.mongodbObjectId(),
-    };
-  });
+  const deliveriesProducts = Array.from({ length: 3 }).map(() => ({
+    productId: faker.database.mongodbObjectId(),
+    image: faker.image.url(),
+    name: faker.commerce.productName(),
+    price: faker.number.int({ min: 156899, max: 347299 }),
+    id: faker.database.mongodbObjectId(),
+    deliveryDate: faker.date.past().toISOString(),
+  }));
 
   afterEach(() => {
     queryClient.clear();
@@ -44,7 +42,7 @@ describe('delivery component', () => {
   });
 
   it('should render empty component when not receive data', async () => {
-    axiosFetch.onGet(deliveriesProductRoutes).reply(404);
+    axiosFetch.onGet(deliveriesProductRoutes).reply(200, []);
     render(<DeliveriesProducts />, { wrapper });
 
     await screen.findByText(/Compre mais produtos.../i);

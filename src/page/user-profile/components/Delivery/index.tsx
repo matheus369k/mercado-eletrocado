@@ -8,9 +8,11 @@ export const DeliveriesProducts = () => {
   const { data: deliveriesProducts, isSuccess, isPending, isError } = useGetAllDeliveriesProduct();
   const { handleRedirectionToProduct } = useRedirect();
 
+  const isErrorOrNotHaveProduct = isError || (deliveriesProducts?.length === 0 && isSuccess);
+  const isSuccessAndHaveProduct = isSuccess && deliveriesProducts?.length > 0;
   return (
     <div className={styles.delivery_container}>
-      {isError && <Empty message="Compre mais produtos..." />}
+      {isErrorOrNotHaveProduct && <Empty message="Compre mais produtos..." />}
 
       {isPending && (
         <div aria-label="loading delivery cards" className={styles.delivery_cards}>
@@ -20,7 +22,7 @@ export const DeliveriesProducts = () => {
         </div>
       )}
 
-      {isSuccess && (
+      {isSuccessAndHaveProduct && (
         <div aria-label="delivery cards" className={styles.delivery_cards}>
           {deliveriesProducts.map((product) => {
             return (

@@ -6,7 +6,7 @@ export const useRegisterAccount = () => {
   return useMutation({
     mutationFn: async (data: Omit<UserRegisterType, 'agree_terms'>) => {
       const { auto_connection, cep, email, full_name, password } = data;
-      await axiosBackEndAPI.post(
+      return await axiosBackEndAPI.post(
         '/api/users/register',
         {
           stayConnected: auto_connection,

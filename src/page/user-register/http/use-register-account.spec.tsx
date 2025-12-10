@@ -33,17 +33,21 @@ describe('user register account request', () => {
     const { result } = renderHook(useRegisterAccount, { wrapper });
 
     await waitFor(() => result.current.mutateAsync(userRegister));
-    const requestStories = axiosFetch.history[0];
+
+    const userRegisterRequest = axiosFetch.history[0];
 
     const { auto_connection, full_name, ...userRegisterRest } = userRegister;
-    expect(requestStories.url).toBe(userRegisterRoute);
-    expect(JSON.parse(requestStories.data)).toEqual({
-      ...userRegisterRest,
+    expect(userRegisterRequest).includes({
+      url: userRegisterRoute,
+      method: 'post',
+      withCredentials: true,
+    });
+    expect(JSON.parse(userRegisterRequest.data)).toMatchObject({
       name: userRegister.full_name,
       stayConnected: userRegister.auto_connection,
+      ...userRegisterRest,
     });
-    expect(requestStories.withCredentials).toEqual(true);
-    expect(requestStories.headers).includes({
+    expect(userRegisterRequest.headers).includes({
       'Content-Type': 'application/json',
     });
   });

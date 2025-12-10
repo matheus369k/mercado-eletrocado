@@ -2,7 +2,7 @@ import { Button, DropdownModelClose, DropdownModelContent } from '@/components';
 import { GrFormClose } from 'react-icons/gr';
 import styles from './index.module.css';
 
-type AlertSettingsActionContentModelProps = {
+export type AlertSettingsActionContentModelProps = {
   referenceId: string;
   handleClick: () => void;
   message: 'logout' | 'delete';

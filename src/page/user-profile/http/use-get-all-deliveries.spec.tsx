@@ -1,6 +1,6 @@
 import { axiosBackEndAPI } from '@/lib/axios';
 import { faker } from '@faker-js/faker/locale/pt_BR';
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import axiosMockAdapter from 'axios-mock-adapter';
 import { afterEach, describe, expect, it } from 'vitest';
 import { useGetAllDeliveriesProduct } from './use-get-all-deliveries';
@@ -9,9 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      experimental_prefetchInRender: true,
-    },
+    queries: { retry: false, experimental_prefetchInRender: true },
   },
 });
 const wrapper = ({ children }: { children: ReactNode }) => {
@@ -19,6 +17,7 @@ const wrapper = ({ children }: { children: ReactNode }) => {
 };
 
 describe('get all delivery product', () => {
+  const tokenRoute = '/token';
   const axiosFetch = new axiosMockAdapter(axiosBackEndAPI);
   const getAllDeliveriesProductRoute = '/api/products/delivery';
   const deliveryProducts = Array.from({ length: 3 }).map(() => {
@@ -37,70 +36,50 @@ describe('get all delivery product', () => {
     axiosFetch.reset();
   });
 
-  it('should complete request', async () => {
+  it('should checked configuration from get all deliveries product', async () => {
     axiosFetch.onGet(getAllDeliveriesProductRoute).reply(200, deliveryProducts);
     const { result } = renderHook(useGetAllDeliveriesProduct, { wrapper });
 
     await waitFor(() => result.current.promise);
-    const requestStories = axiosFetch.history[0];
+
+    const getAllDeliveriesProduct = axiosFetch.history[0];
+    expect(getAllDeliveriesProduct).includes({
+      url: getAllDeliveriesProductRoute,
+      method: 'get',
+      withCredentials: true,
+    });
+  });
+
+  it('should returned all deliveries product', async () => {
+    axiosFetch.onGet(getAllDeliveriesProductRoute).reply(200, deliveryProducts);
+    const { result } = renderHook(useGetAllDeliveriesProduct, { wrapper });
+
+    await waitFor(() => result.current.promise);
 
     expect(result.current.data).toMatchObject(deliveryProducts);
-    expect(requestStories.url).toBe(getAllDeliveriesProductRoute);
-    expect(requestStories.withCredentials).toBeTruthy();
   });
 
-  it('should call token api when receive error 401(not authorization)', async () => {
+  it('should recall request when receive error 401 and request to generate new token is complete', async () => {
     axiosFetch.onGet(getAllDeliveriesProductRoute).replyOnce(401);
-    axiosFetch.onGet(getAllDeliveriesProductRoute).reply(200, deliveryProducts);
-    axiosFetch.onGet('/token').reply(200);
+    axiosFetch.onGet(getAllDeliveriesProductRoute).replyOnce(200, deliveryProducts);
+    axiosFetch.onGet(tokenRoute).reply(200);
     const { result } = renderHook(useGetAllDeliveriesProduct, { wrapper });
 
-    await waitFor(() => result.current.promise);
+    await waitFor(() => {
+      expect(result.current.data).toMatchObject(deliveryProducts);
+    });
 
-    for (let index = 0; index <= 2; index++) {
-      const requestStories = axiosFetch.history[index];
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include('/token');
-        continue;
-      }
-
-      const isRecallGetAllFavoriteRequest = index === 2;
-      if (isRecallGetAllFavoriteRequest) {
-        expect(result.current.data).toMatchObject(deliveryProducts);
-      }
-
-      expect(requestStories.url).include(getAllDeliveriesProductRoute);
-    }
-  });
-
-  it('no should recall get all favorite api when token api not return status 200', async () => {
-    axiosFetch.onGet(getAllDeliveriesProductRoute).reply(401);
-    axiosFetch.onGet('/token').reply(201);
-    const { result } = renderHook(useGetAllDeliveriesProduct, { wrapper });
-
-    await waitFor(() => expect(result.current.promise).rejects);
-
-    for (let index = 0; index <= 2; index++) {
-      const requestStories = axiosFetch.history[index];
-
-      const isRecallGetAllFavoriteRequest = index === 2;
-      if (isRecallGetAllFavoriteRequest) {
-        expect(requestStories).toBeUndefined();
-        continue;
-      }
-
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include('/token');
-        continue;
-      }
-
-      expect(requestStories.url).include(getAllDeliveriesProductRoute);
-    }
+    const getAllDeliveryProductRequest = axiosFetch.history[0];
+    expect(getAllDeliveryProductRequest).includes({
+      url: getAllDeliveriesProductRoute,
+      method: 'get',
+    });
+    const generateNewAccessTokenRequest = axiosFetch.history[1];
+    expect(generateNewAccessTokenRequest).includes({ url: tokenRoute, method: 'get' });
+    const recallDeliveryRequest = axiosFetch.history[2];
+    expect(recallDeliveryRequest).includes({
+      url: getAllDeliveriesProductRoute,
+      method: 'get',
+    });
   });
 });

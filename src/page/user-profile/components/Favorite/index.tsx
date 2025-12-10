@@ -8,9 +8,11 @@ export const FavoriteProducts = () => {
   const { data: favoritesProducts, isSuccess, isPending, isError } = useGetAllFavoriteProduct();
   const { handleRedirectionToProduct } = useRedirect();
 
+  const isErrorOrNotHaveProduct = isError || (favoritesProducts?.length === 0 && isSuccess);
+  const isSuccessAndHaveProduct = isSuccess && favoritesProducts?.length > 0;
   return (
     <div className={styles.favorite_container}>
-      {isError && <Empty message="Adicione mais produtos aos favoritos..." />}
+      {isErrorOrNotHaveProduct && <Empty message="Adicione mais produtos aos favoritos..." />}
 
       {isPending && (
         <div aria-label="loading favorite cards" className={styles.favorite_cards}>
@@ -20,7 +22,7 @@ export const FavoriteProducts = () => {
         </div>
       )}
 
-      {isSuccess && (
+      {isSuccessAndHaveProduct && (
         <div aria-label="favorite cards" className={styles.favorite_cards}>
           {favoritesProducts.map((product) => {
             return (

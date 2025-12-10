@@ -36,18 +36,19 @@ describe('user login request', () => {
     const { result } = renderHook(useLoginAccount, { wrapper });
 
     await waitFor(() => result.current.mutateAsync(userLogin));
-    const requestStories = axiosFetch.history[0];
 
-    expect(requestStories.url).toBe(userLoginRoute);
-    expect(requestStories.data).toBe(
-      JSON.stringify({
+    const userLoginRequest = axiosFetch.history[0];
+    expect(userLoginRequest).includes({
+      url: userLoginRoute,
+      method: 'post',
+      data: JSON.stringify({
         stayConnected: userLogin.auto_connection,
         password: userLogin.password,
         email: userLogin.email,
       }),
-    );
-    expect(requestStories.withCredentials).toEqual(true);
-    expect(requestStories.headers).includes({
+      withCredentials: true,
+    });
+    expect(userLoginRequest.headers).includes({
       'Content-Type': 'application/json',
     });
   });

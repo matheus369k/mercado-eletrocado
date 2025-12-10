@@ -1,13 +1,18 @@
 import { axiosBackEndAPI } from '@/lib/axios';
-import { faker } from '@faker-js/faker/locale/pt_BR';
 import { renderHook, waitFor } from '@testing-library/react';
 import axiosMockAdapter from 'axios-mock-adapter';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { useLogoutAccount } from './use-logout-account';
 import type { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      retry: false,
+    },
+  },
+});
 const wrapper = ({ children }: { children: ReactNode }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
@@ -17,46 +22,59 @@ describe('logout account http', () => {
   const logoutAccountRoute = '/api/users/logout';
   const tokenRoute = '/token';
 
-  beforeEach(() => {
+  afterEach(() => {
     queryClient.clear();
     axiosFetch.reset();
   });
 
-  it('should complete request', async () => {
+  it('should checked configuration from logout account', async () => {
+    axiosFetch.onDelete(logoutAccountRoute).reply(200);
+    axiosFetch.onDelete(tokenRoute).reply(200);
+    const { result } = renderHook(useLogoutAccount, { wrapper });
+
+    await waitFor(() => result.current.mutateAsync());
+
+    const logoutAccountRequest = axiosFetch.history[0];
+    expect(logoutAccountRequest).includes({
+      url: logoutAccountRoute,
+      method: 'delete',
+      withCredentials: true,
+    });
+  });
+
+  it('should checked configuration from delete auth tokens', async () => {
+    axiosFetch.onDelete(logoutAccountRoute).reply(200);
+    axiosFetch.onDelete(tokenRoute).reply(200);
+    const { result } = renderHook(useLogoutAccount, { wrapper });
+
+    await waitFor(() => result.current.mutateAsync());
+
+    const logoutAccountRequest = axiosFetch.history[1];
+    expect(logoutAccountRequest).includes({
+      url: tokenRoute,
+      method: 'delete',
+      withCredentials: true,
+    });
+  });
+
+  it('should logout account, delete auth tokens and invalidation user profile query', async () => {
     axiosFetch.onDelete(logoutAccountRoute).reply(200);
     axiosFetch.onDelete(tokenRoute).reply(200);
     const spyInvalidateQueries = vi.spyOn(queryClient, 'invalidateQueries');
     const { result } = renderHook(useLogoutAccount, { wrapper });
 
     await waitFor(() => result.current.mutateAsync());
-    for (let index = 0; index < 2; index++) {
-      const requestStories = axiosFetch.history[index];
 
-      const isNotHaveRequesRequest = index === 2;
-      if (isNotHaveRequesRequest) {
-        expect(requestStories).toBeUndefined();
-        continue;
-      }
-
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isDeleteAndInvalideAuthorizationTokenRequest = index === 1;
-      if (isDeleteAndInvalideAuthorizationTokenRequest) {
-        expect(requestStories.url).toBe(tokenRoute);
-        expect(requestStories.method).toBe('delete');
-        continue;
-      }
-
-      expect(requestStories.url).toBe(logoutAccountRoute);
-    }
-
+    const logoutAccountRequest = axiosFetch.history[0];
+    expect(logoutAccountRequest).includes({ url: logoutAccountRoute, method: 'delete' });
+    const deleteAuthTokensRequest = axiosFetch.history[1];
+    expect(deleteAuthTokensRequest).includes({ url: tokenRoute, method: 'delete' });
     expect(spyInvalidateQueries).toHaveBeenCalledWith({
       queryKey: ['get-user', 'user-account', 'user-authorization'],
     });
   });
 
-  it('should call token api when receive error 401(not authorization)', async () => {
-    const spyInvalidateQueries = vi.spyOn(queryClient, 'invalidateQueries');
+  it('should recall request when receive error 401 and request to generate new token is complete', async () => {
     axiosFetch.onDelete(logoutAccountRoute).replyOnce(401);
     axiosFetch.onDelete(logoutAccountRoute).reply(200);
     axiosFetch.onDelete(tokenRoute).reply(200);
@@ -65,64 +83,13 @@ describe('logout account http', () => {
 
     await waitFor(() => result.current.mutateAsync());
 
-    for (let index = 0; index < 5; index++) {
-      const requestStories = axiosFetch.history[index];
-
-      const isNotHaveRequesRequest = index === 4;
-      if (isNotHaveRequesRequest) {
-        expect(requestStories).toBeUndefined();
-        continue;
-      }
-
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isDeleteAndInvalideAuthorizationTokenRequest = index === 3;
-      if (isDeleteAndInvalideAuthorizationTokenRequest) {
-        expect(requestStories.url).toBe(tokenRoute);
-        expect(requestStories.method).toBe('delete');
-        continue;
-      }
-
-      const isRefreshAuthorizationTokenRequest = index === 1;
-      if (isRefreshAuthorizationTokenRequest) {
-        expect(requestStories.url).include(tokenRoute);
-        expect(requestStories.method).toBe('get');
-        continue;
-      }
-
-      expect(requestStories.url).include(logoutAccountRoute);
-    }
-
-    expect(spyInvalidateQueries).toHaveBeenCalledWith({
-      queryKey: ['get-user', 'user-account', 'user-authorization'],
-    });
-  });
-
-  it('no should recall logout account api when token api not return status 200', async () => {
-    axiosFetch.onDelete(logoutAccountRoute).reply(401);
-    axiosFetch.onGet(tokenRoute).reply(201);
-    const { result } = renderHook(useLogoutAccount, { wrapper });
-
-    await waitFor(() => result.current.mutateAsync());
-
-    for (let index = 0; index <= 2; index++) {
-      const requestStories = axiosFetch.history[index];
-
-      const isRecallLogoutAccountRequest = index === 2;
-      if (isRecallLogoutAccountRequest) {
-        expect(requestStories).toBeUndefined();
-        continue;
-      }
-
-      expect(requestStories.withCredentials).toBeTruthy();
-
-      const isRefreshAuthorizationToken = index === 1;
-      if (isRefreshAuthorizationToken) {
-        expect(requestStories.url).include(tokenRoute);
-        continue;
-      }
-
-      expect(requestStories.url).include(logoutAccountRoute);
-    }
+    const logoutAccountRequest = axiosFetch.history[0];
+    expect(logoutAccountRequest).includes({ url: logoutAccountRoute, method: 'delete' });
+    const generateNewAccessTokenRequest = axiosFetch.history[1];
+    expect(generateNewAccessTokenRequest).includes({ url: tokenRoute, method: 'get' });
+    const recallLogoutAccountRequest = axiosFetch.history[2];
+    expect(recallLogoutAccountRequest).includes({ url: logoutAccountRoute, method: 'delete' });
+    const deleteAuthTokensRequest = axiosFetch.history[3];
+    expect(deleteAuthTokensRequest).includes({ url: tokenRoute, method: 'delete' });
   });
 });

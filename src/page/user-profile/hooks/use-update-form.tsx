@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { zodSchemaUserRegister } from '@/@types/user-schema';
 import { z } from 'zod';
-import type { UpdateProfileModelForm } from '../components';
+import type { UpdateProfileModelFormProps } from '../components';
 import { toast } from 'react-toastify';
 import { useConfigsProfile } from './use-profile';
 
@@ -18,7 +18,7 @@ const zodSchemaUpdateProfile = zodSchemaUserRegister
 
 type UserUpdateProfileType = z.infer<typeof zodSchemaUpdateProfile>;
 
-export const useUpdateForm = (props: UpdateProfileModelForm) => {
+export const useUpdateForm = (props: UpdateProfileModelFormProps) => {
   const { handleUpdateProfile } = useConfigsProfile();
   const [previewUrl, setPreviewUrl] = useState<null | string>(null);
   const hookUseForm = useForm<UserUpdateProfileType>({

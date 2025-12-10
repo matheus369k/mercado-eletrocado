@@ -45,14 +45,23 @@ describe('product request', () => {
     axiosFetch.reset();
   });
 
-  it('should request for one product using id', async () => {
+  it('should checked configuration from get one product', async () => {
     axiosFetch.onGet(productRoute).reply(200, product);
     const { result } = renderHook(useGetOneProduct, { wrapper, initialProps: { productId } });
 
     await waitFor(() => result.current.promise);
-    const requestStories = axiosFetch.history[0];
 
-    expect(result.current.data).toMatchObject(product);
-    expect(requestStories.url).toBe(productRoute);
+    const productRequest = axiosFetch.history[0];
+    expect(productRequest).includes({ url: productRoute, method: 'get' });
+  });
+
+  it('should returned one product', async () => {
+    axiosFetch.onGet(productRoute).reply(200, product);
+    const { result } = renderHook(useGetOneProduct, { wrapper, initialProps: { productId } });
+
+    await waitFor(() => expect(result.current.data).toMatchObject(product));
+
+    const useGetForCategoryProductRequest = axiosFetch.history[0];
+    expect(useGetForCategoryProductRequest.url).toBe(productRoute);
   });
 });
