@@ -17,8 +17,15 @@ export const Avatar = ({ avatarUrl, previewUrl, name }: AvatarProps) => {
     return placeholdAvatar;
   });
 
-  if (previewUrl && avatar !== previewUrl) {
+  const receivePreviewImage = previewUrl && avatar !== previewUrl;
+  if (receivePreviewImage) {
     setAvatar(previewUrl);
+  }
+
+  const receiveMainAvatarAndNotHavePreviewImage =
+    avatarUrl && !avatar.includes(avatarUrl) && !previewUrl;
+  if (receiveMainAvatarAndNotHavePreviewImage) {
+    setAvatar(`${env.VITE_DATABASE_URL}/${avatarUrl}`);
   }
 
   const handleErrorImage = () => {
