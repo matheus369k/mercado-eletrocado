@@ -50,7 +50,7 @@ npm install
 E nesse criar um aquivo chamado **.env** e adicione a seguinte variável de ambiente:
 
 ```bash
-VITE_DATABASE_URL=http:localhost:3000
+VITE_DATABASE_URL=http://localhost:3000
 ```
 
 Para iniciar o projeto, basta executar o comando:
