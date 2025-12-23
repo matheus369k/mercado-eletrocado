@@ -6,13 +6,13 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { axiosBackEndAPI } from '@/lib/axios';
 import axiosMockAdapter from 'axios-mock-adapter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Navbar } from '.';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { userEvent } from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { faker } from '@faker-js/faker/locale/pt_BR';
-import { BROWSER_STORAGE_KEYS, ROUTES_PATHNAMES } from '@/util/const';
+import { ROUTES_PATHNAMES } from '@/util/const';
 
 const queryClient = new QueryClient();
 const wrapper = ({ children }: { children: ReactNode }) => {
@@ -44,31 +44,6 @@ describe('navbar component', () => {
     name: faker.person.fullName(),
     cep: faker.location.zipCode(),
     id: faker.database.mongodbObjectId(),
-  };
-  const cartProductsCache = {
-    cartProducts: Array.from({ length: 2 }).map(() => {
-      return {
-        data: {
-          _id: faker.database.mongodbObjectId(),
-          price: faker.number.int({ min: 156899, max: 347499 }),
-          model: faker.commerce.productName(),
-          img: faker.image.url(),
-          slide: {
-            slide1: faker.image.url(),
-            slide2: faker.image.url(),
-            slide3: faker.image.url(),
-          },
-          screen: faker.commerce.productMaterial(),
-          processor: faker.commerce.productMaterial(),
-          memory: faker.commerce.productMaterial(),
-          placeVideo: faker.commerce.productMaterial(),
-          battery: faker.commerce.productMaterial(),
-          category: faker.commerce.department(),
-        },
-        quantity: faker.number.int({ min: 1, max: 3 }),
-      };
-    }),
-    totalPrice: faker.number.int({ min: 1590, max: 3579 }),
   };
 
   afterEach(() => {
@@ -152,36 +127,6 @@ describe('navbar component', () => {
     await screen.findByText(/Usuário/i);
     expect(screen.queryByText(/Registrar-se/i)).toBeNull();
     expect(screen.queryByText(/Entrar/i)).toBeNull();
-  });
-
-  it('should restore carts datas when is user already account and have cache saved', async () => {
-    axiosFetch.onGet(userProfileAccountRoute).reply(200, userProfileAccount);
-    vi.spyOn(document.body, 'clientWidth', 'get').mockReturnValue(800);
-    window.localStorage.setItem(
-      BROWSER_STORAGE_KEYS.CART_PRODUCT,
-      JSON.stringify(cartProductsCache),
-    );
-    render(<Navbar />, { wrapper });
-
-    await screen.findByLabelText(/dropdown userWithoutAccount toggle/i);
-    await screen.findByLabelText(/carts count/i);
-
-    window.localStorage.removeItem(BROWSER_STORAGE_KEYS.CART_PRODUCT);
-  });
-
-  it('no should restore carts datas when user not have account', async () => {
-    vi.spyOn(document.body, 'clientWidth', 'get').mockReturnValue(800);
-    axiosFetch.onGet(userProfileAccountRoute).reply(401);
-    window.localStorage.setItem(
-      BROWSER_STORAGE_KEYS.CART_PRODUCT,
-      JSON.stringify(cartProductsCache),
-    );
-    render(<Navbar />, { wrapper });
-
-    await screen.findByLabelText(/dropdown userWithoutAccount toggle/i);
-    expect(screen.queryByLabelText(/carts count/i)).toBeNull();
-
-    window.localStorage.removeItem(BROWSER_STORAGE_KEYS.CART_PRODUCT);
   });
 
   it('should render desktop menu and redirect route to home page when is clicked in Produtos', async () => {

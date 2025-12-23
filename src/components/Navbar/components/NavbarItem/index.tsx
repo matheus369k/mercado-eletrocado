@@ -1,5 +1,5 @@
 import { Link, LinkProps } from 'react-router-dom';
-import styles from '../index.module.css';
+import styles from '../../index.module.css';
 import type { ComponentProps } from 'react';
 import { DropdownModelItem } from '@/components/DropdownModel';
 

@@ -52,16 +52,6 @@ div[data-content-dropdown='userWithoutAccount'] {
     }
   }
 
-  & span:is(.product_car_point) {
-    position: absolute;
-    left: 0.75rem;
-    top: -0.125rem;
-    background-color: var(--primary-color-hover);
-    padding: 0.3125rem;
-    border-radius: 50%;
-    z-index: 0;
-  }
-
   &:hover {
     opacity: 0.8;
   }

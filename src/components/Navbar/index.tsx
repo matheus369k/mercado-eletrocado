@@ -1,7 +1,5 @@
-import { PiShoppingCartFill } from 'react-icons/pi';
 import { IoPersonAdd, IoStorefrontSharp } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
-import { appUseSelector } from '@/redux/hook';
 import styles from './index.module.css';
 import { NavbarDropdownItemRoot, NavbarItemLink, NavbarItemRoot } from './components/NavbarItem';
 import { FaUser } from 'react-icons/fa6';
@@ -11,26 +9,18 @@ import { useProfileAccount } from '@/http/use-profile-account';
 import { useDetectedScreenMode } from '@/hooks';
 import { DropdownModelContent, DropdownModelRoot, DropdownModelToggle } from '../DropdownModel';
 import { GoTriangleDown } from 'react-icons/go';
-import { useDispatch } from 'react-redux';
-import { restoreCartProducts } from '@/redux/cart/slice';
+import { CartNavbarItem } from './components/CartNavbarItem';
 
 export const Navbar = () => {
-  const { cartProducts } = appUseSelector((state) => state.cart);
   const { isMobileMode } = useDetectedScreenMode({ maxWidth: 769 });
-  const userAccount = useProfileAccount();
+  const userHaveAuthorization = useProfileAccount().isSuccess;
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
 
   const isHomePage = ROUTES_PATHNAMES.HOME === pathname;
-  const isCarPage = pathname.includes(ROUTES_PATHNAMES.CAR);
+  const isCartPage = pathname.includes(ROUTES_PATHNAMES.CAR);
   const isProfilerPage = pathname.includes(ROUTES_PATHNAMES.USER_PROFILER);
   const isRegisterPage = pathname.includes(ROUTES_PATHNAMES.USER_REGISTER);
   const isLoginPage = pathname.includes(ROUTES_PATHNAMES.USER_LOGIN);
-
-  const hastProductsInCart = cartProducts?.length > 0;
-  if (userAccount.isSuccess && !hastProductsInCart) {
-    dispatch(restoreCartProducts());
-  }
 
   if (isMobileMode) {
     return (
@@ -53,15 +43,13 @@ export const Navbar = () => {
             </NavbarItemLink>
           </NavbarDropdownItemRoot>
 
-          <NavbarDropdownItemRoot referenceId="navbarMenu" isCurrentPage={isCarPage}>
-            <NavbarItemLink to={ROUTES_PATHNAMES.CAR}>
-              <PiShoppingCartFill />
-              {hastProductsInCart && <span className={styles.product_car_point} />}
-              Carrinho
-            </NavbarItemLink>
-          </NavbarDropdownItemRoot>
+          <CartNavbarItem
+            hasAuthorization={userHaveAuthorization}
+            isCartPage={isCartPage}
+            device="mobile"
+          />
 
-          {userAccount.isSuccess && (
+          {userHaveAuthorization && (
             <NavbarDropdownItemRoot referenceId="navbarMenu" isCurrentPage={isProfilerPage}>
               <NavbarItemLink to={ROUTES_PATHNAMES.USER_PROFILER}>
                 <FaUser />
@@ -70,7 +58,7 @@ export const Navbar = () => {
             </NavbarDropdownItemRoot>
           )}
 
-          {!userAccount.isSuccess && (
+          {!userHaveAuthorization && (
             <>
               <NavbarDropdownItemRoot referenceId="navbarMenu" isCurrentPage={isLoginPage}>
                 <NavbarItemLink to={ROUTES_PATHNAMES.USER_LOGIN}>
@@ -101,21 +89,14 @@ export const Navbar = () => {
             Produtos
           </NavbarItemLink>
         </NavbarItemRoot>
-        <NavbarItemRoot isCurrentPage={isCarPage}>
-          <NavbarItemLink to={ROUTES_PATHNAMES.CAR}>
-            <PiShoppingCartFill />
-            {cartProducts?.length > 0 && (
-              <span
-                aria-label="carts count"
-                data-cart-count={cartProducts?.length}
-                className={styles.product_car_point}
-              />
-            )}
-            Carrinho
-          </NavbarItemLink>
-        </NavbarItemRoot>
 
-        {userAccount.isSuccess && (
+        <CartNavbarItem
+          hasAuthorization={userHaveAuthorization}
+          isCartPage={isCartPage}
+          device="desktop"
+        />
+
+        {userHaveAuthorization && (
           <NavbarItemRoot isCurrentPage={isProfilerPage}>
             <NavbarItemLink to={ROUTES_PATHNAMES.USER_PROFILER}>
               <FaUser />
@@ -124,7 +105,7 @@ export const Navbar = () => {
           </NavbarItemRoot>
         )}
 
-        {!userAccount.isSuccess && (
+        {!userHaveAuthorization && (
           <DropdownModelRoot
             mode="dropdown"
             referenceId="userWithoutAccount"

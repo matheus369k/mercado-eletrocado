@@ -1,0 +1,15 @@
+.product_car_point {
+  position: absolute;
+  left: 0.75rem;
+  top: -0.125rem;
+  background-color: var(--primary-color-hover);
+  padding: 0.3125rem;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+@media (width < 769px) {
+  .product_car_point {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { NavbarItemLink, NavbarItemRoot, type NavbarItemRootProps } from './NavbarItem';
+import { NavbarItemLink, NavbarItemRoot, type NavbarItemRootProps } from '.';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
 const MetaNavbarItem: Meta<NavbarItemRootProps> = {
