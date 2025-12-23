@@ -1,27 +1,20 @@
 import { DropdownModelRoot, TitleContent, TitleRoot } from '@/components';
-import {
-  ProfileSettings,
-  DeliveriesProducts,
-  FavoriteProducts,
-  UpdateProfileModelForm,
-} from './components';
+import { ProfileSettings } from './components';
 import styles from './index.module.css';
-import { useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { useProfileAccount } from '@/http/use-profile-account';
 import { Avatar } from '@/components/Avatar';
-import { AlertSettingsActionContentModel } from './components/AlertSettingContentModel';
 import { useConfigsProfile } from './hooks/use-profile';
+import { TabsViews } from './components';
 
-type SelectedSectionType = 'favorite' | 'delivery';
+const LazyAlertSettingsActionContentModel = lazy(
+  () => import('./components/AlertSettingContentModel'),
+);
+const LazyUpdateProfileModelForm = lazy(() => import('./components/UpdateProfileModel'));
 
 export const UserProfile = () => {
   const userAccount = useProfileAccount().data;
   const { handleDeleteAccount, handleLogOut } = useConfigsProfile();
-  const [selectedSection, setSelectedSection] = useState<SelectedSectionType>('favorite');
-
-  const handleSelectSectionToView = (type: SelectedSectionType) => {
-    setSelectedSection(type);
-  };
 
   return (
     <DropdownModelRoot mode="model" referenceId="userDelete">
@@ -59,55 +52,42 @@ export const UserProfile = () => {
               </div>
             </div>
 
-            <div className={styles.favorite_envoy_container}>
-              <div className={styles.favorite_envoy_header}>
-                <button
-                  disabled={selectedSection === 'favorite'}
-                  type="button"
-                  onClick={() => handleSelectSectionToView('favorite')}>
-                  Favoritos
-                </button>
-                <button
-                  disabled={selectedSection === 'delivery'}
-                  type="button"
-                  onClick={() => handleSelectSectionToView('delivery')}>
-                  Enviados
-                </button>
-              </div>
-              <div className={styles.favorite_envoy_main}>
-                {selectedSection === 'favorite' && <FavoriteProducts />}
-                {selectedSection === 'delivery' && <DeliveriesProducts />}
-              </div>
-            </div>
+            <TabsViews />
           </div>
 
-          {userAccount && (
-            <UpdateProfileModelForm
-              cep={userAccount.cep}
-              full_name={userAccount.name}
-              avatarUrl={userAccount.avatar}
-            />
-          )}
+          <Suspense>
+            {userAccount && (
+              <LazyUpdateProfileModelForm
+                cep={userAccount.cep}
+                full_name={userAccount.name}
+                avatarUrl={userAccount.avatar}
+              />
+            )}
+          </Suspense>
         </DropdownModelRoot>
 
-        {userAccount && (
-          <AlertSettingsActionContentModel
-            email={userAccount.email}
-            handleClick={handleLogOut}
-            message="logout"
-            referenceId="userLogout"
-          />
-        )}
+        <Suspense>
+          {userAccount && (
+            <LazyAlertSettingsActionContentModel
+              email={userAccount.email}
+              handleClick={handleLogOut}
+              message="logout"
+              referenceId="userLogout"
+            />
+          )}
+        </Suspense>
       </DropdownModelRoot>
 
-      {userAccount && (
-        <AlertSettingsActionContentModel
-          email={userAccount.email}
-          handleClick={handleDeleteAccount}
-          message="delete"
-          referenceId="userDelete"
-        />
-      )}
+      <Suspense>
+        {userAccount && (
+          <LazyAlertSettingsActionContentModel
+            email={userAccount.email}
+            handleClick={handleDeleteAccount}
+            message="delete"
+            referenceId="userDelete"
+          />
+        )}
+      </Suspense>
     </DropdownModelRoot>
   );
 };

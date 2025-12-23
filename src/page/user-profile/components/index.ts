@@ -1,4 +1,3 @@
-export { FavoriteProducts } from './Favorite';
+export { TabsViews } from './TabsView';
 export { ProfileSettings } from './Setting';
-export { DeliveriesProducts } from './Delivery';
 export * from './UpdateProfileModel';

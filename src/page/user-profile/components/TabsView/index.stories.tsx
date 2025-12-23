@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { UserProfile } from '.';
+import { TabsViews } from '.';
+import { faker } from '@faker-js/faker/locale/pt_BR';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { HashRouter, Route, Routes } from 'react-router-dom';
 import { delay, http, HttpResponse } from 'msw';
 import { env } from '@/env';
-import { faker } from '@faker-js/faker/locale/pt_BR';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 const generateProductsDatas = Array.from({ length: 5 }).map(() => ({
   productId: faker.database.mongodbObjectId(),
@@ -13,20 +13,12 @@ const generateProductsDatas = Array.from({ length: 5 }).map(() => ({
   price: faker.number.int({ min: 156899, max: 347299 }),
   id: faker.database.mongodbObjectId(),
 }));
-const userDatas = {
-  cep: faker.location.zipCode(),
-  name: faker.person.fullName(),
-  avatar: '250/250',
-  email: faker.internet.email(),
-  id: faker.database.mongodbObjectId(),
-};
 
-const MetaUserProfile: Meta<typeof UserProfile> = {
-  title: 'Pages/UserProfile',
-  component: UserProfile,
+const MetaTabsView: Meta<typeof TabsViews> = {
+  title: 'Pages/UserProfile/Components/TabsViews',
+  component: TabsViews,
   tags: ['autodocs'],
   decorators: (Story) => {
-    env.VITE_DATABASE_URL = 'https://picsum.photos';
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: 0, staleTime: 0 } },
     });
@@ -43,15 +35,12 @@ const MetaUserProfile: Meta<typeof UserProfile> = {
   },
 };
 
-export default MetaUserProfile;
+export default MetaTabsView;
 
-export const Default: StoryObj<typeof UserProfile> = {
+export const Default: StoryObj<typeof TabsViews> = {
   parameters: {
     msw: {
       handlers: [
-        http.get(`${env.VITE_DATABASE_URL}/api/users/profile`, () => {
-          return HttpResponse.json(userDatas, { status: 200 });
-        }),
         http.get(`${env.VITE_DATABASE_URL}/api/products/favorite`, () => {
           const favoriteProducts = generateProductsDatas.map((product) => ({
             ...product,
@@ -71,18 +60,30 @@ export const Default: StoryObj<typeof UserProfile> = {
   },
 };
 
-export const Loading: StoryObj<typeof UserProfile> = {
+export const Loading: StoryObj<typeof TabsViews> = {
   parameters: {
     msw: {
       handlers: [
-        http.get(`${env.VITE_DATABASE_URL}/api/users/profile`, () => {
-          return delay('infinite');
-        }),
         http.get(`${env.VITE_DATABASE_URL}/api/products/favorite`, () => {
           return delay('infinite');
         }),
         http.get(`${env.VITE_DATABASE_URL}/api/products/delivery`, () => {
           return delay('infinite');
+        }),
+      ],
+    },
+  },
+};
+
+export const Empty: StoryObj<typeof TabsViews> = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(`${env.VITE_DATABASE_URL}/api/products/favorite`, () => {
+          return HttpResponse.json([], { status: 200 });
+        }),
+        http.get(`${env.VITE_DATABASE_URL}/api/products/delivery`, () => {
+          return HttpResponse.json([], { status: 200 });
         }),
       ],
     },

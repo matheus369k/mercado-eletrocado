@@ -42,3 +42,5 @@ export const AlertSettingsActionContentModel = (props: AlertSettingsActionConten
     </DropdownModelContent>
   );
 };
+
+export default AlertSettingsActionContentModel;

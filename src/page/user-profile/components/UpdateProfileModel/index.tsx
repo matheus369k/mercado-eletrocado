@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { GrFormClose } from 'react-icons/gr';
 import { Avatar } from '@/components/Avatar';
 import { useUpdateForm } from '../../hooks/use-update-form';
+import React from 'react';
 
 const zodSchemaUpdateProfile = zodSchemaUserRegister
   .pick({
@@ -25,7 +26,7 @@ export type UpdateProfileModelFormProps = Omit<UserUpdateProfileType, 'avatar'> 
   avatarUrl?: string | null;
 };
 
-export const UpdateProfileModelForm = (props: UpdateProfileModelFormProps) => {
+export const UpdateProfileModelForm = React.memo((props: UpdateProfileModelFormProps) => {
   const { errors, handleSubmit, handleSubmitted, hookUseForm, isSubmitting, previewUrl } =
     useUpdateForm(props);
 
@@ -114,4 +115,6 @@ export const UpdateProfileModelForm = (props: UpdateProfileModelFormProps) => {
       </FormProvider>
     </UI.DropdownModelContent>
   );
-};
+});
+
+export default UpdateProfileModelForm;
