@@ -40,6 +40,7 @@ export const Avatar = ({ avatarUrl, previewUrl, name }: AvatarProps) => {
         alt="avatar profile image"
         className={styles.profile_img}
         loading="lazy"
+        fetchPriority="high"
       />
     </div>
   );
