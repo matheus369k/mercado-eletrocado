@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Footer, AlertMessage, Header, ErrorBoundary } from '@/components';
+import { Suspense } from 'react';
 
 export function Layout() {
   return (
@@ -9,7 +10,9 @@ export function Layout() {
       <Header />
       <ErrorBoundary>
         <main className="main">
-          <Outlet />
+          <Suspense>
+            <Outlet />
+          </Suspense>
         </main>
       </ErrorBoundary>
       <Footer />
