@@ -11,4 +11,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  preview: { port: 5173 },
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+  },
 });
