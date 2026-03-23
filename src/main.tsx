@@ -5,6 +5,10 @@ import { store } from './redux/store';
 import { App } from './app';
 import React from 'react';
 import './styles/index.css';
+import ReactGA from 'react-ga4'
+import { env } from './env'; 
+
+ReactGA.initialize(env.VITE_GA_ID);
 
 const queryClient = new QueryClient({
   defaultOptions: {
